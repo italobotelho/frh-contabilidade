@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empresa de Contabilidade - Serviços Profissionais</title>
+    <meta name="description" content="Contabilidade eficiente para seu negócio: impostos, assessoria e mais. Agende uma consulta gratuita.">
+    <!-- Bootstrap CSS via CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Seu CSS customizado -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#"><img src="assets/images/logo.png" alt="Logo Empresa" width="100"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#hero">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#servicos">Serviços</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#sobre">Sobre Nós</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
+                </ul>
+                <a href="#contato" class="btn btn-primary ms-3">Agende uma Consulta</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="bg-primary text-white py-5">
+        <div class="container text-center">
+            <h1>Contabilidade Eficiente para o Seu Negócio</h1>
+            <p>Serviços de contabilidade, impostos e assessoria financeira com precisão e confiança.</p>
+            <a href="#contato" class="btn btn-light btn-lg">Fale Conosco Agora</a>
+        </div>
+    </section>
+
+    <!-- Serviços -->
+    <section id="servicos" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Nossos Serviços</h2>
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <img src="assets/icons/imposto.svg" alt="Ícone Impostos" width="50">
+                    <h5>Declaração de Impostos</h5>
+                    <p>Preparação e envio de declarações fiscais com eficiência.</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="assets/icons/contabilidade.svg" alt="Ícone Contabilidade" width="50">
+                    <h5>Contabilidade Empresarial</h5>
+                    <p>Gestão completa de livros contábeis e relatórios financeiros.</p>
+                </div>
+                <div class="col-md-4 text-center">
+                    <img src="assets/icons/consultoria.svg" alt="Ícone Consultoria" width="50">
+                    <h5>Consultoria Financeira</h5>
+                    <p>Assessoria para otimização de custos e planejamento estratégico.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre Nós -->
+    <section id="sobre" class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Sobre Nós</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Somos uma empresa de contabilidade com [X] anos de experiência, dedicada a ajudar negócios a prosperarem. Nossa equipe qualificada oferece soluções personalizadas.</p>
+                </div>
+                <div class="col-md-6">
+                    <img src="assets/images/equipe.jpg" alt="Equipe" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Depoimentos -->
+    <section id="depoimentos" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">O que Nossos Clientes Dizem</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <blockquote class="blockquote">
+                        <p>"Excelente serviço! Otimizou nossos impostos e economizou tempo."</p>
+                        <footer class="blockquote-footer">João Silva, Empresário</footer>
+                    </blockquote>
+                </div>
+                <div class="col-md-4">
+                    <blockquote class="blockquote">
+                        <p>"Profissionais confiáveis e eficientes."</p>
+                        <footer class="blockquote-footer">Maria Oliveira, Contadora</footer>
+                    </blockquote>
+                </div>
+                <div class="col-md-4">
+                    <blockquote class="blockquote">
+                        <p>"Recomendo para qualquer negócio."</p>
+                        <footer class="blockquote-footer">Carlos Pereira, CEO</footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Final -->
+    <section id="contato" class="bg-primary text-white py-5">
+        <div class="container text-center">
+            <h2>Agende uma Consulta Gratuita</h2>
+            <p>Entre em contato e descubra como podemos ajudar seu negócio.</p>
+            <form class="row g-3 justify-content-center">
+                <div class="col-md-4">
+                    <input type="text" class="form-control" placeholder="Nome" required>
+                </div>
+                <div class="col-md-4">
+                    <input type="email" class="form-control" placeholder="E-mail" required>
+                </div>
+                <div class="col-md-4">
+                    <input type="tel" class="form-control" placeholder="Telefone">
+                </div>
+                <div class="col-12">
+                    <textarea class="form-control" rows="3" placeholder="Mensagem"></textarea>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-light">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container text-center">
+            <p>&copy; 2023 Empresa de Contabilidade. Todos os direitos reservados.</p>
+            <p>Endereço: Rua Exemplo, 123 | Telefone: (11) 99999-9999 | E-mail: contato@empresa.com</p>
+            <a href="#" class="text-white me-3">Facebook</a>
+            <a href="#" class="text-white">LinkedIn</a>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS via CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Seu JS customizado -->
+    <script src="js/script.js"></script>
+</body>
+</html>

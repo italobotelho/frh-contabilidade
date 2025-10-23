@@ -1,0 +1,14 @@
+/* Cores corporativas: Azul primário (#007bff) já vem do Bootstrap, ajuste se necessário */
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+#hero {
+    background-image: url('../assets/images/hero-bg.jpg'); /* Fundo hero */
+    background-size: cover;
+    background-position: center;
+}
+
+blockquote {
+    border-left: 5px solid #007bff;
+}
