@@ -1,14 +1,146 @@
-/* Cores corporativas: Azul primário (#007bff) já vem do Bootstrap, ajuste se necessário */
-body {
-    font-family: 'Arial', sans-serif;
+:root {
+    --bs-primary: #CEA227;
+    --bs-primary-rgb: 206, 162, 39;
+
+    --bs-secondary: #FF69B4;
+    --bs-secondary-rgb: 255, 105, 180;
+
+
+    /* --- DEFINIÇÕES COMPLETAS DO BOTÃO PRIMÁRIO --- */
+    /* Este bloco corrige o botão "Fale Conosco" */
+    
+    --bs-btn-color: #ffffff; 
+    --bs-btn-bg: var(--bs-primary); /* <-- Define o fundo como sua cor primária */
+    --bs-btn-border-color: var(--bs-primary);
+
+    /* --- Estado Hover (passar o mouse) --- */
+    --bs-btn-hover-color: #ffffff;
+    --bs-btn-hover-bg: #3F126A; /* Tom de roxo mais escuro */
+    --bs-btn-hover-border-color: #3F126A;
+
+    /* --- Estado Active (clicado) --- */
+    --bs-btn-active-color: #ffffff;
+    --bs-btn-active-bg: #300E51; /* Tom de roxo ainda mais escuro */
+    --bs-btn-active-border-color: #300E51;
+
+    /* --- Estado Foco (quando clica com Tab) --- */
+    --bs-btn-focus-shadow-rgb: var(--bs-primary-rgb);
 }
 
-#hero {
-    background-image: url('../assets/images/hero-bg.jpg'); /* Fundo hero */
-    background-size: cover;
-    background-position: center;
+/* Fundo da seção de contato (ajuste se quiser uma cor específica) */
+#contato {
+    background-image: linear-gradient(145deg, #fff9e7, #CEA227); /* Um cinza bem claro, quase branco */
 }
 
-blockquote {
-    border-left: 5px solid #007bff;
+/* Estilo para os inputs para que tenham um fundo mais claro */
+.form-control {
+    background-color: #efefef; /* Um cinza claro para os campos de input */
+}
+
+/* Mudar a cor do foco para ficar mais discreta ou na sua cor primária */
+.form-control:focus {
+    border-color: #CEA227; /* Usando sua cor primária, por exemplo */
+    box-shadow: 0 0 0 0.25rem rgba(206, 161, 39, 0.292); /* Sombra mais suave */
+    background-color: #ffffff; /* Fundo branco ao focar */
+}
+
+.form-label {
+    font-weight: 500;
+}
+
+.btn-dark {
+    background-color: #212529; /* Cor padrão do btn-dark, mas você pode mudar */
+    border-color: #1c2e41;
+    color: white;
+}
+
+.btn-dark:hover {
+    background-color: #343a40; /* Um pouco mais claro no hover */
+    border-color: #343a40;
+}
+
+/* Destaque amarelo abaixo do título "Localização" */
+.title-highlight {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 20px; /* Espaço para a barra não sobrepor o texto */
+}
+
+.title-highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 0; /* Alinha na parte de baixo */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px;          /* Largura da barra */
+    height: 8px;          /* Altura da barra */
+    background-color: #fef5d8; /* Cor amarela/creme claro, como na imagem */
+    border-radius: 4px;   /* Deixa a barra arredondada */
+}
+
+/* Círculo de fundo para os ícones */
+.location-icon {
+    flex-shrink: 0; /* Impede que o ícone encolha */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%; /* Transforma em círculo */
+    background-color: #fef5d8; /* Mesmo amarelo/creme do highlight */
+    color: #c79a00; /* Um tom de amarelo/ouro escuro para o ícone */
+    font-size: 1.75rem; /* Tamanho do ícone */
+}
+
+/* Estilização do texto dentro dos cards */
+.location-card-content h5 {
+    font-weight: bold;
+    color: #212529; /* Cor escura para o título */
+}
+
+.location-card-content p {
+    color: #495057; /* Cor cinza para o texto */
+    margin-bottom: 0.25rem; /* Espaçamento menor entre as linhas */
+    line-height: 1.6;
+}
+
+.location-card-content p:last-child {
+    margin-bottom: 0;
+}
+
+footer {
+    background-color: #101828;
+}
+
+.footer-link,
+.footer-link:visited {
+  color: #ffffff;        /* Cor: Branca */
+  text-decoration: none; /* Sem sublinhado */
+  transition: color 0.3s ease; /* Transição suave (bom para o hover) */
+}
+
+.footer-link:hover,
+.footer-link:focus {
+  color: var(--bs-primary); /* Cor: Sua cor primária (roxo) */
+  text-decoration: none; /* Garante que NUNCA tenha sublinhado */
+}
+
+.social-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;          /* Largura do círculo */
+  height: 40px;         /* Altura do círculo */
+  border-radius: 50%;   /* Transforma em círculo */
+  border: 1px solid #adb5bd; /* Borda cinza claro */
+  color: #adb5bd;        /* Cor do ícone */
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.social-icon:hover,
+.social-icon:focus {
+  background-color: #ffffff;
+  color: #1d2434; /* Cor de fundo do footer */
+  border-color: #ffffff;
 }

@@ -1,12 +1,18 @@
-// Exemplo: Validação básica do formulário
-document.querySelector('form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const nome = document.querySelector('input[placeholder="Nome"]').value;
-    const email = document.querySelector('input[placeholder="E-mail"]').value;
-    if (nome && email) {
-        alert('Mensagem enviada! Entraremos em contato em breve.');
-        // Aqui, integre com EmailJS ou Formspree para envio real
+// 1. Seleciona sua barra de navegação pelo ID
+const navbar = document.querySelector('#mainNavbar');
+
+// 2. Define a "distância" de rolagem para ativar a sombra
+// (pode ajustar esse valor, 10 pixels é um bom começo)
+const scrollThreshold = 10;
+
+// 3. Adiciona o "ouvinte" de evento de rolagem
+window.addEventListener('scroll', () => {
+    // 4. Verifica se a posição de rolagem é maior que o limite
+    if (window.scrollY > scrollThreshold) {
+        // Se rolou, adiciona a classe de sombra
+        navbar.classList.add('shadow');
     } else {
-        alert('Preencha os campos obrigatórios.');
+        // Se está no topo, remove a classe de sombra
+        navbar.classList.remove('shadow');
     }
 });

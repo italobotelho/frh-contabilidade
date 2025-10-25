@@ -3,29 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Empresa de Contabilidade - Serviços Profissionais</title>
+    <title>FRH Contabilidade e Assessoria LTDA</title>
     <meta name="description" content="Contabilidade eficiente para seu negócio: impostos, assessoria e mais. Agende uma consulta gratuita.">
-    <!-- Bootstrap CSS via CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Seu CSS customizado -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon">
 </head>
 <body>
     <!-- Header -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav id="mainNavbar" class="navbar navbar-expand-lg bg-white sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="#"><img src="assets/images/logo.png" alt="Logo Empresa" width="100"></a>
+            <a class="navbar-brand" href="#">
+                <img src="assets/images/logo.png" alt="Logo Empresa" width="250">
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#hero">Início</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#hero">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#sobre">Quem Somos</a></li>
                     <li class="nav-item"><a class="nav-link" href="#servicos">Serviços</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#sobre">Sobre Nós</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#segmentos">Segmentos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#localizacao">Localização</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
                 </ul>
-                <a href="#contato" class="btn btn-primary ms-3">Agende uma Consulta</a>
+                <a href="#contato" class="btn btn-primary ms-3">Fale Conosco</a>
             </div>
         </div>
     </nav>
@@ -36,6 +40,21 @@
             <h1>Contabilidade Eficiente para o Seu Negócio</h1>
             <p>Serviços de contabilidade, impostos e assessoria financeira com precisão e confiança.</p>
             <a href="#contato" class="btn btn-light btn-lg">Fale Conosco Agora</a>
+        </div>
+    </section>
+
+    <!-- Sobre Nós -->
+    <section id="sobre" class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">Sobre Nós</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <p>Somos uma empresa de contabilidade com [X] anos de experiência, dedicada a ajudar negócios a prosperarem. Nossa equipe qualificada oferece soluções personalizadas.</p>
+                </div>
+                <div class="col-md-6">
+                    <img src="assets/images/equipe.jpg" alt="Equipe" class="img-fluid">
+                </div>
+            </div>
         </div>
     </section>
 
@@ -63,80 +82,205 @@
         </div>
     </section>
 
-    <!-- Sobre Nós -->
-    <section id="sobre" class="bg-light py-5">
+    <!-- Segmentos -->
+    <section id="segmentos" class="">
+
+    </section>
+
+    <!-- Localização -->
+    <section id="localizacao" class="py-5" style="background-color: #fdfdfb;">
         <div class="container">
-            <h2 class="text-center mb-4">Sobre Nós</h2>
-            <div class="row">
-                <div class="col-md-6">
-                    <p>Somos uma empresa de contabilidade com [X] anos de experiência, dedicada a ajudar negócios a prosperarem. Nossa equipe qualificada oferece soluções personalizadas.</p>
+            
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <h2 class="fw-bold title-highlight">Localização</h2>
+                    <p class="lead mt-4">Venha nos visitar</p>
+                    <p class="text-muted">Estamos prontos para atender você pessoalmente ou virtualmente.</p>
                 </div>
-                <div class="col-md-6">
-                    <img src="assets/images/equipe.jpg" alt="Equipe" class="img-fluid">
+            </div>
+
+            <div class="row g-4 g-lg-5 align-items-center">
+
+                <div class="col-lg-5">
+                    
+                    <div class="d-flex align-items-start shadow-sm rounded p-4 mb-4 bg-white">
+                        <div class="location-icon me-4">
+                            <i class="bi bi-geo-alt-fill"></i>
+                        </div>
+                        <div class="location-card-content">
+                            <h5 class="mb-2">Endereço</h5>
+                            <p>Av. Paulista, 1000 - 10º andar</p>
+                            <p>Bela Vista, São Paulo - SP</p>
+                            <p class="text-muted">CEP: 01310-100</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-start shadow-sm rounded p-4 mb-4 bg-white">
+                        <div class="location-icon me-4">
+                            <i class="bi bi-telephone-fill"></i>
+                        </div>
+                        <div class="location-card-content">
+                            <h5 class="mb-2">Telefone</h5>
+                            <p>(11) 3000-0000</p>
+                            <p>(11) 98000-0000 (WhatsApp)</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-start shadow-sm rounded p-4 mb-4 bg-white">
+                        <div class="location-icon me-4">
+                            <i class="bi bi-envelope-fill"></i>
+                        </div>
+                        <div class="location-card-content">
+                            <h5 class="mb-2">E-mail</h5>
+                            <p>contato@frhcontabilidade.com.br</p>
+                            <p>atendimento@frhcontabilidade.com.br</p>
+                        </div>
+                    </div>
+
+                    <div class="d-flex align-items-start shadow-sm rounded p-4 bg-white">
+                        <div class="location-icon me-4">
+                            <i class="bi bi-clock-fill"></i>
+                        </div>
+                        <div class="location-card-content">
+                            <h5 class="mb-2">Horário de Atendimento</h5>
+                            <p>Segunda a Sexta: 8h às 18h</p>
+                        </div>
+                    </div>
+
                 </div>
+
+                <div class="col-lg-7">
+                    <div class="shadow-sm rounded overflow-hidden">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.145695101658!2d-46.65651918447476!3d-23.5630993675005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c976!2sAv.%20Paulista%2C%20S%C3%A3o%20Paulo%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1678886510300!5m2!1spt-BR!2sbr" 
+                            width="100%" 
+                            height="580" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy" 
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <!-- Depoimentos -->
-    <section id="depoimentos" class="py-5">
-        <div class="container">
-            <h2 class="text-center mb-4">O que Nossos Clientes Dizem</h2>
-            <div class="row">
-                <div class="col-md-4">
-                    <blockquote class="blockquote">
-                        <p>"Excelente serviço! Otimizou nossos impostos e economizou tempo."</p>
-                        <footer class="blockquote-footer">João Silva, Empresário</footer>
-                    </blockquote>
-                </div>
-                <div class="col-md-4">
-                    <blockquote class="blockquote">
-                        <p>"Profissionais confiáveis e eficientes."</p>
-                        <footer class="blockquote-footer">Maria Oliveira, Contadora</footer>
-                    </blockquote>
-                </div>
-                <div class="col-md-4">
-                    <blockquote class="blockquote">
-                        <p>"Recomendo para qualquer negócio."</p>
-                        <footer class="blockquote-footer">Carlos Pereira, CEO</footer>
-                    </blockquote>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Final -->
-    <section id="contato" class="bg-primary text-white py-5">
+    <!-- Contato -->
+    <section id="contato" class="py-5"> 
         <div class="container text-center">
-            <h2>Agende uma Consulta Gratuita</h2>
-            <p>Entre em contato e descubra como podemos ajudar seu negócio.</p>
-            <form class="row g-3 justify-content-center">
-                <div class="col-md-4">
-                    <input type="text" class="form-control" placeholder="Nome" required>
+            <h2 class="fw-bold mb-3">Contato</h2>
+            <h5 class="text-muted mb-4">Vamos conversar?</h5> 
+            <p class="lead mb-5">Preencha o formulário abaixo e nossa equipe entrará em contato para entender suas necessidades e apresentar a melhor solução.</p>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-xl-7">
+                    <form class="p-5 bg-white rounded shadow">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <label for="nome" class="form-label text-start d-block mb-1">Nome completo *</label>
+                                <input type="text" class="form-control" id="nome" placeholder="Seu nome" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email" class="form-label text-start d-block mb-1">E-mail *</label>
+                                <input type="email" class="form-control" id="email" placeholder="seu@email.com" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="telefone" class="form-label text-start d-block mb-1">Telefone *</label>
+                                <input type="tel" class="form-control" id="telefone" placeholder="(11) 90000-0000">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="empresa" class="form-label text-start d-block mb-1">Empresa *</label>
+                                <input type="text" class="form-control" id="empresa" placeholder="Nome da empresa">
+                            </div>
+
+                            <div class="col-12">
+                                <label for="mensagem" class="form-label text-start d-block mb-1">Mensagem *</label>
+                                <textarea class="form-control" id="mensagem" rows="3" placeholder="Conte-nos sobre suas necessidades..."></textarea>
+                            </div>
+
+                            <div class="col-12 d-grid mt-4">
+                                <button type="submit" class="btn btn-dark btn-md py-3 my-2 rounded-3 text-bold">
+                                    Enviar Mensagem
+                                </button>
+                            </div>
+                            
+                            <div class="col-12 text-center mt-4">
+                                <p class="text-muted small">Ao enviar este formulário, você concorda com nossa política de privacidade.</p>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="col-md-4">
-                    <input type="email" class="form-control" placeholder="E-mail" required>
-                </div>
-                <div class="col-md-4">
-                    <input type="tel" class="form-control" placeholder="Telefone">
-                </div>
-                <div class="col-12">
-                    <textarea class="form-control" rows="3" placeholder="Mensagem"></textarea>
-                </div>
-                <div class="col-12">
-                    <button type="submit" class="btn btn-light">Enviar</button>
-                </div>
-            </form>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-4">
-        <div class="container text-center">
-            <p>&copy; 2023 Empresa de Contabilidade. Todos os direitos reservados.</p>
-            <p>Endereço: Rua Exemplo, 123 | Telefone: (11) 99999-9999 | E-mail: contato@empresa.com</p>
-            <a href="#" class="text-white me-3">Facebook</a>
-            <a href="#" class="text-white">LinkedIn</a>
+    <footer class="pt-4">
+        <div class="container">
+            <div class="row pt-4 justify-content-center">
+
+                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                    <img src="assets/images/logo-footer.png" alt="Logo Empresa" width="250" class="mb-3">
+                    <p class="footer-text-muted text-white pe-lg-5">
+                        Soluções contábeis completas para impulsionar o seu negócio com excelência e inovação.
+                    </p>
+                    <div class="d-flex">
+                        <a href="#" class="social-icon me-2">
+                            <i class="bi bi-facebook"></i>
+                        </a>
+                        <a href="#" class="social-icon me-2">
+                            <i class="bi bi-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon me-2">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-7 mb-4 mb-md-0">
+                    <h5 class="text-white mb-4">Serviços</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-2"><a href="#" class="footer-link">Contabilidade Geral</a></li>
+                        <li class="mb-2"><a href="#" class="footer-link">Assessoria Fiscal</a></li>
+                        <li class="mb-2"><a href="#" class="footer-link">Planejamento Tributário</a></li>
+                        <li class="mb-2"><a href="#" class="footer-link">Departamento Pessoal</a></li>
+                        <li class="mb-2"><a href="#" class="footer-link">Consultoria Empresarial</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-5">
+                    <h5 class="text-white mb-4">Contato</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="d-flex align-items-center mb-3">
+                            <i class="bi bi-telephone-fill text-white me-3 fs-5"></i>
+                            <div class="d-flex flex-column">
+                                <a href="tel:1130000000" class="footer-link">(11) 3000-0000</a>
+                                <a href="tel:11980000000" class="footer-link">(11) 98000-0000</a>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-start mb-3">
+                            <i class="bi bi-envelope-fill text-white me-3 fs-5 mt-1"></i>
+                            <a href="mailto:contato@frhcontabilidade.com.br" class="footer-link">contato@frhcontabilidade.com.br</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="border-light opacity-25 my-4">
+            <div class="row pb-4">
+                <div class="col-md-8 text-center text-md-start">
+                    <p class="footer-text-muted text-white mb-md-0">
+                        © 2025 FRH Contabilidade e Assessoria Ltda. Todos os direitos reservados.
+                    </p>
+                </div>
+                <div class="col-md-4 text-center text-md-end">
+                    <a href="#" class="footer-link small me-3">Política de Privacidade</a>
+                    <a href="#" class="footer-link small">Termos de Uso</a>
+                </div>
+            </div>
         </div>
     </footer>
 
