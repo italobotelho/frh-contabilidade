@@ -4,35 +4,28 @@
 
     --bs-secondary: #FF69B4;
     --bs-secondary-rgb: 255, 105, 180;
-
-
-    /* --- DEFINIÇÕES COMPLETAS DO BOTÃO PRIMÁRIO --- */
-    /* Este bloco corrige o botão "Fale Conosco" */
     
     --bs-btn-color: #ffffff; 
-    --bs-btn-bg: var(--bs-primary); /* <-- Define o fundo como sua cor primária */
+    --bs-btn-bg: var(--bs-primary);
     --bs-btn-border-color: var(--bs-primary);
 
-    /* --- Estado Hover (passar o mouse) --- */
     --bs-btn-hover-color: #ffffff;
-    --bs-btn-hover-bg: #3F126A; /* Tom de roxo mais escuro */
+    --bs-btn-hover-bg: #3F126A; 
     --bs-btn-hover-border-color: #3F126A;
 
-    /* --- Estado Active (clicado) --- */
     --bs-btn-active-color: #ffffff;
-    --bs-btn-active-bg: #300E51; /* Tom de roxo ainda mais escuro */
+    --bs-btn-active-bg: #300E51; 
     --bs-btn-active-border-color: #300E51;
 
-    /* --- Estado Foco (quando clica com Tab) --- */
     --bs-btn-focus-shadow-rgb: var(--bs-primary-rgb);
 }
 
 #contato {
-    background-image: linear-gradient(145deg, #fff9e7, #CEA227); /* Um cinza bem claro, quase branco */
+    background-image: linear-gradient(145deg, #fff9e7, #CEA227);
 }
 
 .form-control {
-    background-color: #efefef; /* Um cinza claro para os campos de input */
+    background-color: #efefef;
 }
 
 .form-control:focus {
