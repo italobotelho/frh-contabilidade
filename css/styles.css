@@ -27,17 +27,14 @@
     --bs-btn-focus-shadow-rgb: var(--bs-primary-rgb);
 }
 
-/* Fundo da seção de contato (ajuste se quiser uma cor específica) */
 #contato {
     background-image: linear-gradient(145deg, #fff9e7, #CEA227); /* Um cinza bem claro, quase branco */
 }
 
-/* Estilo para os inputs para que tenham um fundo mais claro */
 .form-control {
     background-color: #efefef; /* Um cinza claro para os campos de input */
 }
 
-/* Mudar a cor do foco para ficar mais discreta ou na sua cor primária */
 .form-control:focus {
     border-color: #CEA227; /* Usando sua cor primária, por exemplo */
     box-shadow: 0 0 0 0.25rem rgba(206, 161, 39, 0.292); /* Sombra mais suave */
@@ -59,7 +56,6 @@
     border-color: #343a40;
 }
 
-/* Destaque amarelo abaixo do título "Localização" */
 .title-highlight {
     position: relative;
     display: inline-block;
@@ -78,7 +74,6 @@
     border-radius: 4px;   /* Deixa a barra arredondada */
 }
 
-/* Círculo de fundo para os ícones */
 .location-icon {
     flex-shrink: 0; /* Impede que o ícone encolha */
     display: flex;
@@ -92,7 +87,6 @@
     font-size: 1.75rem; /* Tamanho do ícone */
 }
 
-/* Estilização do texto dentro dos cards */
 .location-card-content h5 {
     font-weight: bold;
     color: #212529; /* Cor escura para o título */
@@ -143,4 +137,31 @@ footer {
   background-color: #ffffff;
   color: #1d2434; /* Cor de fundo do footer */
   border-color: #ffffff;
+}
+
+.whatsapp-float {
+  position: fixed; /* Fixa o botão na tela */
+  width: 60px;     /* Largura */
+  height: 60px;    /* Altura */
+  bottom: 30px;    /* Distância do fundo */
+  right: 30px;     /* Distância da direita */
+  background-color: #25D366; /* Cor verde do WhatsApp */
+  color: #FFFFFF;  /* Cor do ícone (branco) */
+  border-radius: 50%; /* Deixa o botão redondo */
+  text-align: center;
+  font-size: 30px; /* Tamanho do ícone */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra suave */
+  z-index: 1000;   /* Garante que ele fique acima de tudo */
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: all 0.3s ease;
+}
+
+.whatsapp-float:hover {
+  background-color: #1EAE50; /* Verde um pouco mais escuro */
+  color: #FFFFFF; /* Mantém o ícone branco */
+  transform: scale(1.05); /* Aumenta levemente o tamanho */
 }
