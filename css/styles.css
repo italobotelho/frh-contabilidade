@@ -20,8 +20,154 @@
     --bs-btn-focus-shadow-rgb: var(--bs-primary-rgb);
 }
 
-#contato {
-    background-image: linear-gradient(145deg, #fff9e7, #CEA227);
+body {
+    background-image: linear-gradient(145deg, #ffffff, #fff9e7, #CEA227);
+}
+
+/* Em seu-style.css */
+
+/* --- Estilização da Seção Hero --- */
+
+/* 1. Remove a cor de fundo sólida que está no HTML */
+#hero {
+  background-color: transparent !important; /* Remove o bg-primary */
+  position: relative; /* Necessário para o overlay */
+  
+  /* 2. Adiciona a imagem de fundo */
+  background-image: url('../assets/images/img-hero.jpg'); /* << TROQUE ESTE CAMINHO */
+  background-size: cover;
+  background-position: center center;
+  color: #ffffff;
+}
+
+/* 3. O Overlay (camada de cor por cima da foto) */
+#hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1; /* Fica abaixo do texto */
+  
+  /* 4. Usa sua cor primária roxa para o overlay */
+  background-color: var(--bs-primary); 
+  opacity: 0.8; /* Ajuste este valor (0.7 a 0.9) */
+}
+
+/* 5. Garante que o conteúdo (texto e botões) fique na frente */
+#hero .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Ajusta o padding do container para as setas não colarem */
+#servicos .container {
+  position: relative;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+/* O Card (Imagem com sobreposição) */
+.service-card-v2 {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 200px; /* Defina uma altura fixa para os cards */
+  cursor: pointer;
+}
+
+.service-card-v2 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Garante que a imagem cubra o card */
+  transition: transform 0.4s ease;
+}
+
+/* Efeito de zoom no hover */
+.service-card-v2:hover img {
+  transform: scale(1.05);
+}
+
+/* Sobreposição escura na parte de baixo */
+.service-card-v2 .card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1rem;
+  /* Gradiente de transparente para preto */
+  background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
+}
+
+.service-card-v2 .card-overlay h6 {
+  color: #ffffff;
+  font-weight: 700;
+  margin: 0;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+/* --- Estilo das Setas do Swiper --- */
+
+/* Altera as setas padrão do Swiper */
+.servicos-slider-v2 .swiper-button-next,
+.servicos-slider-v2 .swiper-button-prev {
+  background-color: rgba(220, 220, 220, 0.7); /* Fundo cinza semi-transparente */
+  color: #333; /* Cor do ícone da seta */
+  width: 44px;
+  height: 44px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+/* Deixa o ícone da seta menor */
+.servicos-slider-v2 .swiper-button-next::after,
+.servicos-slider-v2 .swiper-button-prev::after {
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+
+/* Efeito hover nas setas */
+.servicos-slider-v2 .swiper-button-next:hover,
+.servicos-slider-v2 .swiper-button-prev:hover {
+  background-color: rgba(180, 180, 180, 0.9);
+}
+
+/* Posição das setas (fora do container) */
+.servicos-slider-v2 .swiper-button-prev {
+  left: 10px; /* Ajuste para dentro do padding */
+}
+.servicos-slider-v2 .swiper-button-next {
+  right: 10px; /* Ajuste para dentro do padding */
+}
+
+.location-icon {
+    flex-shrink: 0; /* Impede que o ícone encolha */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%; /* Transforma em círculo */
+    background-color: #fef5d8; /* Mesmo amarelo/creme do highlight */
+    color: #c79a00; /* Um tom de amarelo/ouro escuro para o ícone */
+    font-size: 1.75rem; /* Tamanho do ícone */
+}
+
+.location-card-content h5 {
+    font-weight: bold;
+    color: #212529; /* Cor escura para o título */
+}
+
+.location-card-content p {
+    color: #495057; /* Cor cinza para o texto */
+    margin-bottom: 0.25rem; /* Espaçamento menor entre as linhas */
+    line-height: 1.6;
+}
+
+.location-card-content p:last-child {
+    margin-bottom: 0;
 }
 
 .form-control {
@@ -65,34 +211,6 @@
     height: 8px;          /* Altura da barra */
     background-color: #fef5d8; /* Cor amarela/creme claro, como na imagem */
     border-radius: 4px;   /* Deixa a barra arredondada */
-}
-
-.location-icon {
-    flex-shrink: 0; /* Impede que o ícone encolha */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%; /* Transforma em círculo */
-    background-color: #fef5d8; /* Mesmo amarelo/creme do highlight */
-    color: #c79a00; /* Um tom de amarelo/ouro escuro para o ícone */
-    font-size: 1.75rem; /* Tamanho do ícone */
-}
-
-.location-card-content h5 {
-    font-weight: bold;
-    color: #212529; /* Cor escura para o título */
-}
-
-.location-card-content p {
-    color: #495057; /* Cor cinza para o texto */
-    margin-bottom: 0.25rem; /* Espaçamento menor entre as linhas */
-    line-height: 1.6;
-}
-
-.location-card-content p:last-child {
-    margin-bottom: 0;
 }
 
 footer {

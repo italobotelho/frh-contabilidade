@@ -7,6 +7,7 @@
     <meta name="description" content="Contabilidade eficiente para seu negócio: impostos, assessoria e mais. Agende uma consulta gratuita.">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" href="assets/icons/favicon.ico" type="image/x-icon">
 </head>
@@ -35,16 +36,24 @@
     </nav>
 
     <!-- Hero Section -->
-    <section id="hero" class="bg-primary text-white py-5">
+    <section id="hero" class="text-white py-5">
         <div class="container text-center">
-            <h1>Contabilidade Eficiente para o Seu Negócio</h1>
-            <p>Serviços de contabilidade, impostos e assessoria financeira com precisão e confiança.</p>
-            <a href="#contato" class="btn btn-light btn-lg">Fale Conosco Agora</a>
+            <h1 class="display-4 fw-bold">Deixe a burocracia conosco e foque no que importa.</h1>
+            <p class="lead my-4">
+                Somos especialistas em assessoria fiscal, contábil e societária, ajudando empresas como a sua a crescer com segurança e eficiência.
+            </p>
+            <a href="#contato" class="btn btn-primary btn-lg me-3">
+                Agende uma Consultoria Gratuita
+            </a>
+            
+            <a href="#servicos" class="btn btn-outline-light btn-lg">
+                Conheça nossos Serviços
+            </a>
         </div>
     </section>
 
     <!-- Sobre Nós -->
-    <section id="sobre" class="bg-light py-5">
+    <section id="sobre" class="py-5">
         <div class="container">
             <h2 class="text-center mb-4">Sobre Nós</h2>
             <div class="row">
@@ -61,34 +70,86 @@
     <!-- Serviços -->
     <section id="servicos" class="py-5">
         <div class="container">
-            <h2 class="text-center mb-4">Nossos Serviços</h2>
-            <div class="row">
-                <div class="col-md-4 text-center">
-                    <img src="assets/icons/imposto.svg" alt="Ícone Impostos" width="50">
-                    <h5>Declaração de Impostos</h5>
-                    <p>Preparação e envio de declarações fiscais com eficiência.</p>
-                </div>
-                <div class="col-md-4 text-center">
-                    <img src="assets/icons/contabilidade.svg" alt="Ícone Contabilidade" width="50">
-                    <h5>Contabilidade Empresarial</h5>
-                    <p>Gestão completa de livros contábeis e relatórios financeiros.</p>
-                </div>
-                <div class="col-md-4 text-center">
-                    <img src="assets/icons/consultoria.svg" alt="Ícone Consultoria" width="50">
-                    <h5>Consultoria Financeira</h5>
-                    <p>Assessoria para otimização de custos e planejamento estratégico.</p>
+            
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <h2 class="fw-bold" style="color: var(--bs-primary);">NOSSOS SERVIÇOS</h2>
                 </div>
             </div>
+            
+            <div class="swiper servicos-slider-v2">
+                
+                <div class="swiper-wrapper">
+
+                    <div class="swiper-slide">
+                        <div class="service-card-v2">
+                            <img src="assets/images/servico-admin-bens.jpg" alt="Administração de Bens">
+                            <div class="card-overlay">
+                                <h6>Administração de Bens</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="service-card-v2">
+                            <img src="assets/images/servico-documentos.jpg" alt="Logística de Documentos">
+                            <div class="card-overlay">
+                                <h6>Logística de Documentos</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="service-card-v2">
+                            <img src="assets/images/servico-contabil.jpg" alt="Contábil">
+                            <div class="card-overlay">
+                                <h6>Contábil</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="service-card-v2">
+                            <img src="assets/images/servico-fiscal.jpg" alt="Fiscal">
+                            <div class="card-overlay">
+                                <h6>Fiscal</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="service-card-v2">
+                            <img src="assets/images/servico-societaria.jpg" alt="Gestão Societária">
+                            <div class="card-overlay">
+                                <h6>Gestão Societária</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <div class="service-card-v2">
+                            <img src="assets/images/servico-consultoria.jpg" alt="Consultoria">
+                            <div class="card-overlay">
+                                <h6>Consultoria</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+
         </div>
     </section>
-
     <!-- Segmentos -->
     <section id="segmentos" class="">
 
     </section>
 
     <!-- Localização -->
-    <section id="localizacao" class="py-5" style="background-color: #fdfdfb;">
+    <section id="localizacao" class="py-5">
         <div class="container">
             
             <div class="row mb-5">
@@ -101,7 +162,6 @@
 
             <div class="row g-4 g-lg-5 align-items-center">
                 <div class="col-lg-5">
-                    
                     <div class="d-flex align-items-start shadow-sm rounded p-4 mb-4 bg-white">
                         <div class="location-icon me-4">
                             <i class="bi bi-geo-alt-fill"></i>
@@ -144,8 +204,8 @@
                         </div>
                         <div class="location-card-content">
                             <h5 class="mb-2">Telefone</h5>
-                            <p>(11) 3000-0000</p>
-                            <p>(11) 98000-0000 (WhatsApp)</p>
+                            <p>(19) 98000-0000 (WhatsApp)</p>
+                            <p>(19) 98000-0000 (WhatsApp)</p>
                         </div>
                     </div>
 
@@ -155,8 +215,8 @@
                         </div>
                         <div class="location-card-content">
                             <h5 class="mb-2">E-mail</h5>
-                            <p>contato@frhcontabilidade.com.br</p>
-                            <p>atendimento@frhcontabilidade.com.br</p>
+                            <p>ana@frhcontabilidade.com.br</p>
+                            <p>ale@frhcontabilidade.com.br</p>
                         </div>
                     </div>
 
@@ -173,16 +233,8 @@
                 </div>
 
                 <div class="col-lg-7">
-                    <div class="shadow-sm rounded overflow-hidden">
-                        <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d230.03754549443556!2d-46.990477255871546!3d-22.705902749057906!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c8e81ab4dec0b7%3A0x74d68adc718f641f!2sBest%20Center%20Jaguari%C3%BAna%20-%20Centro!5e0!3m2!1spt-BR!2sbr!4v1761583385792!5m2!1spt-BR!2sbr"
-                        width="100%"
-                        height="620"
-                        style="border:0;"
-                        allowfullscreen=""
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
+                    <div class="shadow rounded overflow-hidden">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3680.604387500846!2d-46.9903416!3d-22.7057666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94c8e81ab4dec0b7%3A0x74d68adc718f641f!2sBest%20Center%20Jaguari%C3%BAna%20-%20Centro!5e0!3m2!1spt-BR!2sbr!4v1761585352874!5m2!1spt-BR!2sbr" width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
@@ -313,9 +365,8 @@
         <i class="bi bi-whatsapp"></i>
     </button>
 
-    <!-- Bootstrap JS via CDN -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Seu JS customizado -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
