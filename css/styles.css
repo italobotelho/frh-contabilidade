@@ -140,28 +140,31 @@ footer {
 }
 
 .whatsapp-float {
-  position: fixed; /* Fixa o botão na tela */
-  width: 60px;     /* Largura */
-  height: 60px;    /* Altura */
-  bottom: 30px;    /* Distância do fundo */
-  right: 30px;     /* Distância da direita */
-  background-color: #25D366; /* Cor verde do WhatsApp */
-  color: #FFFFFF;  /* Cor do ícone (branco) */
-  border-radius: 50%; /* Deixa o botão redondo */
-  text-align: center;
-  font-size: 30px; /* Tamanho do ícone */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra suave */
-  z-index: 1000;   /* Garante que ele fique acima de tudo */
-  
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    position: fixed; /* Fixa o botão na tela */
+    width: 60px;     /* Largura */
+    height: 60px;    /* Altura */
+    bottom: 30px;    /* Distância do fundo */
+    right: 30px;     /* Distância da direita */
+    background-color: #25D366; /* Cor verde do WhatsApp */
+    color: #FFFFFF;  /* Cor do ícone (branco) */
+    border-radius: 50%; /* Deixa o botão redondo */
+    text-align: center;
+    font-size: 30px; /* Tamanho do ícone */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    z-index: 1000;   /* Garante que ele fique acima de tudo */
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  transition: all 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .whatsapp-float:hover {
-  background-color: #1EAE50; /* Verde um pouco mais escuro */
-  color: #FFFFFF; /* Mantém o ícone branco */
-  transform: scale(1.05); /* Aumenta levemente o tamanho */
+    background-color: #1EAE50; /* Verde um pouco mais escuro */
+    color: #FFFFFF; /* Mantém o ícone branco */
+    transform: scale(1.05); /* Aumenta levemente o tamanho */
 }
