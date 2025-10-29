@@ -1,9 +1,6 @@
 // Espera o documento carregar
 document.addEventListener('DOMContentLoaded', function () {
 
-  // ATENÇÃO: Verifique se você removeu o script do slider antigo
-  // para não ter dois Swipers rodando na mesma página.
-
   // Inicia o Swiper V2 (configuração clássica)
   const swiper = new Swiper('.servicos-slider-v2', {
     
@@ -51,6 +48,40 @@ document.addEventListener('DOMContentLoaded', function () {
     // Permite que o usuário "agarre" o slide com o mouse
     grabCursor: true,
 
+  });
+
+  // --- Script do Offcanvas Dinâmico de Serviços ---
+  const servicoOffcanvas = document.getElementById('servicoOffcanvas');
+    
+  servicoOffcanvas.addEventListener('show.bs.offcanvas', function (event) { // MUDA AQUI
+      // Pega o card (<a>) que foi clicado
+      const card = event.relatedTarget;
+
+      // Pega os dados dos data-attributes
+      const title = card.getAttribute('data-title');
+      const image = card.getAttribute('data-image');
+      const description = card.getAttribute('data-description');
+      const itemsJson = card.getAttribute('data-items');
+
+      // Pega os elementos dentro do offcanvas
+      const offcanvasTitle = servicoOffcanvas.querySelector('.offcanvas-title'); // MUDA AQUI
+      const offcanvasImage = servicoOffcanvas.querySelector('#servicoOffcanvasImage'); // MUDA AQUI
+      const offcanvasDescription = servicoOffcanvas.querySelector('#servicoOffcanvasDescription'); // MUDA AQUI
+      const offcanvasList = servicoOffcanvas.querySelector('#servicoOffcanvasList'); // MUDA AQUI
+
+      // Preenche o modal com as informações
+      offcanvasTitle.textContent = title;
+      offcanvasImage.src = image;
+      offcanvasDescription.textContent = description;
+
+      // Limpa a lista antiga e preenche a nova (se houver itens)
+      offcanvasList.innerHTML = '';
+      if (itemsJson) {
+          const items = JSON.parse(itemsJson);
+          items.forEach(item => {
+              offcanvasList.innerHTML += `<li><i class="bi bi-check-circle-fill"></i> ${item}</li>`;
+          });
+      }
   });
 
 });

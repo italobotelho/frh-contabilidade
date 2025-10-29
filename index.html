@@ -154,57 +154,16 @@
                 <div class="swiper-wrapper">
 
                     <div class="swiper-slide">
-                        <div class="service-card-v2">
+                        <a href="#" class="service-card-v2" 
+                        data-bs-toggle="offcanvas" data-bs-target="#servicoOffcanvas" data-title="Administração de Bens"
+                        data-image="assets/images/servico-admin-bens.jpg"
+                        data-description="Nossa gestão de bens otimiza seu patrimônio, cuidando de todos os aspectos legais e financeiros para garantir sua tranquilidade e rentabilidade."
+                        data-items='["Gestão de Ativos", "Regularização de Imóveis", "Planejamento Sucessório"]'>
                             <img src="assets/images/servico-admin-bens.jpg" alt="Administração de Bens">
                             <div class="card-overlay">
                                 <h6>Administração de Bens</h6>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <div class="service-card-v2">
-                            <img src="assets/images/servico-documentos.jpg" alt="Logística de Documentos">
-                            <div class="card-overlay">
-                                <h6>Logística de Documentos</h6>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <div class="service-card-v2">
-                            <img src="assets/images/servico-contabil.jpg" alt="Contábil">
-                            <div class="card-overlay">
-                                <h6>Contábil</h6>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <div class="service-card-v2">
-                            <img src="assets/images/servico-fiscal.jpg" alt="Fiscal">
-                            <div class="card-overlay">
-                                <h6>Fiscal</h6>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <div class="service-card-v2">
-                            <img src="assets/images/servico-societaria.jpg" alt="Gestão Societária">
-                            <div class="card-overlay">
-                                <h6>Gestão Societária</h6>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <div class="service-card-v2">
-                            <img src="assets/images/servico-consultoria.jpg" alt="Consultoria">
-                            <div class="card-overlay">
-                                <h6>Consultoria</h6>
-                            </div>
-                        </div>
+                        </a>
                     </div>
 
                 </div>
@@ -241,7 +200,7 @@
                         <div class="location-card-content">
                             <h5 class="mb-2">Endereço</h5>
                             
-                            <p>R. Maria Ângela, 390 - 1º Andar - Sala X</p>
+                            <p>R. Maria Ângela, 390 - 1º Andar - Sala 20</p>
                             <p>Novo Jaguari, Jaguariúna - SP</p>
                             <p class="text-muted">CEP: 13820-000</p>
 
@@ -429,6 +388,24 @@
             </div>
         </div>
     </footer>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="servicoOffcanvas" aria-labelledby="servicoOffcanvasLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title fw-bold" id="servicoOffcanvasLabel" style="color: var(--bs-primary);"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <img id="servicoOffcanvasImage" src="" alt="Imagem do Serviço" class="img-fluid rounded mb-4">
+            
+            <p id="servicoOffcanvasDescription"></p>
+
+            <h6 class="fw-bold mt-4">O que inclui:</h6>
+            <ul id="servicoOffcanvasList" class="list-unstyled about-checklist mt-3">
+            </ul>
+            
+            <a href="#contato" class="btn btn-primary w-100 mt-4">Quero saber mais</a>
+        </div>
+    </div>
 
     <button 
     class="whatsapp-float" 
