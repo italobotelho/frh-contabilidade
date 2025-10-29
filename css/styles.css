@@ -24,23 +24,16 @@ body {
     background-image: linear-gradient(145deg, #ffffff, #fff9e7, #CEA227);
 }
 
-/* Em seu-style.css */
-
-/* --- Estilização da Seção Hero --- */
-
-/* 1. Remove a cor de fundo sólida que está no HTML */
 #hero {
-  background-color: transparent !important; /* Remove o bg-primary */
-  position: relative; /* Necessário para o overlay */
+  background-color: transparent !important;
+  position: relative; 
   
-  /* 2. Adiciona a imagem de fundo */
-  background-image: url('../assets/images/img-hero.jpg'); /* << TROQUE ESTE CAMINHO */
+  background-image: url('../assets/images/img-hero.jpg'); 
   background-size: cover;
   background-position: center center;
   color: #ffffff;
 }
 
-/* 3. O Overlay (camada de cor por cima da foto) */
 #hero::before {
   content: '';
   position: absolute;
@@ -48,27 +41,182 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 1; /* Fica abaixo do texto */
+  z-index: 1; 
   
-  /* 4. Usa sua cor primária roxa para o overlay */
   background-color: var(--bs-primary); 
-  opacity: 0.8; /* Ajuste este valor (0.7 a 0.9) */
+  opacity: 0.6;
 }
 
-/* 5. Garante que o conteúdo (texto e botões) fique na frente */
 #hero .container {
   position: relative;
   z-index: 2;
 }
 
-/* Ajusta o padding do container para as setas não colarem */
+.about-badge {
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  background-color: #fef5d8;
+  color: #c79a00;
+  border-radius: 20px;
+}
+
+.about-photo-wrapper {
+  position: relative;
+  padding: 25px 0 0 25px; /* Espaço para o backdrop */
+}
+
+.about-photo-card {
+  position: relative;
+  z-index: 2;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  
+  transform: rotate(-1.5deg); 
+  transition: transform 0.4s ease, box-shadow 0.4s ease; /* Transição para o hover */
+}
+
+.about-photo-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.about-photo-backdrop {
+  position: absolute;
+  top: 25px;
+  left: 45px;
+  width: 95%;
+  height: 95%;
+  background-color: #CC8721;
+  z-index: 1;
+  border-radius: 1.5rem;
+  transform: rotate(2.5deg); /* Inclinação padrão do fundo */
+  transition: transform 0.4s ease; /* Transição para o hover */
+}
+
+/* --- Efeito de Luz (SÓCIA 1 - ESQUERDA) --- */
+/* (Você já tinha o da sócia da direita, faltava este) */
+.about-photo-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle at top left, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%);
+  transform: translateY(-5px);
+  opacity: 0.8;
+  transition: transform 0.4s ease, opacity 0.4s ease;
+  z-index: 3;
+}
+
+.about-photo-wrapper:hover .about-photo-card {
+  transform: rotate(0deg) scale(1.03); /* << NOVO: Fica RETO e aumenta um pouco */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.about-photo-wrapper:hover .about-photo-backdrop {
+  transform: rotate(5.2deg) scale(0.99);
+}
+
+.about-photo-wrapper:hover .about-photo-card::before {
+  transform: translateY(-15px); /* << NOVO: Sobe mais no hover */
+  opacity: 1;
+}
+
+.wrapper-align-right {
+  padding: 25px 25px 0 0;
+}
+
+.wrapper-align-right .about-photo-card {
+  position: relative;
+  z-index: 2;
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  
+  transform: rotate(1.5deg);
+  
+  transition: transform 0.4s ease, box-shadow 0.4s ease; 
+}
+
+.wrapper-align-right .about-photo-backdrop {
+  position: absolute;
+  top: 25px;
+  left: -15px;
+  width: 95%;
+  height: 95%;
+  z-index: 1;
+  border-radius: 1.5rem;
+  transform: rotate(-2.5deg); /* Inclinação padrão do fundo */
+  transition: transform 0.4s ease; /* Transição para o hover */
+}
+
+.wrapper-align-right .about-photo-card::before {
+  /* Altera a posição do brilho para o canto superior direito */
+  top: 0;
+  left: auto;
+  right: 0;
+  background: radial-gradient(circle at top right, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%);
+  transform: translateY(-5px);
+}
+
+.wrapper-align-right:hover .about-photo-card {
+  transform: rotate(0deg) scale(1.03); /* << NOVO: Fica RETO e aumenta um pouco */
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.wrapper-align-right:hover .about-photo-backdrop {
+  transform: rotate(-5.2deg) scale(0.99); /* Inclinação invertida no hover */
+}
+
+.wrapper-align-right:hover .about-photo-card::before {
+  transform: translateY(-15px); /* << NOVO: Sobe mais no hover */
+  opacity: 1;
+}
+
+.photo-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem;
+  background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+  z-index: 4; /* Acima de tudo */
+}
+
+.about-checklist li {
+  display: flex;
+  align-items: center;
+  font-size: 1.05rem;
+  color: #495057;
+  margin-bottom: 0.75rem;
+}
+
+.about-checklist li i {
+  color: #c79a00;
+  font-size: 1.25rem;
+  margin-right: 0.75rem;
+}
+
+.about-quote {
+  background-color: #fef5d8;
+  border-left: 5px solid #c79a00;
+  padding: 1.25rem;
+  font-style: italic;
+  font-weight: 500;
+  color: #555;
+  border-radius: 0 8px 8px 0;
+}
+
 #servicos .container {
   position: relative;
   padding-left: 3rem;
   padding-right: 3rem;
 }
 
-/* O Card (Imagem com sobreposição) */
 .service-card-v2 {
   position: relative;
   border-radius: 8px;
@@ -108,7 +256,7 @@ body {
   font-size: 0.9rem;
 }
 
-/* --- Estilo das Setas do Swiper --- */
+
 
 /* Altera as setas padrão do Swiper */
 .servicos-slider-v2 .swiper-button-next,
@@ -278,4 +426,36 @@ footer {
     background-color: #1EAE50; /* Verde um pouco mais escuro */
     color: #FFFFFF; /* Mantém o ícone branco */
     transform: scale(1.05); /* Aumenta levemente o tamanho */
+}
+
+@media (max-width: 991.98px) {
+  .about-photo-wrapper,
+  .wrapper-align-right {
+    padding: 0;
+    margin-bottom: 2rem; 
+  }
+
+  .about-photo-backdrop {
+    display: none;
+  }
+
+  .about-photo-card,
+  .wrapper-align-right .about-photo-card {
+    transform: none;
+  }
+
+  .about-photo-card::before,
+  .wrapper-align-right .about-photo-card::before {
+    display: none;
+  }
+
+  .about-photo-wrapper:hover .about-photo-card,
+  .wrapper-align-right:hover .about-photo-card {
+    transform: none;
+  }
+  
+  .about-photo-wrapper:hover .about-photo-backdrop,
+  .wrapper-align-right:hover .about-photo-backdrop {
+    display: none;
+  }
 }
