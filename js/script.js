@@ -1,88 +1,61 @@
-// Espera o documento carregar
 document.addEventListener('DOMContentLoaded', function () {
 
-  // Inicia o Swiper V2 (configuração clássica)
-  const swiper = new Swiper('.servicos-slider-v2', {
+    // --- Script do Offcanvas Dinâmico de Serviços ---
+    const servicoOffcanvas = document.getElementById('servicoOffcanvas');
     
-    // === Loop Infinito ===
-    loop: true,
+    // 1. Verificação (garante que o offcanvas existe na página)
+    if (servicoOffcanvas) {
+        
+        // 2. Listener que PREENCHE os dados quando o offcanvas é aberto
+        servicoOffcanvas.addEventListener('show.bs.offcanvas', function (event) {
+            // Pega o card (a tag <a>) que foi clicado
+            const card = event.relatedTarget; 
+            
+            // Pega os dados dos data-attributes do card
+            const title = card.getAttribute('data-title');
+            const image = card.getAttribute('data-image');
+            const description = card.getAttribute('data-description');
+            const itemsJson = card.getAttribute('data-items');
 
-    // === Autoplay ===
-    // Rola a cada 3.5 segundos
-    autoplay: {
-      delay: 3500,
-      disableOnInteraction: false, // Continua após o clique
-    },
-    
-    // === Quantidade de Cards ===
-    slidesPerView: 1, // Padrão para mobile
-    spaceBetween: 20, // Espaço entre os cards
+            // Acha os elementos vazios dentro do offcanvas
+            const offcanvasTitle = servicoOffcanvas.querySelector('.offcanvas-title');
+            const offcanvasImage = servicoOffcanvas.querySelector('#servicoOffcanvasImage');
+            const offcanvasDescription = servicoOffcanvas.querySelector('#servicoOffcanvasDescription');
+            const offcanvasList = servicoOffcanvas.querySelector('#servicoOffcanvasList');
 
-    // === Responsividade ===
-    // Define quantos slides aparecem por tamanho de tela
-    breakpoints: {
-      // 2 cards em telas pequenas
-      576: {
-        slidesPerView: 2,
-        spaceBetween: 20
-      },
-      // 3 cards em tablets
-      768: {
-        slidesPerView: 3,
-        spaceBetween: 20
-      },
-      // 5 cards em desktops (como na imagem)
-      1200: {
-        slidesPerView: 5,
-        spaceBetween: 20
-      }
-    },
+            // Preenche os elementos com os dados
+            offcanvasTitle.textContent = title;
+            offcanvasImage.src = image;
+            offcanvasDescription.textContent = description;
 
-    // === Setas de Navegação ===
-    // Ativa as setas padrão (que estilizamos no CSS)
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-    
-    // Permite que o usuário "agarre" o slide com o mouse
-    grabCursor: true,
+            // Limpa a lista antiga e preenche a nova
+            offcanvasList.innerHTML = '';
+            if (itemsJson) {
+                try {
+                    // Converte o texto JSON em uma lista real
+                    const items = JSON.parse(itemsJson);
+                    // Cria um <li> para cada item da lista
+                    items.forEach(item => {
+                        offcanvasList.innerHTML += `<li><i class="bi bi-check-circle-fill"></i> ${item}</li>`;
+                    });
+                } catch (e) {
+                    console.error("Erro ao processar data-items JSON:", e);
+                }
+            }
+        });
+    } else {
+        console.error("Elemento #servicoOffcanvas não encontrado.");
+    }
 
-  });
-
-  // --- Script do Offcanvas Dinâmico de Serviços ---
-  const servicoOffcanvas = document.getElementById('servicoOffcanvas');
-    
-  servicoOffcanvas.addEventListener('show.bs.offcanvas', function (event) { // MUDA AQUI
-      // Pega o card (<a>) que foi clicado
-      const card = event.relatedTarget;
-
-      // Pega os dados dos data-attributes
-      const title = card.getAttribute('data-title');
-      const image = card.getAttribute('data-image');
-      const description = card.getAttribute('data-description');
-      const itemsJson = card.getAttribute('data-items');
-
-      // Pega os elementos dentro do offcanvas
-      const offcanvasTitle = servicoOffcanvas.querySelector('.offcanvas-title'); // MUDA AQUI
-      const offcanvasImage = servicoOffcanvas.querySelector('#servicoOffcanvasImage'); // MUDA AQUI
-      const offcanvasDescription = servicoOffcanvas.querySelector('#servicoOffcanvasDescription'); // MUDA AQUI
-      const offcanvasList = servicoOffcanvas.querySelector('#servicoOffcanvasList'); // MUDA AQUI
-
-      // Preenche o modal com as informações
-      offcanvasTitle.textContent = title;
-      offcanvasImage.src = image;
-      offcanvasDescription.textContent = description;
-
-      // Limpa a lista antiga e preenche a nova (se houver itens)
-      offcanvasList.innerHTML = '';
-      if (itemsJson) {
-          const items = JSON.parse(itemsJson);
-          items.forEach(item => {
-              offcanvasList.innerHTML += `<li><i class="bi bi-check-circle-fill"></i> ${item}</li>`;
-          });
-      }
-  });
+    // 3. (IMPORTANTE) Prevenir o "salto" dos links <a>
+    // Encontra todos os seus cards de serviço
+    const servicoCards = document.querySelectorAll('a.value-card[data-bs-toggle="offcanvas"]');
+    servicoCards.forEach(card => {
+        card.addEventListener('click', (event) => {
+            // Impede que o href="#" mude a URL e "pule" a página ao clicar
+            event.preventDefault();
+        });
+    });
 
 });
 

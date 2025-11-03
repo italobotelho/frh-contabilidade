@@ -24,32 +24,41 @@ body {
     background-image: linear-gradient(145deg, #ffffff, #fff9e7, #CEA227);
 }
 
-#hero {
-  background-color: transparent !important;
-  position: relative; 
-  
-  background-image: url('../assets/images/img-hero.jpg'); 
-  background-size: cover;
-  background-position: center center;
-  color: #ffffff;
+/* Ajusta o padding da seção em telas grandes */
+@media (min-width: 992px) {
+  #hero {
+    padding-top: 6rem !important;
+    padding-bottom: 6rem !important;
+  }
 }
 
-#hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1; 
-  
-  background-color: var(--bs-primary); 
-  opacity: 0.6;
-}
-
-#hero .container {
-  position: relative;
+/* O Card Flutuante de Estatística */
+.hero-stat-card {
+  position: relative; /* Padrão para Mobile */
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   z-index: 2;
+  
+  /* --- Layout Mobile --- */
+  /* Sobrepõe a imagem na parte de baixo, centralizado */
+  width: 90%;
+  margin: -3rem auto 0 auto;
+}
+
+/* --- Layout Desktop --- */
+/* (Telas grandes, a partir de 992px) */
+@media (min-width: 992px) {
+  .hero-stat-card {
+    position: absolute; /* Flutuante no Desktop */
+    bottom: 3rem;
+    left: -2rem; /* Efeito de "pendurado" para a esquerda */
+    width: auto; /* Largura automática */
+    margin: 0; /* Reseta a margem do mobile */
+  }
 }
 
 .about-badge {
@@ -211,83 +220,60 @@ body {
   border-radius: 0 8px 8px 0;
 }
 
-#servicos .container {
-  position: relative;
-  padding-left: 3rem;
-  padding-right: 3rem;
+/* Em seu-style.css */
+
+/* --- Estilos da Seção Valores --- */
+
+.value-card {
+  background-color: #ffffff;
+  border: 1px solid #eeeeee;
+  border-radius: 1rem; /* Bordas arredondadas */
+  padding: 2.5rem 1.5rem !important;
+  height: 100%; /* Garante que todos os cards na linha tenham a mesma altura */
+  
+  /* Sombra sutil e transição de hover */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
 }
 
-.service-card-v2 {
-  position: relative;
-  border-radius: 8px;
-  overflow: hidden;
-  height: 200px; /* Defina uma altura fixa para os cards */
-  cursor: pointer;
+/* Efeito de "levantar" no hover */
+.value-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
-.service-card-v2 img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Garante que a imagem cubra o card */
-  transition: transform 0.4s ease;
+/* O círculo amarelo do ícone */
+.value-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%; /* Transforma em círculo */
+  
+  /* Cores (as mesmas da seção 'Sobre Nós') */
+  background-color: #fef5d8; 
+  color: #c79a00;
+  
+  font-size: 2rem; /* Tamanho do ícone */
 }
 
-/* Efeito de zoom no hover */
-.service-card-v2:hover img {
-  transform: scale(1.05);
+/* --- Ajuste para os Cards de Serviço (que são links) --- */
+
+a.value-card {
+  text-decoration: none; /* Remove o sublinhado */
+  color: inherit; /* Herda a cor de texto padrão (não fica azul) */
 }
 
-/* Sobreposição escura na parte de baixo */
-.service-card-v2 .card-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 1rem;
-  /* Gradiente de transparente para preto */
-  background: linear-gradient(0deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 100%);
+/* Define a cor do título do card */
+a.value-card h5 {
+  color: #212529; /* Cor de título padrão (preto/cinza escuro) */
+  transition: color 0.3s ease;
 }
 
-.service-card-v2 .card-overlay h6 {
-  color: #ffffff;
-  font-weight: 700;
-  margin: 0;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-}
-
-
-
-/* Altera as setas padrão do Swiper */
-.servicos-slider-v2 .swiper-button-next,
-.servicos-slider-v2 .swiper-button-prev {
-  background-color: rgba(220, 220, 220, 0.7); /* Fundo cinza semi-transparente */
-  color: #333; /* Cor do ícone da seta */
-  width: 44px;
-  height: 44px;
-  border-radius: 4px;
-  transition: background-color 0.3s ease;
-}
-
-/* Deixa o ícone da seta menor */
-.servicos-slider-v2 .swiper-button-next::after,
-.servicos-slider-v2 .swiper-button-prev::after {
-  font-size: 1.2rem;
-  font-weight: 900;
-}
-
-/* Efeito hover nas setas */
-.servicos-slider-v2 .swiper-button-next:hover,
-.servicos-slider-v2 .swiper-button-prev:hover {
-  background-color: rgba(180, 180, 180, 0.9);
-}
-
-/* Posição das setas (fora do container) */
-.servicos-slider-v2 .swiper-button-prev {
-  left: 10px; /* Ajuste para dentro do padding */
-}
-.servicos-slider-v2 .swiper-button-next {
-  right: 10px; /* Ajuste para dentro do padding */
+/* Efeito de hover no título (opcional, mas recomendado) */
+a.value-card:hover h5 {
+  color: var(--bs-primary); /* Usa sua cor primária roxa */
 }
 
 .location-icon {
