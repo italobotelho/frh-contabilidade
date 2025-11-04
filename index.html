@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/imask"></script>
     <title>FRH Contabilidade e Assessoria LTDA</title>
     <meta name="description" content="Contabilidade eficiente para seu negócio: impostos, assessoria e mais. Agende uma consulta gratuita.">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -28,9 +29,8 @@
                     <li class="nav-item"><a class="nav-link" href="#servicos">Serviços</a></li>
                     <li class="nav-item"><a class="nav-link" href="#segmentos">Segmentos</a></li>
                     <li class="nav-item"><a class="nav-link" href="#localizacao">Localização</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#contato">Contato</a></li>
                 </ul>
-                <a href="#contato" class="btn btn-secondary ms-3">Fale Conosco</a>
+                <a href="#contato" class="btn ms-3" style="background-color: #CEA227;">Fale Conosco</a>
             </div>
         </div>
     </nav>
@@ -42,7 +42,7 @@
 
                 <div class="col-lg-6">
                     <span class="badge about-badge mb-3">
-                        <i class="bi bi-stars me-1"></i>
+                        <i class="bi bi-briefcase-fill me-1"></i>
                         Soluções Contábeis Completas
                     </span>
 
@@ -236,7 +236,7 @@
         <div class="row justify-content-center mb-5">
             <div class="col-lg-8 text-center">
                 <span class="badge about-badge mb-3">
-                    <i class="bi bi-stars me-1"></i>
+                    <i class="bi bi-list-check me-1"></i>
                     Nossos Serviços
                 </span>
                 <h2 class="fw-bold" style="color: var(--bs-primary);">Soluções completas para sua empresa</h2>
@@ -393,7 +393,7 @@
             <div class="row justify-content-center mb-5">
                 <div class="col-lg-8 text-center">
                     <span class="badge about-badge mb-3">
-                        <i class="bi bi-stars me-1"></i>
+                        <i class="bi bi-buildings-fill me-1"></i>
                         Segmentos Atendidos
                     </span>
                     <h2 class="fw-bold" style="color: var(--bs-primary);">Especialistas em diversos setores</h2>
@@ -411,7 +411,7 @@
             <div class="row justify-content-center mb-5">
             <div class="col-lg-8 text-center">
                 <span class="badge about-badge mb-3">
-                    <i class="bi bi-stars me-1"></i>
+                    <i class="bi bi-geo-alt-fill me-1"></i>
                     Localização
                 </span>
                 <h2 class="fw-bold" style="color: var(--bs-primary);">Venha nos visitar</h2>
@@ -501,62 +501,75 @@
     </section>
 
     <!-- Contato -->
-    <section id="contato" class="py-5"> 
-        <div class="container text-center">
-            <div class="container">
-            
-            <div class="row justify-content-center mb-5">
-                <div class="col-lg-8 text-center">
-                    <span class="badge about-badge mb-3">
-                        <i class="bi bi-stars me-1"></i>
-                        Contato
-                    </span>
-                    <h2 class="fw-bold" style="color: var(--bs-primary);">Vamos conversar?</h2>
-                    <p class="text-center mb-3">Preencha o formulário abaixo e nossa equipe entrará em contato para entender suas necessidades e apresentar a melhor solução.</p>
-                </div>
-            </div>
+    <section id="contato" class="py-5">
+    <div class="container text-center">
 
-            <div class="row justify-content-center">
-                <div class="col-lg-8 col-xl-7">
-                    <form class="p-5 bg-white rounded shadow">
-                        <div class="row g-4">
-                            <div class="col-md-6">
-                                <label for="nome" class="form-label text-start d-block mb-1">Nome completo *</label>
-                                <input type="text" class="form-control" id="nome" placeholder="Seu nome" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="email" class="form-label text-start d-block mb-1">E-mail *</label>
-                                <input type="email" class="form-control" id="email" placeholder="seu@email.com" required>
-                            </div>
+        <span class="badge about-badge mb-3">
+            <i class="bi bi-chat-dots-fill me-1"></i>
+            Contato
+        </span>
+        <h2 class="fw-bold mb-4">Vamos conversar?</h2>
+        <p class="lead text-muted mb-5">Preencha o formulário abaixo e nossa equipe entrará em contato para entender suas necessidades e apresentar a melhor solução.</p>
 
-                            <div class="col-md-6">
-                                <label for="telefone" class="form-label text-start d-block mb-1">Telefone *</label>
-                                <input type="tel" class="form-control" id="telefone" placeholder="(11) 90000-0000">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="empresa" class="form-label text-start d-block mb-1">Empresa *</label>
-                                <input type="text" class="form-control" id="empresa" placeholder="Nome da empresa">
-                            </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-7">
+                <form class="p-5 bg-white rounded shadow-sm" id="whatsapp-form">
+                    <div class="row g-4">
 
-                            <div class="col-12">
-                                <label for="mensagem" class="form-label text-start d-block mb-1">Mensagem *</label>
-                                <textarea class="form-control" id="mensagem" rows="3" placeholder="Conte-nos sobre suas necessidades..."></textarea>
-                            </div>
-
-                            <div class="col-12 d-grid mt-4">
-                                <button type="submit" class="btn btn-dark btn-md py-3 my-2 rounded-3 text-bold">
-                                    Enviar Mensagem
-                                </button>
-                            </div>
-                            
-                            <div class="col-12 text-center mt-4">
-                                <p class="text-muted small">Ao enviar este formulário, você concorda com nossa política de privacidade.</p>
-                            </div>
+                        <div class="col-md-6">
+                            <label for="form-nome" class="form-label text-start d-block mb-1">Nome completo *</label>
+                            <input type="text" class="form-control" id="form-nome" placeholder="Seu nome" required>
                         </div>
-                    </form>
-                </div>
+
+                        <div class="col-md-6">
+                            <label for="form-email" class="form-label text-start d-block mb-1">E-mail *</label>
+                            <input type="email" class="form-control" id="form-email" placeholder="seu@email.com" required>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label for="form-telefone" class="form-label text-start d-block mb-1">Telefone *</label>
+                            <input type="tel" class="form-control" id="form-telefone" placeholder="(11) 90000-0000">
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="form-empresa" class="form-label text-start d-block mb-1">Empresa</label>
+                            <input type="text" class="form-control" id="form-empresa" placeholder="Nome da empresa">
+                        </div>
+                        
+                        <div class="col-12">
+                            <label for="form-mensagem" class="form-label text-start d-block mb-1">Mensagem *</label>
+                            <textarea class="form-control" id="form-mensagem" rows="5" placeholder="Conte-nos sobre suas necessidades..."></textarea>
+                        </div>
+
+                        <div class="col-12 text-start">
+                            <label class="form-label d-block mb-2">Enviar para: *</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="socia" id="socia-ana" value="ana" checked>
+                                <label class="form-check-label" for="socia-ana">Ana Paula</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="socia" id="socia-alexandra" value="alexandra">
+                                <label class="form-check-label" for="socia-alexandra">Alexandra</label>
+                            </div>
+                            </div>
+
+                        
+                        <div class="col-12 d-grid mt-4">
+                            <button type="button" id="submit-whatsapp" class="btn btn-dark btn-lg py-3 rounded-3">
+                                Enviar Mensagem via WhatsApp
+                                <i class="bi bi-send-fill ms-2"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="col-12 text-center mt-3">
+                            <p class="text-muted small">Ao enviar este formulário, você concorda com nossa política de privacidade.</p>
+                        </div>
+
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
     </section>
 
     <!-- Footer -->

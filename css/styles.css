@@ -10,12 +10,12 @@
     --bs-btn-border-color: var(--bs-primary);
 
     --bs-btn-hover-color: #ffffff;
-    --bs-btn-hover-bg: #3F126A; 
-    --bs-btn-hover-border-color: #3F126A;
+    --bs-btn-hover-bg: #efd17e; 
+    --bs-btn-hover-border-color: #efd17e;
 
     --bs-btn-active-color: #ffffff;
-    --bs-btn-active-bg: #300E51; 
-    --bs-btn-active-border-color: #300E51;
+    --bs-btn-active-bg: #CEA227; 
+    --bs-btn-active-border-color: #CEA227;
 
     --bs-btn-focus-shadow-rgb: var(--bs-primary-rgb);
 }
@@ -23,6 +23,12 @@
 body {
     background-image: linear-gradient(145deg, #ffffff, #fff9e7, #CEA227);
 }
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link:focus {
+  color: var(--bs-primary);
+  text-decoration: none;
+} 
 
 /* Ajusta o padding da seção em telas grandes */
 @media (min-width: 992px) {
@@ -122,7 +128,7 @@ body {
 }
 
 .about-photo-wrapper:hover .about-photo-card {
-  transform: rotate(0deg) scale(1.03); /* << NOVO: Fica RETO e aumenta um pouco */
+  transform: rotate(0deg) scale(1.05); /* << NOVO: Fica RETO e aumenta um pouco */
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
 }
 
@@ -173,7 +179,7 @@ body {
 }
 
 .wrapper-align-right:hover .about-photo-card {
-  transform: rotate(0deg) scale(1.03); /* << NOVO: Fica RETO e aumenta um pouco */
+  transform: rotate(0deg) scale(1.05); /* << NOVO: Fica RETO e aumenta um pouco */
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
 }
 
@@ -316,6 +322,14 @@ a.value-card:hover h5 {
 
 .form-label {
     font-weight: 500;
+}
+
+.form-field-error {
+  /* Adiciona uma borda vermelha (similar ao is-invalid do Bootstrap) */
+  border-color: #dc3545 !important; 
+  
+  /* Adiciona um "brilho" (box-shadow) vermelho */
+  box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25) !important;
 }
 
 .btn-dark {
