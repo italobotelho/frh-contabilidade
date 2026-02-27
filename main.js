@@ -226,10 +226,19 @@ document.addEventListener('DOMContentLoaded', () => {
             // Web3Forms espera o campo h-captcha-response explícito
             formData.set('h-captcha-response', captchaResponse);
 
+            // Transforma o FormData em um Objeto Javascript literal
+            const object = Object.fromEntries(formData);
+            // Empacota tudo em JSON como exigido para chamadas AJAX seguras do Web3Forms
+            const json = JSON.stringify(object);
+
             try {
                 const response = await fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
-                    body: formData
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
                 });
 
                 const result = await response.json();
