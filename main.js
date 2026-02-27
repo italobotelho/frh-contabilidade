@@ -11,8 +11,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const footerLogo = document.getElementById('footerLogo');
 
     // Check saved theme in localStorage
-    const savedTheme = localStorage.getItem('theme') || 'dark'; // Dark is default
-    if (savedTheme === 'light') {
+    const savedTheme = localStorage.getItem('theme') || 'light'; // Light is default
+
+    // Set initial icon and logo
+    if (savedTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+        if (headerLogo) headerLogo.src = 'assets/images/logo-4.png';
+        if (footerLogo) footerLogo.src = 'assets/images/logo-footer.png';
+    } else {
         document.documentElement.setAttribute('data-theme', 'light');
         themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
         if (headerLogo) headerLogo.src = 'assets/images/logo.png';
@@ -21,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (themeToggleBtn) {
         themeToggleBtn.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
             // Apply new theme
@@ -426,6 +433,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Show modal
                     modal.classList.add('active');
                     document.body.style.overflow = 'hidden'; // Prevent scrolling
+                    const modalContent = modal.querySelector('.modal-content');
+                    if (modalContent) modalContent.scrollTop = 0;
                 }
             });
         });

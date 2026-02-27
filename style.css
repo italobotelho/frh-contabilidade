@@ -332,7 +332,9 @@ ul {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    padding-top: var(--nav-height);
+    padding-top: calc(var(--nav-height) + 5rem);
+    /* Extra breathing room from the top bar */
+    padding-bottom: 5rem;
     overflow: hidden;
 }
 
@@ -420,7 +422,9 @@ ul {
 }
 
 .hero-content {
-    max-width: 800px;
+    max-width: 900px;
+    /* Increased from 800px to allow more breathing room on laptops */
+    width: 100%;
 }
 
 .eyebrow {
@@ -447,10 +451,13 @@ ul {
 }
 
 .hero p {
-    font-size: 1.25rem;
+    font-size: 1.35rem;
+    /* Slightly larger */
     color: var(--text-muted);
-    margin-bottom: 2.5rem;
-    max-width: 600px;
+    margin-bottom: 3rem;
+    /* More spacing before buttons */
+    max-width: 700px;
+    /* Expanded limit on the description */
 }
 
 .hero-actions {
@@ -478,7 +485,7 @@ ul {
    ========================================================================== */
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
     gap: 2rem;
 }
 
@@ -670,7 +677,7 @@ ul {
    ========================================================================== */
 .values-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
     gap: 2rem;
 }
 
@@ -1053,6 +1060,10 @@ ul {
 .modal-content {
     width: 90%;
     max-width: 500px;
+    max-height: 90vh;
+    /* Limits height to 90% of screen */
+    overflow-y: auto;
+    /* Adds scrollbar if content is too tall */
     background: var(--bg-surface);
     border-radius: 12px;
     padding: 2.5rem;
@@ -1062,6 +1073,22 @@ ul {
     border: 1px solid var(--clr-gold-primary) !important;
     /* !important garante sobreposição sobre .glass-panel no dark mode */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Modal Custom Scrollbar for better UI on small screens */
+.modal-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: transparent;
+    margin-block: 15px;
+    /* Ensures scrollbar doesn't overlap the top/bottom rounded corners */
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: var(--clr-gold-primary);
+    border-radius: 8px;
 }
 
 .modal-overlay.active .modal-content {
@@ -1215,9 +1242,13 @@ ul {
    ========================================================================== */
 @media (max-width: 992px) {
 
-    .flex-row,
-    .contact-grid {
+    .flex-row {
         flex-direction: column;
+        gap: 3rem;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
         gap: 3rem;
     }
 
@@ -1230,7 +1261,7 @@ ul {
     }
 
     .footer-content {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
         gap: 2.5rem;
     }
 }
@@ -1245,6 +1276,7 @@ ul {
         width: 100%;
         background: var(--bg-surface);
         flex-direction: column;
+        align-items: center;
         padding: 2rem;
         box-shadow: var(--shadow-soft);
     }
@@ -1276,5 +1308,15 @@ ul {
 
     .modal-content {
         padding: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+
+    .hero h1 {
+        font-size: 2.2rem;
     }
 }
