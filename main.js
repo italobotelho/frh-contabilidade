@@ -10,41 +10,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const headerLogo = document.getElementById('headerLogo');
     const footerLogo = document.getElementById('footerLogo');
 
-    // Check saved theme in localStorage
-    const savedTheme = localStorage.getItem('theme') || 'light'; // Light is default
+    const applyTheme = (theme) => {
+        document.documentElement.setAttribute('data-theme', theme);
+        const isDark = theme === 'dark';
 
-    // Set initial icon and logo
-    if (savedTheme === 'dark') {
-        document.documentElement.setAttribute('data-theme', 'dark');
-        themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
-        if (headerLogo) headerLogo.src = 'assets/images/logo-4.png';
-        if (footerLogo) footerLogo.src = 'assets/images/logo-footer.png';
-    } else {
-        document.documentElement.setAttribute('data-theme', 'light');
-        themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
-        if (headerLogo) headerLogo.src = 'assets/images/logo.png';
-        if (footerLogo) footerLogo.src = 'assets/images/logo.png';
-    }
+        if (themeToggleBtn) {
+            themeToggleBtn.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        }
+        if (headerLogo) headerLogo.src = isDark ? 'assets/images/logo-4.png' : 'assets/images/logo.png';
+        if (footerLogo) footerLogo.src = isDark ? 'assets/images/logo-footer.png' : 'assets/images/logo.png';
+    };
+
+    // Check saved theme in localStorage
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    applyTheme(savedTheme);
 
     if (themeToggleBtn) {
         themeToggleBtn.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-
-            // Apply new theme
-            document.documentElement.setAttribute('data-theme', newTheme);
+            const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
             localStorage.setItem('theme', newTheme);
-
-            // Toggle Icon and Logo
-            if (newTheme === 'light') {
-                themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
-                if (headerLogo) headerLogo.src = 'assets/images/logo.png';
-                if (footerLogo) footerLogo.src = 'assets/images/logo.png';
-            } else {
-                themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
-                if (headerLogo) headerLogo.src = 'assets/images/logo-4.png';
-                if (footerLogo) footerLogo.src = 'assets/images/logo-footer.png';
-            }
+            applyTheme(newTheme);
         });
     }
 
@@ -64,31 +49,25 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelector('.nav-links');
 
     if (mobileBtn && navLinks) {
-        mobileBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
+        const toggleMenu = (forceClose = false) => {
+            const isActive = forceClose ? false : !navLinks.classList.contains('active');
+            navLinks.classList.toggle('active', isActive);
+
             const icon = mobileBtn.querySelector('i');
-            if (navLinks.classList.contains('active')) {
-                icon.classList.remove('fa-bars');
-                icon.classList.add('fa-times');
-            } else {
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
+            if (icon) {
+                icon.className = isActive ? 'fas fa-times' : 'fas fa-bars';
+            }
+        };
+
+        mobileBtn.addEventListener('click', () => toggleMenu());
+
+        // Use Event Delegation to close menu when clicking a link
+        navLinks.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768 && e.target.tagName === 'A') {
+                toggleMenu(true);
             }
         });
     }
-
-    // Close menu when clicking a link (mobile)
-    const links = document.querySelectorAll('.nav-links a');
-    links.forEach(link => {
-        link.addEventListener('click', () => {
-            if (window.innerWidth <= 768) {
-                navLinks.classList.remove('active');
-                const icon = mobileBtn.querySelector('i');
-                icon.classList.remove('fa-times');
-                icon.classList.add('fa-bars');
-            }
-        });
-    });
 
     // 4. Scroll Reveal Animations using Intersection Observer
     const observerOptions = {
@@ -142,9 +121,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (phoneInput) {
         // Phone Input Mask: (11) 98765-4321
-        phoneInput.addEventListener('input', function (e) {
+        phoneInput.addEventListener('input', (e) => {
             let x = e.target.value.replace(/\D/g, '').match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
-            e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+            if (x) {
+                e.target.value = !x[2] ? x[1] : `(${x[1]}) ${x[2]}${x[3] ? '-' + x[3] : ''}`;
+            }
         });
     }
 
@@ -404,40 +385,34 @@ document.addEventListener('DOMContentLoaded', () => {
         const featuresEl = document.getElementById('modalFeaturesList');
         const whatsappBtn = document.getElementById('modalWhatsappBtn');
 
-        // Open modal
-        serviceCards.forEach(card => {
-            card.addEventListener('click', (e) => {
+        // Use Event Delegation for opening modals
+        const servicesGrid = document.querySelector('.services-grid');
+        if (servicesGrid) {
+            servicesGrid.addEventListener('click', (e) => {
+                const card = e.target.closest('.service-card[data-service]');
+                if (!card) return;
+
                 e.preventDefault();
-                const serviceKey = card.getAttribute('data-service');
+                const serviceKey = card.dataset.service;
                 const data = serviceData[serviceKey];
 
                 if (data) {
-                    // Populate modal
                     titleEl.textContent = data.title;
                     iconEl.className = `fas ${data.icon}`;
                     descEl.textContent = data.description;
 
-                    // Populate features
-                    featuresEl.innerHTML = '';
-                    data.features.forEach(feature => {
-                        const li = document.createElement('li');
-                        li.textContent = feature;
-                        featuresEl.appendChild(li);
-                    });
+                    featuresEl.innerHTML = data.features.map(f => `<li>${f}</li>`).join('');
 
-                    // Set Whatsapp Link
                     const phoneNumber = '551140028922';
-                    const encodedMessage = encodeURIComponent(data.whatsapp);
-                    whatsappBtn.href = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+                    whatsappBtn.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(data.whatsapp)}`;
 
-                    // Show modal
                     modal.classList.add('active');
-                    document.body.style.overflow = 'hidden'; // Prevent scrolling
+                    document.body.style.overflow = 'hidden';
                     const modalContent = modal.querySelector('.modal-content');
                     if (modalContent) modalContent.scrollTop = 0;
                 }
             });
-        });
+        }
 
         // Close modal functions
         const closeModal = () => {
