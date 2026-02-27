@@ -247,7 +247,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 } else {
                     console.error(result);
-                    btn.textContent = 'Erro ao enviar. Tente novamente.';
+                    btn.textContent = result.message || 'Erro ao enviar. Tente novamente.';
                     btn.style.background = '#e74c3c'; // Error color
                     btn.style.color = '#fff';
                 }
