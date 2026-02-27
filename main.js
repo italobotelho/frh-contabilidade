@@ -191,9 +191,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Verificação do hCaptcha (Web3Forms injeta um input hidden 'h-captcha-response' preenchido após sucesso do desafio)
-            const hcaptchaElement = form.querySelector('[name="h-captcha-response"]');
-            if (hcaptchaElement && !hcaptchaElement.value) {
+            // Verificação do hCaptcha usando a API oficial do hcaptcha (mais confiável)
+            let captchaResponse = '';
+            if (typeof hcaptcha !== 'undefined') {
+                captchaResponse = hcaptcha.getResponse();
+            }
+
+            if (!captchaResponse) {
                 // Impede o envio e notifica graficamente criando aquele shake geral ou mudando uma cor se desejar
                 const captchaContainer = form.querySelector('.h-captcha');
                 if (captchaContainer) {
@@ -216,17 +220,13 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.style.opacity = '0.7';
             btn.disabled = true;
 
-            // Prepare data for Web3Forms (A submissão do Captcha deles proíbe JSON, o formato tem que ser FormData)
+            // Prepare data for Web3Forms 
             const formData = new FormData(form);
 
-            // Força a inclusão explícita do valor do hCaptcha no Payload caso o FormData tenha ignorado
-            const captchaInput = form.querySelector('[name="h-captcha-response"]');
-            if (captchaInput) {
-                formData.set('h-captcha-response', captchaInput.value);
-            }
+            // Web3Forms espera o campo h-captcha-response explícito
+            formData.set('h-captcha-response', captchaResponse);
 
             try {
-                // Send real request to Web3Forms usando Form Data nativo sem header restrictivo
                 const response = await fetch('https://api.web3forms.com/submit', {
                     method: 'POST',
                     body: formData
@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const result = await response.json();
 
-                if (response.status == 200) {
+                if (response.status === 200) {
                     btn.textContent = 'Mensagem Enviada!';
                     btn.style.background = '#25D366'; // Success color
                     btn.style.color = '#fff';
@@ -257,7 +257,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.style.background = '#e74c3c'; // Error color
                 btn.style.color = '#fff';
             } finally {
-                // Ao final de tudo o plugin tem opção de zerar para eventuais novas tentativas
+                // Reseta o captcha nativamente
                 if (typeof hcaptcha !== 'undefined') {
                     hcaptcha.reset();
                 }
