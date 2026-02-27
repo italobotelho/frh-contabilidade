@@ -740,10 +740,18 @@ ul {
     color: var(--text-muted);
 }
 
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
 .map-container {
-    height: 250px;
+    flex: 1;
+    min-height: 250px;
     width: 100%;
-    margin-top: 2rem;
+    margin-top: auto;
+    /* Pushes the map to the bottom if there is extra space, but flex: 1 already stretches it */
     display: flex;
     align-items: center;
     justify-content: center;
