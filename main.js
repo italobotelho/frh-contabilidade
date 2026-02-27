@@ -172,11 +172,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let isFormValid = true;
 
-            // Força validação visual em TODOS os inputs ao clicar em Enviar
             inputs.forEach(input => {
                 if (!validateInput(input)) {
                     isFormValid = false;
-                    // Garante que a classe de erro visual (vermelha) seja aplicada imediatamente
                     input.classList.remove('valid');
                     input.classList.add('invalid');
                     input.closest('.form-group').classList.add('has-error');
@@ -184,33 +182,10 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (!isFormValid) {
-                // Trigger shake animation no formulário todo
-                form.classList.remove('shake');
-                void form.offsetWidth; // trigger reflow mágico do navegador
-                form.classList.add('shake');
-                return;
-            }
-
-            // Verificação do hCaptcha usando a API oficial do hcaptcha (mais confiável)
-            let captchaResponse = '';
-            if (typeof hcaptcha !== 'undefined') {
-                captchaResponse = hcaptcha.getResponse();
-            }
-
-            if (!captchaResponse) {
-                // Impede o envio e notifica graficamente criando aquele shake geral ou mudando uma cor se desejar
-                const captchaContainer = form.querySelector('.h-captcha');
-                if (captchaContainer) {
-                    captchaContainer.style.border = '1px solid #e74c3c';
-                    captchaContainer.style.borderRadius = '4px';
-                    setTimeout(() => { captchaContainer.style.border = 'none'; }, 3000);
-                }
-
-                // Trigger shake animation no formulário todo para alertar o erro global
                 form.classList.remove('shake');
                 void form.offsetWidth;
                 form.classList.add('shake');
-                return; // Paralisa aqui
+                return;
             }
 
             const btn = form.querySelector('button');
@@ -220,15 +195,8 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.style.opacity = '0.7';
             btn.disabled = true;
 
-            // Prepare data for Web3Forms 
             const formData = new FormData(form);
-
-            // Web3Forms espera o campo h-captcha-response explícito
-            formData.set('h-captcha-response', captchaResponse);
-
-            // Transforma o FormData em um Objeto Javascript literal
             const object = Object.fromEntries(formData);
-            // Empacota tudo em JSON como exigido para chamadas AJAX seguras do Web3Forms
             const json = JSON.stringify(object);
 
             try {
@@ -245,10 +213,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 if (response.status === 200) {
                     btn.textContent = 'Mensagem Enviada!';
-                    btn.style.background = '#25D366'; // Success color
+                    btn.style.background = '#25D366';
                     btn.style.color = '#fff';
 
-                    // Reset form and validation states
                     form.reset();
                     inputs.forEach(input => {
                         input.classList.remove('valid', 'invalid');
@@ -257,21 +224,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     console.error(result);
                     btn.textContent = 'Erro ao enviar. Tente novamente.';
-                    btn.style.background = '#e74c3c'; // Error color
+                    btn.style.background = '#e74c3c';
                     btn.style.color = '#fff';
                 }
             } catch (error) {
                 console.error(error);
                 btn.textContent = 'Erro de conexão. Tente novamente.';
-                btn.style.background = '#e74c3c'; // Error color
+                btn.style.background = '#e74c3c';
                 btn.style.color = '#fff';
             } finally {
-                // Reseta o captcha nativamente
                 if (typeof hcaptcha !== 'undefined') {
                     hcaptcha.reset();
                 }
 
-                // Reset button state after 3 seconds
                 setTimeout(() => {
                     btn.disabled = false;
                     btn.textContent = originalText;
