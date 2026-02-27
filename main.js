@@ -191,24 +191,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Verificação do hCaptcha (Web3Forms injeta um input hidden 'h-captcha-response' preenchido após sucesso do desafio)
-            const hcaptchaElement = form.querySelector('[name="h-captcha-response"]');
-            if (hcaptchaElement && !hcaptchaElement.value) {
-                // Impede o envio e notifica graficamente criando aquele shake geral ou mudando uma cor se desejar
-                const captchaContainer = form.querySelector('.h-captcha');
-                if (captchaContainer) {
-                    captchaContainer.style.border = '1px solid #e74c3c';
-                    captchaContainer.style.borderRadius = '4px';
-                    setTimeout(() => { captchaContainer.style.border = 'none'; }, 3000);
-                }
-
-                // Trigger shake animation no formulário todo para alertar o erro global
-                form.classList.remove('shake');
-                void form.offsetWidth;
-                form.classList.add('shake');
-                return; // Paralisa aqui
-            }
-
             const btn = form.querySelector('button');
             const originalText = btn.textContent;
 
@@ -218,12 +200,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Prepare data for Web3Forms (A submissão do Captcha deles proíbe JSON, o formato tem que ser FormData)
             const formData = new FormData(form);
-
-            // Força a inclusão explícita do valor do hCaptcha no Payload caso o FormData tenha ignorado
-            const captchaInput = form.querySelector('[name="h-captcha-response"]');
-            if (captchaInput) {
-                formData.set('h-captcha-response', captchaInput.value);
-            }
 
             try {
                 // Send real request to Web3Forms usando Form Data nativo sem header restrictivo
@@ -257,11 +233,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.style.background = '#e74c3c'; // Error color
                 btn.style.color = '#fff';
             } finally {
-                // Ao final de tudo o plugin tem opção de zerar para eventuais novas tentativas
-                if (typeof hcaptcha !== 'undefined') {
-                    hcaptcha.reset();
-                }
-
                 // Reset button state after 3 seconds
                 setTimeout(() => {
                     btn.disabled = false;
