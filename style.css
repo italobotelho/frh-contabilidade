@@ -60,6 +60,32 @@
     box-sizing: border-box;
 }
 
+/* Custom Webkit Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-base);
+    border-left: 1px solid var(--border-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--clr-gold-dark);
+    border-radius: 6px;
+    border: 2px solid var(--bg-base);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--clr-gold-primary);
+}
+
+/* Firefox Scrollbar */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--clr-gold-dark) var(--bg-base);
+}
+
 html {
     scroll-behavior: smooth;
     font-size: 16px;
@@ -72,6 +98,21 @@ body {
     line-height: 1.6;
     overflow-x: hidden;
     transition: background-color var(--transition-normal), color var(--transition-normal);
+    cursor: none;
+}
+
+/* Theme Toggle Smoothing Class (Applies only to structure, preventing layout thrashing) */
+.theme-transition,
+.theme-transition body,
+.theme-transition .glass-panel,
+.theme-transition .service-card,
+.theme-transition .history-card,
+.theme-transition .stat-card,
+.theme-transition .modal-content,
+.theme-transition header,
+.theme-transition footer {
+    transition-property: background-color, border-color, color, box-shadow !important;
+    transition-duration: 0.4s !important;
 }
 
 h1,
@@ -99,10 +140,31 @@ h3 {
     font-size: 1.5rem;
 }
 
+/* Base Styles for SplitType Text Reveal */
+.reveal-text {
+    /* Prevent FOUC during JS load */
+    opacity: 0;
+    visibility: hidden;
+}
+
+.reveal-text.split-ready {
+    opacity: 1;
+    visibility: visible;
+}
+
+.line {
+    /* Each line needs overflow hidden to mask the characters rising up */
+    overflow: hidden;
+    padding-bottom: 0.1em;
+    /* Prevent descenders (like p, y, g, ç) from being clipped */
+    margin-bottom: -0.1em;
+}
+
 a {
     color: inherit;
     text-decoration: none;
     transition: color var(--transition-fast);
+    cursor: none;
 }
 
 img {
@@ -113,6 +175,12 @@ img {
 
 ul {
     list-style: none;
+}
+
+/* Otimização de Performance */
+section {
+    contain: paint;
+    /* Isola repaints de rolagem pro navegador */
 }
 
 /* Util Classes */
@@ -139,6 +207,116 @@ ul {
 }
 
 /* ==========================================================================
+   Custom Cursor
+   ========================================================================== */
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    background-color: var(--clr-gold-primary);
+    /* Fallback */
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+        height 0.3s cubic-bezier(0.25, 1, 0.5, 1),
+        background-color 0.3s ease,
+        border-radius 0.3s ease,
+        border 0.3s ease;
+}
+
+@supports (backdrop-filter: invert(1)) or (-webkit-backdrop-filter: invert(1)) {
+    .custom-cursor {
+        background-color: transparent;
+        backdrop-filter: invert(100%) grayscale(100%);
+        -webkit-backdrop-filter: invert(100%) grayscale(100%);
+    }
+
+    .custom-cursor.active {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(212, 175, 55, 0.15);
+        border: 2px solid var(--clr-gold-primary);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+
+    .custom-cursor.text-active {
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+        border: 1px dashed var(--clr-gold-primary);
+        opacity: 0.8;
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+}
+
+/* Fallback styles when backdrop-filter is NOT supported */
+@supports not ((backdrop-filter: invert(1)) or (-webkit-backdrop-filter: invert(1))) {
+    .custom-cursor.active {
+        width: 60px;
+        height: 60px;
+        background-color: rgba(212, 175, 55, 0.15);
+        border: 2px solid var(--clr-gold-primary);
+    }
+
+    .custom-cursor.text-active {
+        width: 40px;
+        height: 40px;
+        background-color: transparent;
+        border: 1px dashed var(--clr-gold-primary);
+        opacity: 0.8;
+    }
+}
+
+.custom-cursor.hidden {
+    opacity: 0;
+}
+
+/* Scroll Progress */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: var(--clr-gold-primary);
+    z-index: 9999;
+    transition: width 0.1s ease-out;
+}
+
+/* Hide custom cursor on mobile to restore native touch behavior */
+@media (max-width: 768px) {
+
+    body,
+    a,
+    button,
+    .btn-primary,
+    .btn-secondary,
+    .service-card,
+    .theme-toggle {
+        cursor: auto !important;
+    }
+
+    a,
+    button,
+    .btn-primary,
+    .btn-secondary,
+    .service-card,
+    .theme-toggle {
+        cursor: pointer !important;
+    }
+
+    .custom-cursor {
+        display: none !important;
+    }
+}
+
+/* ==========================================================================
    Buttons
    ========================================================================== */
 .btn-primary,
@@ -150,12 +328,38 @@ ul {
     border-radius: 4px;
     font-weight: 500;
     font-family: var(--font-body);
-    cursor: pointer;
     transition: all var(--transition-normal);
     border: none;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     font-size: 0.875rem;
+    cursor: none;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Shine Sweep Overlay */
+.btn-primary::after,
+.btn-secondary::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(to right,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.4) 50%,
+            rgba(255, 255, 255, 0) 100%);
+    transform: skewX(-25deg);
+    transition: left 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+    z-index: 1;
+    pointer-events: none;
+}
+
+.btn-primary:hover::after,
+.btn-secondary:hover::after {
+    left: 150%;
 }
 
 .btn-primary {
@@ -309,7 +513,7 @@ ul {
     border: none;
     color: var(--clr-gold-primary);
     font-size: 1.5rem;
-    cursor: pointer;
+    cursor: none;
     transition: transform var(--transition-fast), color var(--transition-fast);
     width: 32px;
     /* Mantém a mesma largura independe do ícone */
@@ -483,6 +687,48 @@ ul {
 }
 
 /* ==========================================================================
+   Infinite Marquee
+   ========================================================================== */
+.marquee-section {
+    width: 100%;
+    background-color: var(--clr-gold-primary);
+    color: #111;
+    /* Cor escura sólida para contraste perfeito no dourado */
+    padding: 1.5rem 0;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    white-space: nowrap;
+    z-index: 10;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.marquee-inner {
+    display: flex;
+    width: fit-content;
+    will-change: transform;
+}
+
+.marquee-part {
+    flex-shrink: 0;
+    padding: 0 1rem;
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    display: flex;
+    align-items: center;
+}
+
+.marquee-part .bullet {
+    margin: 0 1rem;
+    font-size: 1.5rem;
+    opacity: 0.7;
+}
+
+/* ==========================================================================
    Services Section
    ========================================================================== */
 .services-grid {
@@ -492,27 +738,38 @@ ul {
 }
 
 .service-card {
-    background: var(--bg-surface);
-    padding: 3rem 2rem;
-    border-radius: 8px;
+    background-color: var(--card-bg);
     border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 2.5rem 2rem;
+    text-align: left;
     transition: all var(--transition-normal);
+    color: var(--text-main);
+    box-shadow: 0 4px 6px var(--shadow-color);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     position: relative;
     overflow: hidden;
-    z-index: 1;
+    /* Configurações para o Efeito 3D */
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    will-change: transform;
+    cursor: none;
 }
 
+/* Opcional: Efeito de borda luminosa ou brilho no Hover interno (Holográfico) */
 .service-card::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom right, rgba(var(--clr-gold-primary-rgb), 0.1), transparent);
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at var(--mouseX, 50%) var(--mouseY, 50%), rgba(212, 175, 55, 0.15), transparent 60%);
     opacity: 0;
     transition: opacity var(--transition-normal);
-    z-index: -1;
 }
 
 .service-card:hover {
@@ -556,122 +813,213 @@ ul {
 /* ==========================================================================
    History Section
    ========================================================================== */
-.flex-row {
+.history-container {
+    padding: 2rem 0;
+}
+
+.history-line {
+    display: none;
+}
+
+@media (min-width: 992px) {
+    .history-container {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 4rem;
+        position: relative;
+    }
+
+    .history-sticky-wrapper {
+        position: sticky;
+        top: 12vh;
+        /* Sticks comfortably at the center-top of the screen */
+        height: fit-content;
+    }
+
+    .history-sticky-wrapper .section-header {
+        text-align: left;
+        /* Override global center align for this specific case */
+    }
+
+    /* Decorative vertical line between title and cards on desktop */
+    .history-line {
+        display: block;
+        position: absolute;
+        left: calc(40% - 2rem);
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: linear-gradient(to bottom, transparent, rgba(var(--clr-gold-primary-rgb), 0.3) 15%, rgba(var(--clr-gold-primary-rgb), 0.3) 85%, transparent);
+    }
+}
+
+.history-cards-wrapper {
     display: flex;
-    align-items: center;
-    gap: 4rem;
-}
-
-.history-text {
-    flex: 1;
-}
-
-.history-text p {
-    margin-bottom: 1.5rem;
-    font-size: 1.05rem;
-    color: var(--text-muted);
-}
-
-.stats-list {
-    display: flex;
+    flex-direction: column;
     gap: 3rem;
-    margin-top: 3rem;
 }
 
-.stat-number {
-    display: block;
-    font-family: var(--font-heading);
-    font-size: 3rem;
-    color: var(--clr-gold-primary);
-    line-height: 1;
-    margin-bottom: 0.5rem;
+.history-card {
+    padding: 3rem;
+    border-radius: 12px;
+    border: 1px solid rgba(var(--clr-gold-primary-rgb), 0.15);
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
-.stat-label {
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    color: var(--text-muted);
+.history-image-wrapper {
+    margin-top: 2rem;
+    max-width: 90%;
+}
+
+.crossfade-container {
+    position: relative;
+    width: 100%;
+    /* Set a fixed aspect ratio roughly matching landscape photos to prevent layout shift */
+    aspect-ratio: 4 / 3;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(var(--clr-gold-primary-rgb), 0.2);
 }
 
 .history-image {
-    flex: 1;
-    height: 500px;
-    position: relative;
-    border-radius: 8px;
-    /* Removido o background e overflow hidden para o efeito dourado sair da caixa */
-    z-index: 1;
-}
-
-/* Novo Toque Dourado Elegante (Molduras nos cantos opostos) */
-.history-image::before {
-    content: '';
-    position: absolute;
-    top: -20px;
-    right: -20px;
-    width: 50%;
-    height: 50%;
-    border-top: 3px solid var(--clr-gold-primary);
-    border-right: 3px solid var(--clr-gold-primary);
-    border-top-right-radius: 12px;
-    z-index: -1;
-    opacity: 0.7;
-    transition: all var(--transition-normal);
-}
-
-.history-image::after {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    left: -20px;
-    width: 50%;
-    height: 50%;
-    border-bottom: 3px solid var(--clr-gold-primary);
-    border-left: 3px solid var(--clr-gold-primary);
-    border-bottom-left-radius: 12px;
-    z-index: -1;
-    opacity: 0.7;
-    box-shadow: -10px 10px 30px rgba(var(--clr-gold-primary-rgb), 0.15);
-    transition: all var(--transition-normal);
-}
-
-/* Animação extra ao passar o mouse */
-.history-image:hover::before {
-    top: -25px;
-    right: -25px;
-    opacity: 1;
-}
-
-.history-image:hover::after {
-    bottom: -25px;
-    left: -25px;
-    opacity: 1;
-}
-
-/* Slides do Carrossel */
-.history-slide {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 8px;
-    /* Aplicado diretamente na imagem agora */
-    box-shadow: var(--shadow-soft);
+    border-radius: 12px;
+}
+
+/* Base animation setup for crossfade (4 imagens) */
+.history-image.cf-img1,
+.history-image.cf-img2,
+.history-image.cf-img3,
+.history-image.cf-img4 {
+    animation-name: crossfade4;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-duration: 20s;
+    /* 5s per stage = 20s cycle */
     opacity: 0;
-    transition: opacity 1.5s ease-in-out;
-    z-index: 1;
+    /* All images start hidden until their delay hits */
 }
 
-.history-slide.active {
-    opacity: 1;
-    z-index: 2;
+/* Delays control when each image enters the 20s cycle */
+.history-image.cf-img1 {
+    animation-delay: 0s;
 }
 
-.image-placeholder,
-.image-placeholder i {
-    display: none;
+.history-image.cf-img2 {
+    animation-delay: 5s;
+}
+
+.history-image.cf-img3 {
+    animation-delay: 10s;
+}
+
+.history-image.cf-img4 {
+    animation-delay: 15s;
+}
+
+/* The 20s animation keyframe (reused by all delayed images) */
+@keyframes crossfade4 {
+    0% {
+        opacity: 0;
+    }
+
+    5% {
+        opacity: 1;
+    }
+
+    /* Fade in takes 1 second (5% of 20s) */
+    25% {
+        opacity: 1;
+    }
+
+    /* Stay visible until 5 second mark (25%) */
+    30% {
+        opacity: 0;
+    }
+
+    /* Fade out by 6 second mark (30%) */
+    100% {
+        opacity: 0;
+    }
+
+    /* Stay hidden until the cycle restarts */
+}
+
+/* Estilos para os espaços de fotos em branco */
+.placeholder-box {
+    background-color: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.placeholder-box::after {
+    content: "Espaço para Foto";
+    color: rgba(var(--clr-gold-primary-rgb), 0.3);
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+}
+
+.history-image-caption {
+    font-family: var(--font-heading);
+    /* Fonte elegante com serifa para um itálico forte */
+    font-style: italic;
+    font-weight: 400;
+    opacity: 0.65;
+    /* Cor mais fraca e sofisticada */
+    text-align: left;
+    padding-left: 1rem;
+    margin-top: 2rem !important;
+    /* Afasta da sombra projetada pela imagem */
+    border-left: 2px solid rgba(var(--clr-gold-primary-rgb), 0.4);
+    /* Borda mais suave */
+}
+
+.history-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-glow);
+    border-color: rgba(var(--clr-gold-primary-rgb), 0.4);
+}
+
+.history-year {
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    display: inline-block;
+    padding: 0.4rem 1.2rem;
+    background: rgba(var(--clr-gold-primary-rgb), 0.08);
+    border-radius: 20px;
+}
+
+.history-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+    color: var(--text-heading);
+}
+
+.history-card p {
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.history-stats {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 0 0;
+    display: flex;
+    gap: 2rem;
+    border-top: 1px solid rgba(var(--clr-gold-primary-rgb), 0.15);
+    padding-top: 1.5rem;
 }
 
 /* ==========================================================================
@@ -679,13 +1027,62 @@ ul {
    ========================================================================== */
 .values-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    grid-template-columns: 1fr;
     gap: 2rem;
+}
+
+@media (min-width: 992px) {
+    .values-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto auto;
+        gap: 2rem;
+    }
+
+    .value-item:nth-child(1) {
+        grid-column: span 2;
+        background: rgba(var(--clr-gold-primary-rgb), 0.05);
+        border: 1px solid rgba(var(--clr-gold-primary-rgb), 0.2);
+        border-radius: 12px;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 3rem;
+    }
+
+    .value-item:nth-child(2) {
+        grid-column: span 1;
+        grid-row: span 2;
+        background: var(--bg-surface-hover);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 3rem 2rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .value-item:nth-child(3),
+    .value-item:nth-child(4) {
+        background: var(--bg-surface);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        padding: 2rem;
+    }
 }
 
 .value-item {
     text-align: center;
     padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.value-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-soft);
 }
 
 .value-number {
@@ -1051,8 +1448,8 @@ ul {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(5px);
+    background: rgba(0, 0, 0, 0.85);
+    /* Removed backdrop-filter: blur() as it can cause heavy performance issues on paint when combined with GSAP/3D transforms */
     z-index: 2000;
     display: flex;
     align-items: center;
@@ -1071,34 +1468,30 @@ ul {
     width: 90%;
     max-width: 500px;
     max-height: 90vh;
-    /* Limits height to 90% of screen */
-    overflow-y: auto;
-    /* Adds scrollbar if content is too tall */
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* No scrollbar on the outer container */
     background: var(--bg-surface);
     border-radius: 12px;
-    padding: 2.5rem;
+    padding: 0;
+    /* Padding moved to inner elements */
     position: relative;
     transform: translateY(20px) scale(0.95);
     transition: all var(--transition-normal);
     border: 1px solid var(--clr-gold-primary) !important;
-    /* !important garante sobreposição sobre .glass-panel no dark mode */
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* Modal Custom Scrollbar for better UI on small screens */
-.modal-content::-webkit-scrollbar {
-    width: 6px;
+/* Modal Custom Scrollbar applied to the inner body */
+.modal-body {
+    scrollbar-width: none;
+    /* Firefox */
 }
 
-.modal-content::-webkit-scrollbar-track {
-    background: transparent;
-    margin-block: 15px;
-    /* Ensures scrollbar doesn't overlap the top/bottom rounded corners */
-}
-
-.modal-content::-webkit-scrollbar-thumb {
-    background: var(--clr-gold-primary);
-    border-radius: 8px;
+.modal-body::-webkit-scrollbar {
+    display: none;
+    /* Safari and Chrome */
 }
 
 .modal-overlay.active .modal-content {
@@ -1113,7 +1506,7 @@ ul {
     border: none;
     color: var(--text-muted);
     font-size: 2rem;
-    cursor: pointer;
+    cursor: none;
     line-height: 1;
     transition: color var(--transition-fast);
 }
@@ -1124,7 +1517,8 @@ ul {
 
 .modal-header {
     text-align: center;
-    margin-bottom: 2rem;
+    padding: 2.5rem 2.5rem 1rem 2.5rem;
+    flex-shrink: 0;
 }
 
 .modal-icon-wrapper {
@@ -1145,6 +1539,13 @@ ul {
     font-size: 1.8rem;
     margin-bottom: 0;
     color: var(--text-heading);
+}
+
+.modal-body {
+    padding: 0 2.5rem;
+    overflow-y: auto;
+    flex: 1;
+    /* Takes remaining height up to 90vh */
 }
 
 .modal-body p {
@@ -1247,27 +1648,49 @@ ul {
     transition-delay: 0.4s;
 }
 
+/* Base Styles for Curtain Reveal */
+.reveal-curtain {
+    visibility: hidden;
+    /* Parallax script will make it visible */
+}
+
+.curtain-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--clr-gold-primary);
+    z-index: 10;
+    transform-origin: top;
+    will-change: transform;
+}
+
+[data-theme="dark"] .curtain-overlay {
+    background: #111;
+}
+
+.reveal-curtain iframe,
+.reveal-curtain img {
+    will-change: transform;
+}
+
+/* Service Card Stagger Reveal via GSAP */
+.reveal-card {
+    opacity: 0;
+    transform: translateY(50px);
+    /* Transições de hover removidas ou ajustadas daqui se necessário,
+       pois o GSAP vai controlar o translate inicial. */
+}
+
 /* ==========================================================================
    Responsive
    ========================================================================== */
 @media (max-width: 992px) {
 
-    .flex-row {
-        flex-direction: column;
-        gap: 3rem;
-    }
-
     .contact-grid {
         grid-template-columns: 1fr;
         gap: 3rem;
-    }
-
-    .history-image {
-        width: 100%;
-        height: 400px;
-        min-height: 400px;
-        /* Garante que a imagem não colapse no mobile */
-        margin-top: 1rem;
     }
 
     .footer-content {
@@ -1317,7 +1740,29 @@ ul {
     }
 
     .modal-content {
+        padding: 0;
+    }
+
+    .modal-header {
+        padding: 1.5rem 1.5rem 1rem 1.5rem;
+    }
+
+    .modal-body {
+        padding: 0 1.5rem;
+    }
+
+    .modal-footer {
         padding: 1.5rem;
+    }
+
+    /* History Section Mobile Adjustments */
+    .history-card {
+        padding: 2rem;
+    }
+
+    .history-stats {
+        flex-direction: column;
+        gap: 1rem;
     }
 }
 

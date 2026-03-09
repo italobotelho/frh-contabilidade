@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+
     // 1. Set current year in footer
     const yearSpan = document.getElementById('currentYear');
     if (yearSpan) {
@@ -25,24 +26,130 @@ document.addEventListener('DOMContentLoaded', () => {
     const savedTheme = localStorage.getItem('theme') || 'light';
     applyTheme(savedTheme);
 
+    let transitionTimeout;
+
     if (themeToggleBtn) {
         themeToggleBtn.addEventListener('click', () => {
+            // Apply a global transition class to force smooth color changes on child elements
+            document.documentElement.classList.add('theme-transition');
+
             const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
             localStorage.setItem('theme', newTheme);
-            applyTheme(newTheme);
+
+            // Clear previous timeout to prevent race condition bugs on rapid clicks
+            if (transitionTimeout) {
+                clearTimeout(transitionTimeout);
+            }
+
+            // Allow DOM to register the class before swapping colors
+            requestAnimationFrame(() => {
+                applyTheme(newTheme);
+
+                // Cleanup after transition ends (0.4s match css)
+                transitionTimeout = setTimeout(() => {
+                    document.documentElement.classList.remove('theme-transition');
+                }, 400);
+            });
         });
     }
 
-    // 3. Sticky Navbar Effect
-    const navbar = document.getElementById('navbar');
+    // ==========================================================================
+    // Unified High-Performance Scroll Handler
+    // ==========================================================================
+    let isScrolling = false;
+    let lastScrollY = window.scrollY;
 
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
+    // Cached DOM nodes for scroll events (prevents querying DOM every pixel)
+    const navbar = document.getElementById('navbar');
+    const sections = document.querySelectorAll('section');
+    const navItems = document.querySelectorAll('.nav-links a[href^="#"]');
+    const scrollProgress = document.getElementById('scrollProgress');
+    const marqueeParts = document.querySelectorAll('.marquee-part');
+
+    // Set up marquee GSAP animation if exists
+    let marqueeAnim = null;
+    let direction = -1;
+    let scrollTimeout = null;
+
+    if (marqueeParts.length > 0 && typeof gsap !== 'undefined') {
+        marqueeAnim = gsap.to(marqueeParts, {
+            xPercent: -100,
+            repeat: -1,
+            duration: 20,
+            ease: 'linear'
+        });
+    }
+
+    // The single central function that handles all scroll-related paint updates
+    const updateOnScroll = () => {
+        const currentScrollY = window.scrollY;
+
+        // 1. Sticky Navbar Effect
+        if (navbar) {
+            if (currentScrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
         }
-    });
+
+        // 2. Active Link Highlighting (ScrollSpy)
+        let currentSectionId = '';
+        sections.forEach(section => {
+            if (currentScrollY >= (section.offsetTop - 200)) {
+                currentSectionId = section.getAttribute('id');
+            }
+        });
+
+        navItems.forEach(item => {
+            item.classList.remove('active');
+            if (item.getAttribute('href') === `#${currentSectionId}`) {
+                item.classList.add('active');
+            }
+        });
+
+        // 3. Scroll Progress Bar Update
+        if (scrollProgress) {
+            const docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) - window.innerHeight;
+            const scrollPercent = docHeight > 0 ? (currentScrollY / docHeight) * 100 : 0;
+            scrollProgress.style.width = scrollPercent + '%';
+        }
+
+        // 4. Infinite Horizontal Marquee Velocity Link
+        if (marqueeAnim) {
+            const delta = currentScrollY - lastScrollY;
+
+            if (Math.abs(delta) > 5) {
+                direction = delta > 0 ? -1 : 1;
+                gsap.to(marqueeAnim, {
+                    timeScale: direction * (1 + Math.abs(delta) * 0.05),
+                    duration: 0.2,
+                    overwrite: true
+                });
+            }
+
+            // Decelerate when scrolling stops
+            if (scrollTimeout) window.clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                gsap.to(marqueeAnim, {
+                    timeScale: direction,
+                    duration: 0.8,
+                    overwrite: true
+                });
+            }, 50);
+        }
+
+        lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY;
+        isScrolling = false;
+    };
+
+    // Single Scroll Listener mapped to requestAnimationFrame
+    window.addEventListener('scroll', () => {
+        if (!isScrolling) {
+            window.requestAnimationFrame(updateOnScroll);
+            isScrolling = true;
+        }
+    }, { passive: true });
 
     // 3. Mobile Menu Toggle
     const mobileBtn = document.querySelector('.mobile-menu-btn');
@@ -87,33 +194,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }, observerOptions);
 
     // Select all elements with fade-in classes
-    const fadeElements = document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right');
+    const fadeElements = document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right, .reveal-on-scroll');
     fadeElements.forEach(el => {
         observer.observe(el);
     });
 
-    // 5. Active Link Highlighting based on scroll position
-    const sections = document.querySelectorAll('section');
-    const navItems = document.querySelectorAll('.nav-links a[href^="#"]');
-
-    window.addEventListener('scroll', () => {
-        let current = '';
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (scrollY >= (sectionTop - 200)) {
-                current = section.getAttribute('id');
-            }
-        });
-
-        navItems.forEach(item => {
-            item.classList.remove('active');
-            if (item.getAttribute('href') === `#${current}`) {
-                item.classList.add('active');
-            }
-        });
-    });
+    // (Scroll Spy logic successfully migrated to the Unified Handler above)
 
     // 6. Form Validation & Submission (Demo with UX/UI)
     const form = document.getElementById('contactForm');
@@ -379,6 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     modal.classList.add('active');
                     document.body.style.overflow = 'hidden';
+
                     const modalContent = modal.querySelector('.modal-content');
                     if (modalContent) modalContent.scrollTop = 0;
                 }
@@ -408,24 +495,265 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 8. History Slideshow Logic
-    const slideshowContainer = document.getElementById('historySlideshow');
-    if (slideshowContainer) {
-        const slides = slideshowContainer.querySelectorAll('.history-slide');
-        let currentSlide = 0;
-        const slideInterval = 4000; // Troca a cada 4 segundos
+    // 8. (Removed Timeline Logic) - Now handled natively by CSS Sticky and reveal-on-scroll IntersectionObserver.
 
-        if (slides.length > 1) {
-            setInterval(() => {
-                // Remove active from current
-                slides[currentSlide].classList.remove('active');
+    // 9. Magnetic Buttons Logic (GSAP)
+    if (typeof gsap !== 'undefined') {
+        const magneticBtns = document.querySelectorAll('.magnetic-btn');
 
-                // Move to next slide
-                currentSlide = (currentSlide + 1) % slides.length;
+        magneticBtns.forEach((btn) => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                // Calcula a distância do centro do botão para o cursor
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
 
-                // Add active to new
-                slides[currentSlide].classList.add('active');
-            }, slideInterval);
+                gsap.to(btn, {
+                    x: x * 0.3, // Força de "puxada" horizontal
+                    y: y * 0.3, // Força de "puxada" vertical
+                    duration: 0.5,
+                    ease: 'power2.out'
+                });
+            });
+
+            btn.addEventListener('mouseleave', () => {
+                // Efeito elástico ao voltar pro lugar
+                gsap.to(btn, {
+                    x: 0,
+                    y: 0,
+                    duration: 0.8,
+                    ease: 'elastic.out(1, 0.3)'
+                });
+            });
+        });
+    }
+
+    // 10. Text Reveal Animation (GSAP + SplitType)
+    if (typeof gsap !== 'undefined' && typeof SplitType !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+
+        const revealTexts = document.querySelectorAll('.reveal-text');
+
+        revealTexts.forEach((textElement) => {
+            // Split the text into lines and characters
+            const split = new SplitType(textElement, { types: 'lines, chars' });
+
+            // Show the element now that it's split (prevents FOUC)
+            textElement.classList.add('split-ready');
+
+            // Setup the GSAP animation
+            gsap.from(split.chars, {
+                scrollTrigger: {
+                    trigger: textElement,
+                    start: 'top 85%', // Anima quando o topo do elemento atinge 85% da tela
+                    toggleActions: 'play none none none' // Toca uma vez
+                },
+                y: 30, // Move up less distance
+                opacity: 0,
+                duration: 0.5, // Mais rápido
+                stagger: 0.015, // Delay bem curto
+                ease: 'power2.out'
+            });
+        });
+
+        // 11. Image/Map Curtain Reveal (Parallax)
+        const curtains = document.querySelectorAll('.reveal-curtain');
+
+        curtains.forEach(curtain => {
+            const overlay = curtain.querySelector('.curtain-overlay');
+            const media = curtain.querySelector('iframe') || curtain.querySelector('img');
+
+            if (overlay && media) {
+                // Pre set states
+                gsap.set(curtain, { visibility: 'visible' });
+                gsap.set(media, { scale: 1.2 });
+
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: curtain,
+                        start: 'top 80%',
+                        toggleActions: 'play none none none'
+                    }
+                });
+
+                tl.to(overlay, {
+                    scaleY: 0,
+                    transformOrigin: 'top center',
+                    ease: 'power2.inOut',
+                    duration: 0.8
+                })
+                    .to(media, {
+                        scale: 1,
+                        ease: 'power2.out',
+                        duration: 1.0
+                    }, "-=0.5"); // Começa um pouco antes da cortina terminar
+            }
+        });
+
+        // 12. Service Cards Stagger Reveal
+        const serviceCardsReveal = document.querySelectorAll('.reveal-card');
+        if (serviceCardsReveal.length > 0) {
+            gsap.to(serviceCardsReveal, {
+                scrollTrigger: {
+                    trigger: '.services-grid',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                y: 0,
+                opacity: 1,
+                duration: 0.5,
+                stagger: 0.05, // Efeito cascata lindo e rápido
+                ease: 'back.out(1.5)'
+            });
         }
+
+        // 13. Custom Interactive Cursor (GSAP quickSetter)
+        const customCursor = document.querySelector('.custom-cursor');
+
+        if (customCursor) {
+            // Check if it's a touch device, if so, we disable the custom cursor
+            const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || (navigator.msMaxTouchPoints > 0);
+
+            if (!isTouchDevice) {
+                // Highly performant setters for cursor position
+                const setX = gsap.quickSetter(customCursor, "x", "px");
+                const setY = gsap.quickSetter(customCursor, "y", "px");
+
+                window.addEventListener('mousemove', (e) => {
+                    setX(e.clientX);
+                    setY(e.clientY);
+                });
+
+                // Add active state to buttons/links
+                const interactiveElements = document.querySelectorAll('a, button, .service-card, .timeline-item');
+                interactiveElements.forEach(el => {
+                    el.addEventListener('mouseenter', () => customCursor.classList.add('active'));
+                    el.addEventListener('mouseleave', () => customCursor.classList.remove('active'));
+                });
+
+                // Add active state to Text (Letreiros)
+                const textElements = document.querySelectorAll('h1, h2, h3');
+                textElements.forEach(el => {
+                    el.addEventListener('mouseenter', () => customCursor.classList.add('text-active'));
+                    el.addEventListener('mouseleave', () => customCursor.classList.remove('text-active'));
+                });
+
+                // Hide cursor when leaving window
+                document.addEventListener('mouseleave', () => {
+                    customCursor.classList.add('hidden');
+                });
+
+                document.addEventListener('mouseenter', () => {
+                    customCursor.classList.remove('hidden');
+                });
+            } else {
+                customCursor.style.display = 'none'; // Fallback cleanup
+            }
+        }
+
+        // 14. 3D Hover Cards (Holographic Tilt Effect)
+        const tiltCards = document.querySelectorAll('.service-card');
+
+        tiltCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left; // X position within card
+                const y = e.clientY - rect.top;  // Y position within card
+
+                // Set CSS variables for holographic glow effect origin
+                card.style.setProperty('--mouseX', `${x}px`);
+                card.style.setProperty('--mouseY', `${y}px`);
+
+                // Calculate Rotation: mapping position to degree logic (-10deg to 10deg)
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -15; // Vertical rotation limits to 15deg
+                const rotateY = ((x - centerX) / centerX) * 15;  // Horizontal rotation limits to 15deg
+
+                gsap.to(card, {
+                    rotationX: rotateX,
+                    rotationY: rotateY,
+                    transformPerspective: 1000,
+                    ease: 'power1.out',
+                    duration: 0.4
+                });
+            });
+
+            card.addEventListener('mouseleave', () => {
+                // Snap back to zero
+                gsap.to(card, {
+                    rotationX: 0,
+                    rotationY: 0,
+                    ease: 'elastic.out(1, 0.3)',
+                    duration: 1.2
+                });
+            });
+        });
+
+        // 15. Infinite Horizontal Marquee with Scroll Velocity
+        const marqueeParts = document.querySelectorAll('.marquee-part');
+        // (Infinite Marquee logic successfully migrated to the Unified Handler above)
+    }
+
+    // 16. Hero Section 3D Mouse Parallax
+    const heroSection = document.querySelector('.hero');
+    const heroContent = document.querySelector('.hero-content');
+    if (heroSection && heroContent && window.innerWidth >= 992 && typeof gsap !== 'undefined') {
+        heroSection.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.pageX) / 35;
+            const y = (window.innerHeight / 2 - e.pageY) / 35;
+
+            gsap.to(heroContent, {
+                x: x,
+                y: y,
+                duration: 1,
+                ease: 'power2.out'
+            });
+        });
+    }
+
+    // 17. Footer Reveal Effect
+    const footer = document.querySelector('.footer');
+    const mainContent = document.getElementById('mainContent');
+
+    function initFooterReveal() {
+        if (footer && mainContent && window.innerWidth >= 992) {
+            // Determine background color fallback
+            const bodyBg = getComputedStyle(document.body).backgroundColor;
+
+            mainContent.style.marginBottom = `${footer.offsetHeight}px`;
+            mainContent.style.backgroundColor = bodyBg;
+            mainContent.style.position = 'relative';
+            mainContent.style.zIndex = '2';
+            mainContent.style.boxShadow = '0 10px 15px rgba(0,0,0,0.15)';
+
+            footer.style.position = 'fixed';
+            footer.style.bottom = '0';
+            footer.style.left = '0';
+            footer.style.width = '100%';
+            footer.style.zIndex = '1';
+        } else if (footer && mainContent) {
+            // Reset for mobile
+            mainContent.style.marginBottom = '';
+            mainContent.style.position = '';
+            mainContent.style.zIndex = '';
+            mainContent.style.boxShadow = '';
+            footer.style.position = '';
+        }
+    }
+
+    // Initial call and on resize
+    initFooterReveal();
+    window.addEventListener('resize', initFooterReveal);
+
+    // Listen for theme toggle to update mainContent background
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            // Wait for color transitions to finish completely before forcing a DOM layout recalculation (avoids stuttering)
+            setTimeout(() => {
+                requestAnimationFrame(initFooterReveal);
+            }, 450);
+        });
     }
 });

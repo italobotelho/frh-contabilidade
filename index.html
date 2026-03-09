@@ -22,271 +22,363 @@
 </head>
 
 <body>
-    <!-- Navbar -->
-    <header class="navbar" id="navbar">
-        <div class="container nav-content">
-            <a href="#" class="logo">
-                <img src="assets/images/logo.png" alt="FRH Contabilidade Logo" id="headerLogo">
-            </a>
-            <nav class="nav-links">
-                <a href="#servicos">Serviços</a>
-                <a href="#historia">História</a>
-                <a href="#valores">Valores</a>
-                <a href="#contato" class="btn-primary">Fale Conosco</a>
-            </nav>
-            <div class="nav-actions">
-                <button class="theme-toggle" id="themeToggle" aria-label="Alternar Tema">
-                    <i class="fas fa-moon"></i>
-                </button>
-                <button class="mobile-menu-btn" aria-label="Menu">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </div>
-        </div>
-    </header>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-bg"></div>
-        <div class="container hero-content fade-in-up">
-            <span class="eyebrow">Excelência e Confiança</span>
-            <h1>Construindo o <span class="text-gold">futuro financeiro</span> da sua empresa.</h1>
-            <p>Soluções completas em contabilidade, planejamento tributário e assessoria empresarial para impulsionar
-                seus negócios com segurança e eficiência.</p>
-            <div class="hero-actions">
-                <a href="#contato" class="btn-primary large">Agendar Consultoria</a>
-                <a href="#servicos" class="btn-secondary large">Conhecer Serviços</a>
-            </div>
-        </div>
-    </section>
+    <!-- Custom Interactive Cursor -->
+    <div class="custom-cursor"></div>
 
-    <!-- Services Section -->
-    <section class="services section-padding" id="servicos">
-        <div class="container">
-            <div class="section-header text-center fade-in-up">
-                <h2>Nossos <span class="text-gold">Serviços</span></h2>
-                <p>Especialidade e dedicação em cada detalhe para gestão do seu patrimônio.</p>
-            </div>
+    <!-- Main Content Wrapper -->
+    <main id="mainContent">
 
-            <div class="services-grid">
-                <!-- Card 1 -->
-                <button class="service-card fade-in-up delay-1" data-service="contabilidade">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-calculator"></i>
-                    </div>
-                    <h3>Contabilidade em Geral</h3>
-                    <p>Escrituração completa, balanços e relatórios para sua gestão.</p>
-                </button>
-                <!-- Card 2 -->
-                <button class="service-card fade-in-up delay-2" data-service="abertura">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-building-circle-check"></i>
-                    </div>
-                    <h3>Abertura e Regularização</h3>
-                    <p>Cuidamos de toda a burocracia para constituir ou encerrar sua empresa.</p>
-                </button>
-                <!-- Card 3 -->
-                <button class="service-card fade-in-up delay-3" data-service="imposto-renda">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-file-invoice-dollar"></i>
-                    </div>
-                    <h3>Imposto de Renda</h3>
-                    <p>Declarações de IRPF e IRPJ com precisão e planejamento fiscal.</p>
-                </button>
-                <!-- Card 4 -->
-                <button class="service-card fade-in-up delay-4" data-service="cpf">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-id-card"></i>
-                    </div>
-                    <h3>Regularização do CPF</h3>
-                    <p>Análise e regularização de pendências cadastrais na Receita Federal.</p>
-                </button>
-                <!-- Card 5 -->
-                <button class="service-card fade-in-up delay-1" data-service="diso">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-helmet-safety"></i>
-                    </div>
-                    <h3>Regularização de Obra (DISO)</h3>
-                    <p>Suporte completo para emissão da CND de obra e INSS.</p>
-                </button>
-                <!-- Card 6 -->
-                <button class="service-card fade-in-up delay-2" data-service="incra">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-tractor"></i>
-                    </div>
-                    <h3>INCRA</h3>
-                    <p>Processos de abertura, baixa e regularização de imóveis rurais.</p>
-                </button>
-                <!-- Card 7 -->
-                <button class="service-card fade-in-up delay-3" data-service="itr">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-tree"></i>
-                    </div>
-                    <h3>ITR</h3>
-                    <p>Entrega e retificação da declaração do Imposto Territorial Rural.</p>
-                </button>
-                <!-- Card 8 -->
-                <button class="service-card fade-in-up delay-4" data-service="aposentadoria">
-                    <div class="icon-wrapper">
-                        <i class="fas fa-user-clock"></i>
-                    </div>
-                    <h3>Aposentadoria e Outros</h3>
-                    <p>Planejamento previdenciário e assessoria em diversos outros serviços.</p>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- History / About Us Section -->
-    <section class="history section-padding bg-darker" id="historia">
-        <div class="container">
-            <div class="history-content flex-row">
-                <div class="history-text fade-in-right">
-                    <h2>Nossa <span class="text-gold">Trajetória</span></h2>
-                    <p>A FRH Contabilidade e Assessoria nasceu com o propósito de transformar o cenário contábil, indo
-                        além dos números. Desde nossa fundação, nossa missão tem sido atuar como verdadeiros parceiros
-                        estratégicos dos nossos clientes.</p>
-                    <p>Ao longo dos anos, construímos uma reputação baseada na solidez, ética e inovação, fornecendo
-                        tranquilidade e suporte incondicional para que empreendedores possam focar no que realmente
-                        importa: o crescimento de seus negócios.</p>
-                    <ul class="stats-list">
-                        <li>
-                            <span class="stat-number">+10</span>
-                            <span class="stat-label">Anos de Experiência</span>
-                        </li>
-                        <li>
-                            <span class="stat-number">+500</span>
-                            <span class="stat-label">Clientes Satisfeitos</span>
-                        </li>
-                    </ul>
+        <!-- Navbar -->
+        <header class="navbar" id="navbar">
+            <div class="container nav-content">
+                <a href="#" class="logo">
+                    <img src="assets/images/logo.png" alt="FRH Contabilidade Logo" id="headerLogo">
+                </a>
+                <nav class="nav-links">
+                    <a href="#servicos" class="magnetic-btn">Serviços</a>
+                    <a href="#historia" class="magnetic-btn">História</a>
+                    <a href="#valores" class="magnetic-btn">Valores</a>
+                    <a href="#contato" class="btn-primary magnetic-btn">Fale Conosco</a>
+                </nav>
+                <div class="nav-actions">
+                    <button class="theme-toggle magnetic-btn" id="themeToggle" aria-label="Alternar Tema">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="mobile-menu-btn" aria-label="Menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
                 </div>
-                <div class="history-image fade-in-left glass-panel" id="historySlideshow">
-                    <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=600&q=80"
-                        alt="Escritório detalhe 1" class="history-slide active">
-                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=600&q=80"
-                        alt="Escritório detalhe 2" class="history-slide">
-                    <img src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&h=600&q=80"
-                        alt="Equipe trabalhando" class="history-slide">
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-bg"></div>
+            <div class="container hero-content fade-in-up">
+                <span class="eyebrow">Excelência e Confiança</span>
+                <h1 class="reveal-text">Construindo o <span class="text-gold">futuro financeiro</span> da sua empresa.
+                </h1>
+                <p>Soluções completas em contabilidade, planejamento tributário e assessoria empresarial para
+                    impulsionar
+                    seus negócios com segurança e eficiência.</p>
+                <div class="hero-actions">
+                    <a href="#contato" class="btn-primary large magnetic-btn">Agendar Consultoria</a>
+                    <a href="#servicos" class="btn-secondary large magnetic-btn">Conhecer Serviços</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Infinite Marquee -->
+        <div class="marquee-section">
+            <div class="marquee-inner">
+                <div class="marquee-part">
+                    PLANEJAMENTO TRIBUTÁRIO <span class="bullet">•</span> INOVAÇÃO FINANCEIRA <span
+                        class="bullet">•</span>
+                    GESTÃO ESTRATÉGICA <span class="bullet">•</span> RESULTADOS DE ALTO IMPACTO <span
+                        class="bullet">•</span> ASSESSORIA PREMIUM <span class="bullet">•</span>
+                </div>
+                <div class="marquee-part">
+                    PLANEJAMENTO TRIBUTÁRIO <span class="bullet">•</span> INOVAÇÃO FINANCEIRA <span
+                        class="bullet">•</span>
+                    GESTÃO ESTRATÉGICA <span class="bullet">•</span> RESULTADOS DE ALTO IMPACTO <span
+                        class="bullet">•</span> ASSESSORIA PREMIUM <span class="bullet">•</span>
+                </div>
+                <div class="marquee-part">
+                    PLANEJAMENTO TRIBUTÁRIO <span class="bullet">•</span> INOVAÇÃO FINANCEIRA <span
+                        class="bullet">•</span>
+                    GESTÃO ESTRATÉGICA <span class="bullet">•</span> RESULTADOS DE ALTO IMPACTO <span
+                        class="bullet">•</span> ASSESSORIA PREMIUM <span class="bullet">•</span>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Values Section -->
-    <section class="values section-padding" id="valores">
-        <div class="container">
-            <div class="section-header text-center fade-in-up">
-                <h2>O que nos <span class="text-gold">Move</span></h2>
-                <p>Nossos pilares fundamentais, que guiam cada ação e atendimento.</p>
-            </div>
-
-            <div class="values-grid">
-                <div class="value-item fade-in-up delay-1">
-                    <div class="value-number">01</div>
-                    <h3>Transparência</h3>
-                    <p>Relacionamentos pautados na verdade e na clareza de informações.</p>
-                </div>
-                <div class="value-item fade-in-up delay-2">
-                    <div class="value-number">02</div>
-                    <h3>Ética Profissional</h3>
-                    <p>Rigoroso seguimento das normas legais e morais em todas as nossas condutas.</p>
-                </div>
-                <div class="value-item fade-in-up delay-3">
-                    <div class="value-number">03</div>
-                    <h3>Inovação</h3>
-                    <p>Uso contínuo das melhores tecnologias para otimizar processos contábeis.</p>
-                </div>
-                <div class="value-item fade-in-up delay-4">
-                    <div class="value-number">04</div>
-                    <h3>Excelência</h3>
-                    <p>Busca incansável pela mais alta qualidade em nossos serviços e atendimento.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact & Location Section -->
-    <section class="contact section-padding bg-darker" id="contato">
-        <div class="container">
-            <div class="section-header text-center fade-in-up">
-                <h2>Fale <span class="text-gold">Conosco</span></h2>
-                <p>Estamos prontos para entender as necessidades do seu negócio.</p>
-            </div>
-
-            <div class="contact-grid">
-                <!-- Info & Map -->
-                <div class="contact-info fade-in-right">
-                    <div class="info-block">
-                        <i class="fas fa-map-marker-alt text-gold"></i>
-                        <div>
-                            <h4>Nossa Localização</h4>
-                            <p>R. Maria Ângela, 390 - 1º Andar - Sala 20<br>Novo Jaguari, Jaguariúna - SP<br>CEP:
-                                13820-000</p>
-                        </div>
-                    </div>
-                    <div class="info-block">
-                        <i class="fas fa-phone text-gold"></i>
-                        <div>
-                            <h4>Telefone</h4>
-                            <p>(11) 4002-8922</p>
-                        </div>
-                    </div>
-                    <div class="info-block">
-                        <i class="fas fa-envelope text-gold"></i>
-                        <div>
-                            <h4>E-mail</h4>
-                            <p>contato@frhcontabilidade.com.br</p>
-                        </div>
-                    </div>
-
-                    <div class="map-container glass-panel" style="padding: 0; overflow: hidden;">
-                        <iframe
-                            src="https://maps.google.com/maps?q=R.%20Maria%20%C3%82ngela,%20390,%20Jaguari%C3%BAna%20-%20SP&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                            width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    </div>
+        <!-- Services Section -->
+        <section class="services section-padding" id="servicos">
+            <div class="container">
+                <div class="section-header text-center fade-in-up">
+                    <h2 class="reveal-text">Nossos <span class="text-gold">Serviços</span></h2>
+                    <p>Especialidade e dedicação em cada detalhe para gestão do seu patrimônio.</p>
                 </div>
 
-                <!-- Form -->
-                <div class="contact-form-wrapper glass-panel fade-in-left">
-                    <form action="https://api.web3forms.com/submit" method="POST" class="contact-form" id="contactForm"
-                        novalidate>
-                        <!-- Web3Forms Hidden Inputs -->
-                        <input type="hidden" name="access_key" value="3fe85295-782a-4d64-b237-35fed8e5f2be">
-                        <input type="hidden" name="subject" value="Novo Contato pelo Site - FRH Contabilidade">
-                        <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-
-                        <div class="form-group">
-                            <label for="name">Nome Completo</label>
-                            <input type="text" id="name" name="name" placeholder="Como devemos chamá-lo?" required
-                                minlength="3">
-                            <span class="error-message">Por favor, insira seu nome completo.</span>
+                <div class="services-grid">
+                    <!-- Card 1 -->
+                    <button class="service-card reveal-card" data-service="contabilidade">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-calculator"></i>
                         </div>
-                        <div class="form-group">
-                            <label for="email">E-mail</label>
-                            <input type="email" id="email" name="email" placeholder="seu@email.com" required>
-                            <span class="error-message">Por favor, insira um e-mail válido.</span>
+                        <h3>Contabilidade em Geral</h3>
+                        <p>Escrituração completa, balanços e relatórios para sua gestão.</p>
+                    </button>
+                    <!-- Card 2 -->
+                    <button class="service-card reveal-card" data-service="abertura">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-building-circle-check"></i>
                         </div>
-                        <div class="form-group">
-                            <label for="phone">Telefone / WhatsApp</label>
-                            <input type="tel" id="phone" name="phone" placeholder="(00) 00000-0000" required
-                                maxlength="15">
-                            <span class="error-message">Insira um telefone válido com DDD.</span>
+                        <h3>Abertura e Regularização</h3>
+                        <p>Cuidamos de toda a burocracia para constituir ou encerrar sua empresa.</p>
+                    </button>
+                    <!-- Card 3 -->
+                    <button class="service-card reveal-card" data-service="imposto-renda">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-file-invoice-dollar"></i>
                         </div>
-                        <div class="form-group">
-                            <label for="message">Como podemos ajudar?</label>
-                            <textarea id="message" name="message" rows="4"
-                                placeholder="Descreva brevemente sua necessidade..." required minlength="10"></textarea>
-                            <span class="error-message">A mensagem deve ter pelo menos 10 caracteres.</span>
+                        <h3>Imposto de Renda</h3>
+                        <p>Declarações de IRPF e IRPJ com precisão e planejamento fiscal.</p>
+                    </button>
+                    <!-- Card 4 -->
+                    <button class="service-card reveal-card" data-service="cpf">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-id-card"></i>
                         </div>
-
-                        <button type="submit" id="submitBtn" class="btn-primary full-width">Enviar Mensagem</button>
-                    </form>
+                        <h3>Regularização do CPF</h3>
+                        <p>Análise e regularização de pendências cadastrais na Receita Federal.</p>
+                    </button>
+                    <!-- Card 5 -->
+                    <button class="service-card reveal-card" data-service="diso">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-helmet-safety"></i>
+                        </div>
+                        <h3>Regularização de Obra (DISO)</h3>
+                        <p>Suporte completo para emissão da CND de obra e INSS.</p>
+                    </button>
+                    <!-- Card 6 -->
+                    <button class="service-card reveal-card" data-service="incra">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-tractor"></i>
+                        </div>
+                        <h3>INCRA</h3>
+                        <p>Processos de abertura, baixa e regularização de imóveis rurais.</p>
+                    </button>
+                    <!-- Card 7 -->
+                    <button class="service-card reveal-card" data-service="itr">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-tree"></i>
+                        </div>
+                        <h3>ITR</h3>
+                        <p>Entrega e retificação da declaração do Imposto Territorial Rural.</p>
+                    </button>
+                    <!-- Card 8 -->
+                    <button class="service-card reveal-card" data-service="aposentadoria">
+                        <div class="icon-wrapper">
+                            <i class="fas fa-user-clock"></i>
+                        </div>
+                        <h3>Aposentadoria e Outros</h3>
+                        <p>Planejamento previdenciário e assessoria em diversos outros serviços.</p>
+                    </button>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- History / About Us Section -->
+        <section class="history section-padding bg-darker" id="historia">
+            <div class="container history-container">
+
+                <!-- Linha decorativa vertical para Desktop -->
+                <div class="history-line"></div>
+
+                <div class="history-sticky-wrapper fade-in-up">
+                    <div class="section-header">
+                        <h2 class="reveal-text">Nossa <span class="text-gold">Trajetória</span></h2>
+                        <p>Uma história construída com ética, inovação e foco absoluto no sucesso dos nossos clientes.
+                        </p>
+                    </div>
+
+                    <!-- Imagens em Crossfade -->
+                    <div class="history-image-wrapper mt-4">
+                        <div class="crossfade-container glass-panel">
+                            <!-- Imagem 1: O Escritório (Render baseado nas fotos reais) -->
+                            <img src="C:/Users/Usuario/.gemini/antigravity/brain/6b75dbc7-f258-4bd9-8b19-5ddb87699234/real_office_render_1773084146320.png"
+                                alt="Escritório moderno da FRH Contabilidade" class="history-image cf-img1">
+                            <!-- Imagem 2: Sala de Reuniões com Logo -->
+                            <img src="C:/Users/Usuario/.gemini/antigravity/brain/6b75dbc7-f258-4bd9-8b19-5ddb87699234/office_meeting_room_with_logo_1773085271003.png"
+                                alt="Sala de reuniões envidraçada da FRH Contabilidade" class="history-image cf-img2">
+                            <!-- Imagem 3: O Escritório Corredor -->
+                            <img src="C:/Users/Usuario/.gemini/antigravity/brain/6b75dbc7-f258-4bd9-8b19-5ddb87699234/office_hallway_glass_1773085006378.png"
+                                alt="Detalhe do escritório clean da FRH Contabilidade" class="history-image cf-img3">
+                            <!-- Espaço em Branco 4 (Reservado para as Sócias) -->
+                            <div class="history-image cf-img4 placeholder-box" title="Espaço Reservado - Foto 4"></div>
+                        </div>
+                        <div class="history-image-caption text-muted text-sm mt-3">
+                            Duas irmãs, um propósito: mais de duas décadas de expertise condensadas em uma gestão
+                            inovadora.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="history-cards-wrapper">
+                    <!-- Timeline Item 1: A Bagagem -->
+                    <div class="history-card glass-panel reveal-on-scroll">
+                        <div class="history-year text-gold">+20 Anos</div>
+                        <h3>A Base de Tudo</h3>
+                        <p>Muito antes da nossa fundação oficial, nossas sócias-diretoras já trilhavam um caminho de
+                            excelência. São mais de duas décadas respirando contabilidade de alto desempenho, gestão
+                            tributária e desenvolvimento corporativo.</p>
+                    </div>
+
+                    <!-- Timeline Item 2: O Nascimento -->
+                    <div class="history-card glass-panel reveal-on-scroll">
+                        <div class="history-year text-gold">A Fundação</div>
+                        <h3>O Nascimento da FRH</h3>
+                        <p>Com toda a bagagem adquirida no mercado, decidimos que era hora de inovar. Fundamos a FRH com
+                            um propósito claro: entregar a solidez das grandes corporações com a agilidade e proximidade
+                            de um escritório focado no cliente moderno.</p>
+                    </div>
+
+                    <!-- Timeline Item 3: A Inovação -->
+                    <div class="history-card glass-panel reveal-on-scroll">
+                        <div class="history-year text-gold">DNA Digital</div>
+                        <h3>Contabilidade Invisível</h3>
+                        <p>Em menos de 10 anos de história como marca, já nascemos com o pé no acelerador digital.
+                            Implementamos atendimento via nuvem, sistemas integrados e eliminamos a burocracia do papel,
+                            trazendo velocidade inédita para quem confia no nosso trabalho.</p>
+                    </div>
+
+                    <!-- Timeline Item 4: Hoje -->
+                    <div class="history-card glass-panel reveal-on-scroll">
+                        <div class="history-year text-gold">O Presente</div>
+                        <h3>Referência Empresarial</h3>
+                        <p>Hoje, somos o motor contábil e estratégico por trás de dezenas de empresas em Jaguariúna e
+                            região. Uma marca relativamente jovem, mas guiada por mentes que conhecem o sucesso há mais
+                            de 20 anos.</p>
+
+                        <ul class="history-stats">
+                            <li>
+                                <span class="stat-number">+20</span>
+                                <span class="stat-label">Anos de Expertise</span>
+                            </li>
+                            <li>
+                                <span class="stat-number">100%</span>
+                                <span class="stat-label">Foco no Cliente</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Values Section -->
+        <section class="values section-padding" id="valores">
+            <div class="container">
+                <div class="section-header text-center fade-in-up">
+                    <h2 class="reveal-text">O que nos <span class="text-gold">Move</span></h2>
+                    <p>Nossos pilares fundamentais, que guiam cada ação e atendimento.</p>
+                </div>
+
+                <div class="values-grid">
+                    <div class="value-item fade-in-up delay-1">
+                        <div class="value-number">01</div>
+                        <h3>Transparência</h3>
+                        <p>Relacionamentos pautados na verdade e na clareza de informações.</p>
+                    </div>
+                    <div class="value-item fade-in-up delay-2">
+                        <div class="value-number">02</div>
+                        <h3>Ética Profissional</h3>
+                        <p>Rigoroso seguimento das normas legais e morais em todas as nossas condutas.</p>
+                    </div>
+                    <div class="value-item fade-in-up delay-3">
+                        <div class="value-number">03</div>
+                        <h3>Inovação</h3>
+                        <p>Uso contínuo das melhores tecnologias para otimizar processos contábeis.</p>
+                    </div>
+                    <div class="value-item fade-in-up delay-4">
+                        <div class="value-number">04</div>
+                        <h3>Excelência</h3>
+                        <p>Busca incansável pela mais alta qualidade em nossos serviços e atendimento.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact & Location Section -->
+        <section class="contact section-padding bg-darker" id="contato">
+            <div class="container">
+                <div class="section-header text-center fade-in-up">
+                    <h2 class="reveal-text">Fale <span class="text-gold">Conosco</span></h2>
+                    <p>Estamos prontos para entender as necessidades do seu negócio.</p>
+                </div>
+
+                <div class="contact-grid">
+                    <!-- Info & Map -->
+                    <div class="contact-info fade-in-right">
+                        <div class="info-block">
+                            <i class="fas fa-map-marker-alt text-gold"></i>
+                            <div>
+                                <h4>Nossa Localização</h4>
+                                <p>R. Maria Ângela, 390 - 1º Andar - Sala 20<br>Novo Jaguari, Jaguariúna - SP<br>CEP:
+                                    13820-000</p>
+                            </div>
+                        </div>
+                        <div class="info-block">
+                            <i class="fas fa-phone text-gold"></i>
+                            <div>
+                                <h4>Telefone</h4>
+                                <p>(11) 4002-8922</p>
+                            </div>
+                        </div>
+                        <div class="info-block">
+                            <i class="fas fa-envelope text-gold"></i>
+                            <div>
+                                <h4>E-mail</h4>
+                                <p>contato@frhcontabilidade.com.br</p>
+                            </div>
+                        </div>
+
+                        <div class="map-container glass-panel reveal-curtain"
+                            style="padding: 0; overflow: hidden; position: relative;">
+                            <div class="curtain-overlay"></div>
+                            <iframe
+                                src="https://maps.google.com/maps?q=R.%20Maria%20%C3%82ngela,%20390,%20Jaguari%C3%BAna%20-%20SP&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade">
+                            </iframe>
+                        </div>
+                    </div>
+
+                    <!-- Form -->
+                    <div class="contact-form-wrapper glass-panel fade-in-up">
+                        <form action="https://api.web3forms.com/submit" method="POST" class="contact-form"
+                            id="contactForm" novalidate>
+                            <!-- Web3Forms Hidden Inputs -->
+                            <input type="hidden" name="access_key" value="3fe85295-782a-4d64-b237-35fed8e5f2be">
+                            <input type="hidden" name="subject" value="Novo Contato pelo Site - FRH Contabilidade">
+                            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+
+                            <div class="form-group">
+                                <label for="name">Nome Completo</label>
+                                <input type="text" id="name" name="name" placeholder="Como devemos chamá-lo?" required
+                                    minlength="3">
+                                <span class="error-message">Por favor, insira seu nome completo.</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">E-mail</label>
+                                <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                                <span class="error-message">Por favor, insira um e-mail válido.</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Telefone / WhatsApp</label>
+                                <input type="tel" id="phone" name="phone" placeholder="(00) 00000-0000" required
+                                    maxlength="15">
+                                <span class="error-message">Insira um telefone válido com DDD.</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Como podemos ajudar?</label>
+                                <textarea id="message" name="message" rows="4"
+                                    placeholder="Descreva brevemente sua necessidade..." required
+                                    minlength="10"></textarea>
+                                <span class="error-message">A mensagem deve ter pelo menos 10 caracteres.</span>
+                            </div>
+
+                            <button type="submit" id="submitBtn" class="btn-primary full-width">Enviar Mensagem</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
 
     <!-- Footer -->
     <footer class="footer">
@@ -370,6 +462,11 @@
             </div>
         </div>
     </div>
+
+    <!-- Third-Party Libraries for Interactions -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/split-type"></script>
 </body>
 
 </html>
