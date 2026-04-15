@@ -64,21 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const sections = document.querySelectorAll('section');
     const navItems = document.querySelectorAll('.nav-links a[href^="#"]');
     const scrollProgress = document.getElementById('scrollProgress');
-    const marqueeParts = document.querySelectorAll('.marquee-part');
-
-    // Set up marquee GSAP animation if exists
-    let marqueeAnim = null;
-    let direction = -1;
-    let scrollTimeout = null;
-
-    if (marqueeParts.length > 0 && typeof gsap !== 'undefined') {
-        marqueeAnim = gsap.to(marqueeParts, {
-            xPercent: -100,
-            repeat: -1,
-            duration: 20,
-            ease: 'linear'
-        });
-    }
 
     // The single central function that handles all scroll-related paint updates
     const updateOnScroll = () => {
@@ -93,51 +78,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // 2. Active Link Highlighting (ScrollSpy)
-        let currentSectionId = '';
-        sections.forEach(section => {
-            if (currentScrollY >= (section.offsetTop - 200)) {
-                currentSectionId = section.getAttribute('id');
-            }
-        });
 
-        navItems.forEach(item => {
-            item.classList.remove('active');
-            if (item.getAttribute('href') === `#${currentSectionId}`) {
-                item.classList.add('active');
-            }
-        });
 
         // 3. Scroll Progress Bar Update
         if (scrollProgress) {
             const docHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) - window.innerHeight;
             const scrollPercent = docHeight > 0 ? (currentScrollY / docHeight) * 100 : 0;
+            const scrollRatio = docHeight > 0 ? (currentScrollY / docHeight) : 0;
+            
             scrollProgress.style.width = scrollPercent + '%';
+            
+            // Dynamic Background Intensity Effect
+            document.documentElement.style.setProperty('--scroll-ratio', scrollRatio);
         }
 
-        // 4. Infinite Horizontal Marquee Velocity Link
-        if (marqueeAnim) {
-            const delta = currentScrollY - lastScrollY;
 
-            if (Math.abs(delta) > 5) {
-                direction = delta > 0 ? -1 : 1;
-                gsap.to(marqueeAnim, {
-                    timeScale: direction * (1 + Math.abs(delta) * 0.05),
-                    duration: 0.2,
-                    overwrite: true
-                });
-            }
-
-            // Decelerate when scrolling stops
-            if (scrollTimeout) window.clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => {
-                gsap.to(marqueeAnim, {
-                    timeScale: direction,
-                    duration: 0.8,
-                    overwrite: true
-                });
-            }, 50);
-        }
 
         lastScrollY = currentScrollY <= 0 ? 0 : currentScrollY;
         isScrolling = false;
@@ -199,7 +154,27 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(el);
     });
 
-    // (Scroll Spy logic successfully migrated to the Unified Handler above)
+    // 5. Active Link Highlighting (Modern ScrollSpy)
+    const spyOptions = {
+        root: null,
+        rootMargin: '-40% 0px -60% 0px', // Detecção no centro-topo da tela
+        threshold: 0
+    };
+
+    const spyObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                navItems.forEach(item => {
+                    item.classList.toggle('active', item.getAttribute('href') === `#${id}`);
+                });
+            }
+        });
+    }, spyOptions);
+
+    sections.forEach(section => {
+        if (section.getAttribute('id')) spyObserver.observe(section);
+    });
 
     // 6. Form Validation & Submission (Demo with UX/UI)
     const form = document.getElementById('contactForm');
@@ -466,8 +441,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     modal.classList.add('active');
                     document.body.style.overflow = 'hidden';
 
-                    const modalContent = modal.querySelector('.modal-content');
-                    if (modalContent) modalContent.scrollTop = 0;
+                    const modalBody = modal.querySelector('.modal-body');
+                    if (modalBody) modalBody.scrollTop = 0;
                 }
             });
         }
@@ -494,8 +469,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
-    // 8. (Removed Timeline Logic) - Now handled natively by CSS Sticky and reveal-on-scroll IntersectionObserver.
 
     // 9. Magnetic Buttons Logic (GSAP)
     if (typeof gsap !== 'undefined') {
@@ -625,14 +598,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 // Add active state to buttons/links
-                const interactiveElements = document.querySelectorAll('a, button, .service-card, .timeline-item');
+                const interactiveElements = document.querySelectorAll('a, button, .service-card');
                 interactiveElements.forEach(el => {
                     el.addEventListener('mouseenter', () => customCursor.classList.add('active'));
                     el.addEventListener('mouseleave', () => customCursor.classList.remove('active'));
                 });
 
-                // Add active state to Text (Letreiros)
-                const textElements = document.querySelectorAll('h1, h2, h3');
+                // Add active state to Text (Letreiros e Ícones vazados)
+                const textElements = document.querySelectorAll('h1, h2, h3, .modal-icon-wrapper');
                 textElements.forEach(el => {
                     el.addEventListener('mouseenter', () => customCursor.classList.add('text-active'));
                     el.addEventListener('mouseleave', () => customCursor.classList.remove('text-active'));
@@ -672,6 +645,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const rotateY = ((x - centerX) / centerX) * 15;  // Horizontal rotation limits to 15deg
 
                 gsap.to(card, {
+                    y: -10,
                     rotationX: rotateX,
                     rotationY: rotateY,
                     transformPerspective: 1000,
@@ -683,6 +657,7 @@ document.addEventListener('DOMContentLoaded', () => {
             card.addEventListener('mouseleave', () => {
                 // Snap back to zero
                 gsap.to(card, {
+                    y: 0,
                     rotationX: 0,
                     rotationY: 0,
                     ease: 'elastic.out(1, 0.3)',
@@ -691,9 +666,72 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
-        // 15. Infinite Horizontal Marquee with Scroll Velocity
-        const marqueeParts = document.querySelectorAll('.marquee-part');
-        // (Infinite Marquee logic successfully migrated to the Unified Handler above)
+
+
+    }
+
+    // 15. History Scrollytelling
+    const historySection = document.querySelector('.history');
+    if (historySection && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && window.innerWidth >= 992) {
+        const historyCards = document.querySelectorAll('.history-card');
+        const historyImages = document.querySelectorAll('.history-image');
+        const progressLine = document.querySelector('.history-line-progress');
+
+        // History Progress Line Filling Effect
+        if (progressLine) {
+            gsap.to(progressLine, {
+                height: '100%',
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '.history-cards-wrapper',
+                    start: 'top 50%',
+                    end: 'bottom 50%',
+                    scrub: true
+                }
+            });
+        }
+
+        // Mapping images to cards scroll progress
+        historyCards.forEach((card, index) => {
+            // Determine which image should show for this card
+            // Card 0 & 1 (Initial stages) -> Image 1
+            // Card 2 (Digital/Innovation) -> Image 2
+            // Card 3 (Present day) -> Image 3
+            let imageIndex = 0;
+            if (index === 2) imageIndex = 1;
+            if (index === 3) imageIndex = 2;
+
+            ScrollTrigger.create({
+                trigger: card,
+                start: 'top 60%',
+                onEnter: () => transitionHistoryImage(imageIndex),
+                onEnterBack: () => transitionHistoryImage(imageIndex)
+            });
+        });
+
+        function transitionHistoryImage(targetIndex) {
+            historyImages.forEach((img, i) => {
+                const isTarget = i === targetIndex;
+                if (isTarget) {
+                    gsap.to(img, { 
+                        opacity: 1,
+                        scale: 1,
+                        duration: 1,
+                        ease: 'power3.out'
+                    });
+                } else {
+                    // Check if it's currently visible to avoid redundant animations
+                    if (parseFloat(gsap.getProperty(img, "opacity")) > 0) {
+                        gsap.to(img, { 
+                            opacity: 0,
+                            scale: 1.1,
+                            duration: 1,
+                            ease: 'power3.inOut'
+                        });
+                    }
+                }
+            });
+        }
     }
 
     // 16. Hero Section 3D Mouse Parallax
@@ -713,47 +751,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 17. Footer Reveal Effect
-    const footer = document.querySelector('.footer');
-    const mainContent = document.getElementById('mainContent');
-
-    function initFooterReveal() {
-        if (footer && mainContent && window.innerWidth >= 992) {
-            // Determine background color fallback
-            const bodyBg = getComputedStyle(document.body).backgroundColor;
-
-            mainContent.style.marginBottom = `${footer.offsetHeight}px`;
-            mainContent.style.backgroundColor = bodyBg;
-            mainContent.style.position = 'relative';
-            mainContent.style.zIndex = '2';
-            mainContent.style.boxShadow = '0 10px 15px rgba(0,0,0,0.15)';
-
-            footer.style.position = 'fixed';
-            footer.style.bottom = '0';
-            footer.style.left = '0';
-            footer.style.width = '100%';
-            footer.style.zIndex = '1';
-        } else if (footer && mainContent) {
-            // Reset for mobile
-            mainContent.style.marginBottom = '';
-            mainContent.style.position = '';
-            mainContent.style.zIndex = '';
-            mainContent.style.boxShadow = '';
-            footer.style.position = '';
-        }
-    }
-
-    // Initial call and on resize
-    initFooterReveal();
-    window.addEventListener('resize', initFooterReveal);
-
-    // Listen for theme toggle to update mainContent background
-    if (themeToggleBtn) {
-        themeToggleBtn.addEventListener('click', () => {
-            // Wait for color transitions to finish completely before forcing a DOM layout recalculation (avoids stuttering)
-            setTimeout(() => {
-                requestAnimationFrame(initFooterReveal);
-            }, 450);
-        });
-    }
+    // Funcionalidade de Footer Reveal Removida (A nova Arquitetura Single-Page Fixed Background exige fundo transparente global inviabilizando uso de z-index de sobreposição do mainContent)
 });

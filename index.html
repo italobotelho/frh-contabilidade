@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#F8F9FA" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0A0A0A" media="(prefers-color-scheme: dark)">
     <title>FRH Contabilidade e Assessoria</title>
     <!-- Modern Typography: Playfair Display for headings (elegant), Inter for body (clean) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,11 +19,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 
+    <!-- Third-Party Libraries for Interactions -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+    <script src="https://unpkg.com/split-type" defer></script>
+
     <!-- Scripts loaded deferred for better performance -->
     <script src="main.js" defer></script>
 </head>
 
 <body>
+    <!-- Cinematic Fixed Global Background -->
+    <div class="fixed-global-bg">
+        <div class="abstract-shape shape-1"></div>
+        <div class="abstract-shape shape-2"></div>
+        <div class="abstract-shape shape-3"></div>
+        <div class="abstract-shape shape-4"></div>
+        <div class="abstract-shape shape-5"></div>
+        <div class="abstract-shape shape-6"></div>
+        <div class="fixed-gradient-overlay"></div>
+    </div>
+
     <!-- Scroll Progress Bar -->
     <div class="scroll-progress" id="scrollProgress"></div>
 
@@ -56,8 +74,7 @@
 
         <!-- Hero Section -->
         <section class="hero" id="home">
-            <div class="hero-bg"></div>
-            <div class="container hero-content fade-in-up">
+            <div class="container hero-content" style="position: relative; z-index: 10;">
                 <span class="eyebrow">Excelência e Confiança</span>
                 <h1 class="reveal-text">Construindo o <span class="text-gold">futuro financeiro</span> da sua empresa.
                 </h1>
@@ -71,29 +88,7 @@
             </div>
         </section>
 
-        <!-- Infinite Marquee -->
-        <div class="marquee-section">
-            <div class="marquee-inner">
-                <div class="marquee-part">
-                    PLANEJAMENTO TRIBUTÁRIO <span class="bullet">•</span> INOVAÇÃO FINANCEIRA <span
-                        class="bullet">•</span>
-                    GESTÃO ESTRATÉGICA <span class="bullet">•</span> RESULTADOS DE ALTO IMPACTO <span
-                        class="bullet">•</span> ASSESSORIA PREMIUM <span class="bullet">•</span>
-                </div>
-                <div class="marquee-part">
-                    PLANEJAMENTO TRIBUTÁRIO <span class="bullet">•</span> INOVAÇÃO FINANCEIRA <span
-                        class="bullet">•</span>
-                    GESTÃO ESTRATÉGICA <span class="bullet">•</span> RESULTADOS DE ALTO IMPACTO <span
-                        class="bullet">•</span> ASSESSORIA PREMIUM <span class="bullet">•</span>
-                </div>
-                <div class="marquee-part">
-                    PLANEJAMENTO TRIBUTÁRIO <span class="bullet">•</span> INOVAÇÃO FINANCEIRA <span
-                        class="bullet">•</span>
-                    GESTÃO ESTRATÉGICA <span class="bullet">•</span> RESULTADOS DE ALTO IMPACTO <span
-                        class="bullet">•</span> ASSESSORIA PREMIUM <span class="bullet">•</span>
-                </div>
-            </div>
-        </div>
+
 
         <!-- Services Section -->
         <section class="services section-padding" id="servicos">
@@ -111,6 +106,7 @@
                         </div>
                         <h3>Contabilidade em Geral</h3>
                         <p>Escrituração completa, balanços e relatórios para sua gestão.</p>
+                        <div class="card-action"><span>Saber mais</span><i class="fas fa-arrow-right"></i></div>
                     </button>
                     <!-- Card 2 -->
                     <button class="service-card reveal-card" data-service="abertura">
@@ -119,6 +115,7 @@
                         </div>
                         <h3>Abertura e Regularização</h3>
                         <p>Cuidamos de toda a burocracia para constituir ou encerrar sua empresa.</p>
+                        <div class="card-action"><span>Saber mais</span><i class="fas fa-arrow-right"></i></div>
                     </button>
                     <!-- Card 3 -->
                     <button class="service-card reveal-card" data-service="imposto-renda">
@@ -127,6 +124,7 @@
                         </div>
                         <h3>Imposto de Renda</h3>
                         <p>Declarações de IRPF e IRPJ com precisão e planejamento fiscal.</p>
+                        <div class="card-action"><span>Saber mais</span><i class="fas fa-arrow-right"></i></div>
                     </button>
                     <!-- Card 4 -->
                     <button class="service-card reveal-card" data-service="cpf">
@@ -135,6 +133,7 @@
                         </div>
                         <h3>Regularização do CPF</h3>
                         <p>Análise e regularização de pendências cadastrais na Receita Federal.</p>
+                        <div class="card-action"><span>Saber mais</span><i class="fas fa-arrow-right"></i></div>
                     </button>
                     <!-- Card 5 -->
                     <button class="service-card reveal-card" data-service="diso">
@@ -143,6 +142,7 @@
                         </div>
                         <h3>Regularização de Obra (DISO)</h3>
                         <p>Suporte completo para emissão da CND de obra e INSS.</p>
+                        <div class="card-action"><span>Saber mais</span><i class="fas fa-arrow-right"></i></div>
                     </button>
                     <!-- Card 6 -->
                     <button class="service-card reveal-card" data-service="incra">
@@ -151,6 +151,7 @@
                         </div>
                         <h3>INCRA</h3>
                         <p>Processos de abertura, baixa e regularização de imóveis rurais.</p>
+                        <div class="card-action"><span>Saber mais</span><i class="fas fa-arrow-right"></i></div>
                     </button>
                     <!-- Card 7 -->
                     <button class="service-card reveal-card" data-service="itr">
@@ -159,6 +160,7 @@
                         </div>
                         <h3>ITR</h3>
                         <p>Entrega e retificação da declaração do Imposto Territorial Rural.</p>
+                        <div class="card-action"><span>Saber mais</span><i class="fas fa-arrow-right"></i></div>
                     </button>
                     <!-- Card 8 -->
                     <button class="service-card reveal-card" data-service="aposentadoria">
@@ -167,6 +169,7 @@
                         </div>
                         <h3>Aposentadoria e Outros</h3>
                         <p>Planejamento previdenciário e assessoria em diversos outros serviços.</p>
+                        <div class="card-action"><span>Saber mais</span><i class="fas fa-arrow-right"></i></div>
                     </button>
                 </div>
             </div>
@@ -177,7 +180,9 @@
             <div class="container history-container">
 
                 <!-- Linha decorativa vertical para Desktop -->
-                <div class="history-line"></div>
+                <div class="history-line">
+                    <div class="history-line-progress"></div>
+                </div>
 
                 <div class="history-sticky-wrapper fade-in-up">
                     <div class="section-header">
@@ -190,16 +195,15 @@
                     <div class="history-image-wrapper mt-4">
                         <div class="crossfade-container glass-panel">
                             <!-- Imagem 1: O Escritório (Render baseado nas fotos reais) -->
-                            <img src="C:/Users/Usuario/.gemini/antigravity/brain/6b75dbc7-f258-4bd9-8b19-5ddb87699234/real_office_render_1773084146320.png"
-                                alt="Escritório moderno da FRH Contabilidade" class="history-image cf-img1">
+                            <img src="assets/images/real_office_render.png"
+                                alt="Escritório moderno da FRH Contabilidade" class="history-image cf-img1" loading="lazy">
                             <!-- Imagem 2: Sala de Reuniões com Logo -->
-                            <img src="C:/Users/Usuario/.gemini/antigravity/brain/6b75dbc7-f258-4bd9-8b19-5ddb87699234/office_meeting_room_with_logo_1773085271003.png"
-                                alt="Sala de reuniões envidraçada da FRH Contabilidade" class="history-image cf-img2">
+                            <img src="assets/images/office_meeting_room.png"
+                                alt="Sala de reuniões envidraçada da FRH Contabilidade" class="history-image cf-img2" loading="lazy">
                             <!-- Imagem 3: O Escritório Corredor -->
-                            <img src="C:/Users/Usuario/.gemini/antigravity/brain/6b75dbc7-f258-4bd9-8b19-5ddb87699234/office_hallway_glass_1773085006378.png"
-                                alt="Detalhe do escritório clean da FRH Contabilidade" class="history-image cf-img3">
-                            <!-- Espaço em Branco 4 (Reservado para as Sócias) -->
-                            <div class="history-image cf-img4 placeholder-box" title="Espaço Reservado - Foto 4"></div>
+                            <img src="assets/images/office_hallway.png"
+                                alt="Detalhe do escritório clean da FRH Contabilidade" class="history-image cf-img3" loading="lazy">
+
                         </div>
                         <div class="history-image-caption text-muted text-sm mt-3">
                             Duas irmãs, um propósito: mais de duas décadas de expertise condensadas em uma gestão
@@ -378,10 +382,8 @@
             </div>
         </section>
 
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
+        <!-- Footer engolido como painel -->
+        <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-brand">
@@ -425,14 +427,15 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; <span id="currentYear"></span> FRH Contabilidade e Assessoria LTDA. Todos os direitos
-                    reservados.</p>
+                <p>&copy; <span id="currentYear"></span> FRH Contabilidade e Assessoria LTDA. Todos os direitos reservados.</p>
+                <p class="developer-credit" style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-muted);">Desenvolvido por <a href="https://github.com/italobotelho" target="_blank" rel="noopener noreferrer" style="color: var(--clr-gold-primary); font-weight: 600;">Italo Botelho</a></p>
             </div>
         </div>
     </footer>
+    </main>
 
     <!-- Floating WhatsApp Button -->
-    <a href="#" class="floating-whatsapp" aria-label="Chat no WhatsApp" target="_blank">
+    <a href="#" class="floating-whatsapp" aria-label="Chat no WhatsApp" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-whatsapp"></i>
     </a>
 
@@ -456,17 +459,13 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a href="#" id="modalWhatsappBtn" class="btn-primary full-width" target="_blank">
+                <a href="#" id="modalWhatsappBtn" class="btn-primary full-width" target="_blank" rel="noopener noreferrer">
                     <i class="fab fa-whatsapp" style="margin-right: 8px;"></i> Falar sobre este serviço
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- Third-Party Libraries for Interactions -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://unpkg.com/split-type"></script>
 </body>
 
 </html>

@@ -7,6 +7,8 @@
     --clr-gold-light: #DFB44F;
     --clr-gold-dark: #A37C1C;
     --clr-gold-primary-rgb: 199, 154, 43;
+    --clr-gold-light-rgb: 223, 180, 79;
+    --clr-gold-dark-rgb: 163, 124, 28;
     /* Added for rgba() alpha support */
 
     /* Theme-dependent variables (Default Dark) */
@@ -93,7 +95,7 @@ html {
 
 body {
     font-family: var(--font-body);
-    background-color: var(--bg-base);
+    background-color: transparent !important; /* Deixa o vidro aparecer globalmente */
     color: var(--text-main);
     line-height: 1.6;
     overflow-x: hidden;
@@ -203,7 +205,13 @@ section {
 }
 
 .bg-darker {
-    background-color: var(--bg-surface-hover);
+    background-color: rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+[data-theme="dark"] .bg-darker {
+    background-color: rgba(255, 255, 255, 0.02);
 }
 
 /* ==========================================================================
@@ -544,88 +552,138 @@ section {
     overflow: hidden;
 }
 
-.hero-bg {
-    position: absolute;
+/* Animated Abstract Background (Office Colors Theme) */
+.fixed-global-bg {
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at var(--glow-x, 70%) var(--glow-y, 30%), rgba(var(--clr-gold-primary-rgb), 0.25) 0%, transparent 60%),
-        linear-gradient(to bottom, var(--bg-base) 0%, var(--bg-surface-hover) 100%);
-    z-index: -1;
-    animation: moveGlowLight 20s ease-in-out infinite alternate;
+    width: 100vw;
+    height: 100vh;
+    z-index: -5;
+    background-color: var(--bg-base);
+    overflow: hidden;
+    transition: background-color var(--transition-normal);
 }
 
-[data-theme="dark"] .hero-bg {
-    background: radial-gradient(circle at var(--glow-x, 70%) var(--glow-y, 30%), rgba(var(--clr-gold-primary-rgb), 0.2) 0%, transparent 60%),
-        radial-gradient(circle at 30% 80%, rgba(20, 20, 20, 0.8) 0%, var(--bg-base) 100%);
-    animation: moveGlowDark 25s ease-in-out infinite alternate;
-}
-
-/* Propriedades customizadas para animar a posição do gradiente de forma fluida */
-@property --glow-x {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 70%;
-}
-
-@property --glow-y {
-    syntax: '<percentage>';
-    inherits: false;
-    initial-value: 30%;
-}
-
-@keyframes moveGlowLight {
-    0% {
-        --glow-x: 80%;
-        --glow-y: 20%;
-    }
-
-    33% {
-        --glow-x: 20%;
-        --glow-y: 40%;
-    }
-
-    66% {
-        --glow-x: 40%;
-        --glow-y: 80%;
-    }
-
-    100% {
-        --glow-x: 90%;
-        --glow-y: 60%;
-    }
-}
-
-@keyframes moveGlowDark {
-    0% {
-        --glow-x: 80%;
-        --glow-y: 20%;
-    }
-
-    33% {
-        --glow-x: 15%;
-        --glow-y: 50%;
-    }
-
-    66% {
-        --glow-x: 50%;
-        --glow-y: 85%;
-    }
-
-    100% {
-        --glow-x: 85%;
-        --glow-y: 40%;
-    }
-}
-
-.hero-bg::after {
+.fixed-global-bg::before {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMDUiLz4KPC9zdmc+');
-    opacity: 0.3;
+    background-color: #000;
+    opacity: calc(var(--scroll-ratio, 0) * 0.5); /* Abyss effect: darkens up to 50% as you scroll */
+    z-index: -5;
+    pointer-events: none;
+    transition: opacity 0.1s ease-out;
 }
+
+[data-theme="light"] .fixed-global-bg::before {
+    background-color: #000;
+    opacity: calc(var(--scroll-ratio, 0) * 0.08); /* Sutil escurecimento no modo claro */
+}
+
+.abstract-shape {
+    position: absolute;
+    filter: blur(50px);
+    border-radius: 50%; /* Elegant sheer soft edges */
+    z-index: -4;
+    pointer-events: none;
+    will-change: transform;
+}
+
+/* 1: Large soft background orb */
+.shape-1 {
+    width: 35vw; height: 35vw;
+    max-width: 500px; max-height: 500px;
+    background-color: rgba(var(--clr-gold-primary-rgb), calc(0.35 + 0.15 * var(--scroll-ratio, 0)));
+    top: 5%; left: 5%;
+    animation: drift 43s infinite ease-in-out;
+}
+/* 2: Elongated light ribbon */
+.shape-2 {
+    width: 50vw; height: 12vw;
+    max-width: 800px; max-height: 200px;
+    background-color: rgba(var(--clr-gold-dark-rgb), calc(0.3 + 0.20 * var(--scroll-ratio, 0)));
+    top: 30%; right: -5%;
+    animation: rotateRibbon 37s infinite ease-in-out;
+}
+/* 3: Dense small glowing node */
+.shape-3 {
+    width: 15vw; height: 15vw;
+    max-width: 250px; max-height: 250px;
+    background-color: rgba(var(--clr-gold-light-rgb), calc(0.35 + 0.15 * var(--scroll-ratio, 0)));
+    bottom: 20%; left: 25%;
+    animation: orbitNode 29s infinite ease-in-out;
+}
+/* 4: Another abstract ribbon */
+.shape-4 {
+    width: 40vw; height: 8vw;
+    max-width: 700px; max-height: 150px;
+    background-color: rgba(var(--clr-gold-primary-rgb), calc(0.25 + 0.20 * var(--scroll-ratio, 0)));
+    bottom: 5%; right: 30%;
+    animation: rotateRibbonReverse 47s infinite ease-in-out;
+}
+/* 5: Soft medium orb */
+.shape-5 {
+    width: 25vw; height: 25vw;
+    max-width: 400px; max-height: 400px;
+    background-color: rgba(var(--clr-gold-dark-rgb), calc(0.25 + 0.20 * var(--scroll-ratio, 0)));
+    top: 50%; left: 5%;
+    animation: driftVertical 31s infinite ease-in-out;
+}
+/* 6: Dense tiny orb */
+.shape-6 {
+    width: 10vw; height: 10vw;
+    max-width: 180px; max-height: 180px;
+    background-color: rgba(var(--clr-gold-light-rgb), calc(0.4 + 0.15 * var(--scroll-ratio, 0)));
+    top: 15%; right: 20%;
+    animation: orbitNodeSmall 23s infinite ease-in-out;
+}
+
+/* Light Theme Adjustments for elegant abstract shapes */
+[data-theme="light"] .shape-1 { background-color: rgba(var(--clr-gold-primary-rgb), calc(0.2 + 0.1 * var(--scroll-ratio, 0))); }
+[data-theme="light"] .shape-2 { background-color: rgba(var(--clr-gold-dark-rgb), calc(0.15 + 0.15 * var(--scroll-ratio, 0))); }
+[data-theme="light"] .shape-3 { background-color: rgba(var(--clr-gold-dark-rgb), calc(0.25 + 0.1 * var(--scroll-ratio, 0))); }
+[data-theme="light"] .shape-4 { background-color: rgba(var(--clr-gold-primary-rgb), calc(0.15 + 0.1 * var(--scroll-ratio, 0))); }
+[data-theme="light"] .shape-5 { background-color: rgba(var(--clr-gold-primary-rgb), calc(0.15 + 0.15 * var(--scroll-ratio, 0))); }
+[data-theme="light"] .shape-6 { background-color: rgba(var(--clr-gold-dark-rgb), calc(0.25 + 0.1 * var(--scroll-ratio, 0))); }
+
+@keyframes drift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    23% { transform: translate(30vw, 20vh) scale(1.1); }
+    57% { transform: translate(10vw, 40vh) scale(0.9); }
+    78% { transform: translate(45vw, 15vh) scale(1.05); }
+}
+@keyframes rotateRibbon {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    34% { transform: translate(-25vw, 35vh) rotate(115deg); }
+    61% { transform: translate(-40vw, 10vh) rotate(240deg); }
+    88% { transform: translate(-15vw, -15vh) rotate(315deg); }
+}
+@keyframes orbitNode {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    29% { transform: translate(40vw, -15vh) scale(1.3); }
+    63% { transform: translate(-5vw, 30vh) scale(0.8); }
+    85% { transform: translate(25vw, -35vh) scale(1.1); }
+}
+@keyframes rotateRibbonReverse {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    31% { transform: translate(35vw, -20vh) rotate(-130deg); }
+    58% { transform: translate(15vw, -40vh) rotate(-220deg); }
+    81% { transform: translate(-10vw, -15vh) rotate(-310deg); }
+}
+@keyframes driftVertical {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    27% { transform: translate(-25vw, -45vh) scale(1.15); }
+    53% { transform: translate(10vw, -60vh) scale(0.9); }
+    79% { transform: translate(-15vw, -20vh) scale(1.05); }
+}
+@keyframes orbitNodeSmall {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    35% { transform: translate(-45vw, 35vh) scale(1.4); }
+    68% { transform: translate(-10vw, -30vh) scale(0.7); }
+    82% { transform: translate(-30vw, 10vh) scale(1.2); }
+}
+
 
 .hero-content {
     max-width: 900px;
@@ -686,47 +744,6 @@ section {
     margin: 0 auto;
 }
 
-/* ==========================================================================
-   Infinite Marquee
-   ========================================================================== */
-.marquee-section {
-    width: 100%;
-    background-color: var(--clr-gold-primary);
-    color: #111;
-    /* Cor escura sólida para contraste perfeito no dourado */
-    padding: 1.5rem 0;
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    white-space: nowrap;
-    z-index: 10;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.marquee-inner {
-    display: flex;
-    width: fit-content;
-    will-change: transform;
-}
-
-.marquee-part {
-    flex-shrink: 0;
-    padding: 0 1rem;
-    font-family: var(--font-heading);
-    font-size: 2rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    display: flex;
-    align-items: center;
-}
-
-.marquee-part .bullet {
-    margin: 0 1rem;
-    font-size: 1.5rem;
-    opacity: 0.7;
-}
 
 /* ==========================================================================
    Services Section
@@ -738,8 +755,10 @@ section {
 }
 
 .service-card {
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
+    background-color: rgba(20, 20, 20, 0.45); /* Pouquinho mais transparente mantendo o vidro ofuscado */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 8px;
     padding: 2.5rem 2rem;
     text-align: left;
@@ -751,11 +770,20 @@ section {
     align-items: flex-start;
     position: relative;
     overflow: hidden;
-    /* Configurações para o Efeito 3D */
+
+    /* Configurações para o Efeito 3D (Corrigido para dentro da classe) */
     transform-style: preserve-3d;
     perspective: 1000px;
     will-change: transform;
-    cursor: none;
+    cursor: none !important;
+
+    /* Theme transition override for smooth toggle */
+    transition-property: transform, border-color, box-shadow, background-color !important;
+}
+
+[data-theme="light"] .service-card {
+    background-color: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 /* Opcional: Efeito de borda luminosa ou brilho no Hover interno (Holográfico) */
@@ -767,15 +795,19 @@ section {
     right: 0;
     bottom: 0;
     pointer-events: none;
-    background: radial-gradient(circle at var(--mouseX, 50%) var(--mouseY, 50%), rgba(212, 175, 55, 0.15), transparent 60%);
+    /* Glow effect that tracks the mouse using primary gold color, fading out cleanly at a set pixel radius */
+    background: radial-gradient(300px circle at var(--mouseX, 50%) var(--mouseY, 50%), rgba(var(--clr-gold-primary-rgb), 0.35) 0%, transparent 100%);
     opacity: 0;
     transition: opacity var(--transition-normal);
+    z-index: 0; /* Ensures the glow stays behind the text */
 }
 
 .service-card:hover {
-    transform: translateY(-10px);
-    border-color: rgba(var(--clr-gold-primary-rgb), 0.4);
-    box-shadow: var(--shadow-glow);
+    border-color: rgba(var(--clr-gold-primary-rgb), 0.5);
+    box-shadow:
+        0 8px 30px rgba(var(--clr-gold-primary-rgb), 0.25),
+        0 0 50px rgba(var(--clr-gold-primary-rgb), 0.15),
+        0 0 0 1px rgba(var(--clr-gold-primary-rgb), 0.1);
 }
 
 .service-card:hover::before {
@@ -794,6 +826,8 @@ section {
     color: var(--clr-gold-primary);
     font-size: 1.5rem;
     transition: all var(--transition-normal);
+    position: relative;
+    z-index: 1;
 }
 
 .service-card:hover .icon-wrapper {
@@ -803,11 +837,134 @@ section {
 
 .service-card h3 {
     margin-bottom: 1rem;
+    position: relative;
+    z-index: 1;
 }
 
 .service-card p {
     color: var(--text-muted);
     font-size: 0.95rem;
+    position: relative;
+    z-index: 1;
+}
+
+.card-action {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 1.5rem;
+    color: var(--clr-gold-primary);
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0;
+    transition: all var(--transition-normal);
+    position: relative;
+    z-index: 1;
+    transform: translateY(10px);
+}
+
+.card-action i {
+    transition: transform var(--transition-normal);
+}
+
+.service-card:hover .card-action {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.service-card:hover .card-action i {
+    transform: translateX(5px);
+}
+
+/* Garante visibilidade no mobile onde não existe hover real */
+@media (max-width: 992px) {
+    .card-action {
+        opacity: 0.8;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================================================
+   Values Section
+   ========================================================================== */
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+    gap: 2rem;
+}
+
+.value-item {
+    background-color: rgba(20, 20, 20, 0.45);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-top: 1px solid rgba(var(--clr-gold-primary-rgb), 0.3);
+    border-radius: 12px;
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal), border-color var(--transition-normal);
+    color: var(--text-main);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: left;
+}
+
+.value-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-glow);
+    border-top-color: var(--clr-gold-primary);
+}
+
+.value-item .value-number {
+    position: absolute;
+    top: -5px;
+    right: 15px;
+    font-size: 6rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(var(--clr-gold-primary-rgb), 0.15);
+    line-height: 1;
+    z-index: 0;
+    pointer-events: none;
+    transition: -webkit-text-stroke var(--transition-normal);
+}
+
+.value-item:hover .value-number {
+    -webkit-text-stroke: 1px rgba(var(--clr-gold-primary-rgb), 0.5);
+}
+
+.value-item h3 {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 1rem;
+    color: var(--clr-white);
+    font-size: 1.5rem;
+}
+
+.value-item p {
+    position: relative;
+    z-index: 1;
+    color: var(--text-muted);
+}
+
+/* Light theme for values */
+[data-theme="light"] .value-item {
+    background-color: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-top: 1px solid rgba(var(--clr-gold-primary-rgb), 0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+[data-theme="light"] .value-item .value-number {
+    -webkit-text-stroke: 1px rgba(var(--clr-gold-primary-rgb), 0.2);
+}
+
+[data-theme="light"] .value-item h3 {
+    color: var(--text-heading);
 }
 
 /* ==========================================================================
@@ -848,8 +1005,23 @@ section {
         left: calc(40% - 2rem);
         top: 0;
         bottom: 0;
-        width: 1px;
-        background: linear-gradient(to bottom, transparent, rgba(var(--clr-gold-primary-rgb), 0.3) 15%, rgba(var(--clr-gold-primary-rgb), 0.3) 85%, transparent);
+        width: 2px;
+        background: rgba(var(--clr-gold-primary-rgb), 0.1);
+    }
+
+    .history-line-progress {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 0%; /* Animado via GSAP */
+        background: linear-gradient(to bottom, 
+            transparent, 
+            var(--clr-gold-primary), 
+            var(--clr-gold-primary), 
+            transparent
+        );
+        box-shadow: 0 0 15px rgba(var(--clr-gold-primary-rgb), 0.5);
     }
 }
 
@@ -890,82 +1062,21 @@ section {
     height: 100%;
     object-fit: cover;
     border-radius: 12px;
-}
-
-/* Base animation setup for crossfade (4 imagens) */
-.history-image.cf-img1,
-.history-image.cf-img2,
-.history-image.cf-img3,
-.history-image.cf-img4 {
-    animation-name: crossfade4;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    animation-duration: 20s;
-    /* 5s per stage = 20s cycle */
     opacity: 0;
-    /* All images start hidden until their delay hits */
+    transform: scale(1.1);
+    transition: none; /* Controlado via GSAP para precisão de scrollytelling */
+    will-change: opacity, transform;
 }
 
-/* Delays control when each image enters the 20s cycle */
 .history-image.cf-img1 {
-    animation-delay: 0s;
+    opacity: 1;
+    transform: scale(1);
 }
 
-.history-image.cf-img2 {
-    animation-delay: 5s;
-}
+/* Base animation setup for crossfade (3 imagens) */
 
-.history-image.cf-img3 {
-    animation-delay: 10s;
-}
-
-.history-image.cf-img4 {
-    animation-delay: 15s;
-}
-
-/* The 20s animation keyframe (reused by all delayed images) */
-@keyframes crossfade4 {
-    0% {
         opacity: 0;
     }
-
-    5% {
-        opacity: 1;
-    }
-
-    /* Fade in takes 1 second (5% of 20s) */
-    25% {
-        opacity: 1;
-    }
-
-    /* Stay visible until 5 second mark (25%) */
-    30% {
-        opacity: 0;
-    }
-
-    /* Fade out by 6 second mark (30%) */
-    100% {
-        opacity: 0;
-    }
-
-    /* Stay hidden until the cycle restarts */
-}
-
-/* Estilos para os espaços de fotos em branco */
-.placeholder-box {
-    background-color: rgba(255, 255, 255, 0.05);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.placeholder-box::after {
-    content: "Espaço para Foto";
-    color: rgba(var(--clr-gold-primary-rgb), 0.3);
-    font-family: var(--font-body);
-    font-size: 1.1rem;
-    letter-spacing: 0.1em;
-    font-weight: 500;
 }
 
 .history-image-caption {
@@ -1471,16 +1582,23 @@ section {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    /* No scrollbar on the outer container */
-    background: var(--bg-surface);
+    /* Glassmorphism ao invés de dark solid */
+    background-color: rgba(20, 20, 20, 0.45);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border-radius: 12px;
     padding: 0;
     /* Padding moved to inner elements */
     position: relative;
     transform: translateY(20px) scale(0.95);
     transition: all var(--transition-normal);
-    border: 1px solid var(--clr-gold-primary) !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(var(--clr-gold-primary-rgb), 0.1);
+}
+
+[data-theme="light"] .modal-content {
+    background-color: rgba(255, 255, 255, 0.65);
+    border: 1px solid rgba(0, 0, 0, 0.05) !important;
 }
 
 /* Modal Custom Scrollbar applied to the inner body */
@@ -1524,7 +1642,7 @@ section {
 .modal-icon-wrapper {
     width: 70px;
     height: 70px;
-    background: linear-gradient(135deg, rgba(var(--clr-gold-primary-rgb), 0.1), rgba(var(--clr-gold-primary-rgb), 0.2));
+    background: rgba(var(--clr-gold-primary-rgb), 0.1);
     color: var(--clr-gold-primary);
     border-radius: 50%;
     display: flex;
@@ -1532,7 +1650,24 @@ section {
     justify-content: center;
     font-size: 2rem;
     margin: 0 auto 1.5rem;
-    border: 1px solid rgba(var(--clr-gold-primary-rgb), 0.3);
+    box-shadow: 0 0 20px rgba(var(--clr-gold-primary-rgb), 0.15);
+    border: none;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    cursor: none;
+    perspective: 1000px;
+}
+
+.modal-icon-wrapper:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(var(--clr-gold-primary-rgb), 0.3);
+}
+
+.modal-icon-wrapper i {
+    transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-icon-wrapper:hover i {
+    transform: rotateY(360deg);
 }
 
 .modal-header h3 {
@@ -1556,15 +1691,16 @@ section {
 }
 
 .modal-features {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(20, 20, 20, 0.3);
+    backdrop-filter: blur(4px);
     padding: 1.5rem;
     border-radius: 8px;
     margin-bottom: 2rem;
-    border: 1px solid var(--border-color);
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 [data-theme="light"] .modal-features {
-    background: rgba(0, 0, 0, 0.03);
+    background: rgba(255, 255, 255, 0.3);
 }
 
 .modal-features h4 {
