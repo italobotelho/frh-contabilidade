@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const isDark = theme === 'dark';
 
         if (themeToggleBtn) {
-            themeToggleBtn.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            // Pill toggle: ícones são estáticos, CSS controla o estado via [data-theme]
+            themeToggleBtn.setAttribute('aria-checked', String(isDark));
         }
         if (headerLogo) headerLogo.src = isDark ? 'assets/images/logo-4.png' : 'assets/images/logo.png';
         if (footerLogo) footerLogo.src = isDark ? 'assets/images/logo-footer.png' : 'assets/images/logo.png';
@@ -161,15 +162,27 @@ document.addEventListener('DOMContentLoaded', () => {
         threshold: 0
     };
 
+    // Fix 7: Rastreia quantas seções estão atualmente intersectando
+    let intersectingCount = 0;
+
     const spyObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                intersectingCount++;
                 const id = entry.target.getAttribute('id');
                 navItems.forEach(item => {
                     item.classList.toggle('active', item.getAttribute('href') === `#${id}`);
                 });
+            } else {
+                intersectingCount = Math.max(0, intersectingCount - 1);
             }
         });
+
+        // Se nenhuma seção estiver na zona de detecção (ex: topo da página),
+        // limpa todos os links ativos para não deixar o último "preso"
+        if (intersectingCount === 0) {
+            navItems.forEach(item => item.classList.remove('active'));
+        }
     }, spyOptions);
 
     sections.forEach(section => {
@@ -752,4 +765,61 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Funcionalidade de Footer Reveal Removida (A nova Arquitetura Single-Page Fixed Background exige fundo transparente global inviabilizando uso de z-index de sobreposição do mainContent)
+
+    // 17. FAQ Accordion
+    const faqList = document.querySelector('.faq-list');
+    if (faqList) {
+        faqList.addEventListener('click', (e) => {
+            const btn = e.target.closest('.faq-question');
+            if (!btn) return;
+
+            const item = btn.closest('.faq-item');
+            const answer = item.querySelector('.faq-answer');
+            const isOpen = item.classList.contains('is-open');
+
+            // Fecha todos os outros itens abertos (accordion behavior)
+            document.querySelectorAll('.faq-item.is-open').forEach(openItem => {
+                if (openItem !== item) {
+                    openItem.classList.remove('is-open');
+                    openItem.querySelector('.faq-answer').style.maxHeight = '0';
+                    openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+                }
+            });
+
+            // Alterna o item clicado
+            if (isOpen) {
+                item.classList.remove('is-open');
+                answer.style.maxHeight = '0';
+                btn.setAttribute('aria-expanded', 'false');
+            } else {
+                item.classList.add('is-open');
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        });
+    }
+
+    // 18. Badge de Horário — LED verde/vermelho conforme expediente (Brasília)
+    function updateScheduleBadge() {
+        const dot        = document.querySelector('.badge-dot');
+        const statusText = document.querySelector('.trust-status-text');
+        if (!dot || !statusText) return;
+
+        // Hora atual no fuso horário de São Paulo (UTC-3 / UTC-2 no horário de verão)
+        const now   = new Date();
+        const spNow = new Date(now.toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' }));
+        const day   = spNow.getDay();   // 0 = Dom, 1 = Seg … 6 = Sáb
+        const mins  = spNow.getHours() * 60 + spNow.getMinutes();
+
+        const isBusinessDay  = day >= 1 && day <= 5;        // Seg a Sex
+        const isBusinessHour = mins >= 8 * 60 && mins < 17 * 60; // 08:00 – 17:00
+        const isOpen         = isBusinessDay && isBusinessHour;
+
+        dot.classList.toggle('badge-dot--closed', !isOpen);
+        statusText.textContent = isOpen ? 'Aberto agora' : 'Fechado agora';
+    }
+
+    updateScheduleBadge();
+    // Re-verifica a cada minuto (para páginas abertas durante a virada de horário)
+    setInterval(updateScheduleBadge, 60_000);
 });

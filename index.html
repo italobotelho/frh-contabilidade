@@ -6,7 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#F8F9FA" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#0A0A0A" media="(prefers-color-scheme: dark)">
-    <title>FRH Contabilidade e Assessoria</title>
+    <title>FRH Contabilidade e Assessoria | Jaguariúna e Região</title>
+    <!-- SEO: Meta Description -->
+    <meta name="description" content="FRH Contabilidade e Assessoria em Jaguariúna/SP. Especialistas em abertura de empresas, Imposto de Renda, IRPF, IRPJ, regularização de CPF, DISO, ITR e INCRA. +20 anos de experiência. Atendimento presencial e digital.">
+    <meta name="keywords" content="contabilidade Jaguariúna, contador Jaguariúna, abertura de empresa, imposto de renda, IRPF, regularização CPF, DISO, ITR, INCRA, FRH Contabilidade">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.frhcontabilidade.com.br/">
+    <!-- Open Graph (WhatsApp, LinkedIn, Facebook) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.frhcontabilidade.com.br/">
+    <meta property="og:title" content="FRH Contabilidade e Assessoria | Jaguariúna">
+    <meta property="og:description" content="Mais de 20 anos de expertise contábil. Abertura de empresas, IR, regularização de CPF, DISO, ITR e muito mais. Atendimento presencial e digital.">
+    <meta property="og:image" content="https://www.frhcontabilidade.com.br/assets/images/og-cover.png">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="FRH Contabilidade">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="FRH Contabilidade e Assessoria">
+    <meta name="twitter:description" content="Soluções completas em contabilidade, planejamento tributário e assessoria empresarial em Jaguariúna/SP.">
+    <meta name="twitter:image" content="https://www.frhcontabilidade.com.br/assets/images/og-cover.png">
     <!-- Modern Typography: Playfair Display for headings (elegant), Inter for body (clean) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,6 +35,15 @@
     <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Fix 8: Previne FOUC de tema — aplica o data-theme ANTES do CSS renderizar -->
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            if (saved === 'dark' || saved === 'light') {
+                document.documentElement.setAttribute('data-theme', saved);
+            }
+        })();
+    </script>
     <link rel="stylesheet" href="style.css">
 
     <!-- Third-Party Libraries for Interactions -->
@@ -62,8 +89,10 @@
                     <a href="#contato" class="btn-primary magnetic-btn">Fale Conosco</a>
                 </nav>
                 <div class="nav-actions">
-                    <button class="theme-toggle magnetic-btn" id="themeToggle" aria-label="Alternar Tema">
-                        <i class="fas fa-moon"></i>
+                    <button class="theme-toggle magnetic-btn" id="themeToggle" aria-label="Alternar Tema" role="switch" aria-checked="false">
+                        <span class="pill-moon" aria-hidden="true"><i class="fas fa-moon"></i></span>
+                        <span class="pill-sun"  aria-hidden="true"><i class="fas fa-sun"></i></span>
+                        <span class="pill-thumb"></span>
                     </button>
                     <button class="mobile-menu-btn" aria-label="Menu">
                         <i class="fas fa-bars"></i>
@@ -89,6 +118,41 @@
         </section>
 
 
+
+        <!-- Trust Strip -->
+        <section class="trust-strip" aria-label="Números de credibilidade">
+            <div class="container">
+                <div class="trust-strip-grid">
+                    <div class="trust-item fade-in-up delay-1">
+                        <span class="trust-number">+20</span>
+                        <span class="trust-label">Anos de Expertise</span>
+                    </div>
+                    <div class="trust-divider" aria-hidden="true"></div>
+                    <div class="trust-item fade-in-up delay-2">
+                        <span class="trust-number">+200</span>
+                        <span class="trust-label">Clientes Atendidos</span>
+                    </div>
+                    <div class="trust-divider" aria-hidden="true"></div>
+                    <div class="trust-item fade-in-up delay-3">
+                        <span class="trust-number">100%</span>
+                        <span class="trust-label">Foco no Cliente</span>
+                    </div>
+                    <div class="trust-divider" aria-hidden="true"></div>
+                    <div class="trust-item fade-in-up delay-4">
+                        <span class="trust-number">Digital</span>
+                        <span class="trust-label">Atendimento em Todo o Brasil</span>
+                    </div>
+                    <div class="trust-divider" aria-hidden="true"></div>
+                    <div class="trust-item trust-item--schedule fade-in-up delay-5">
+                        <span class="trust-schedule-status">
+                            <span class="badge-dot"></span>
+                            <span class="trust-status-text">Carregando...</span>
+                        </span>
+                        <span class="trust-label">Seg a Sex &bull; 8h às 17h</span>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Services Section -->
         <section class="services section-padding" id="servicos">
@@ -296,6 +360,134 @@
             </div>
         </section>
 
+        <!-- Testimonials Section -->
+        <section class="testimonials section-padding bg-darker" id="depoimentos">
+            <div class="container">
+                <div class="section-header text-center fade-in-up">
+                    <h2 class="reveal-text">O que nossos <span class="text-gold">clientes dizem</span></h2>
+                    <p>Resultados reais, construídos com confiança e dedicação.</p>
+                </div>
+
+                <div class="testimonials-grid">
+                    <!-- Depoimento 1 -->
+                    <div class="testimonial-card glass-panel reveal-on-scroll">
+                        <div class="testimonial-quote"><i class="fas fa-quote-left"></i></div>
+                        <p class="testimonial-text">A FRH transformou a gestão contábil da minha empresa. Processo de abertura concluído em tempo recorde, com total suporte da equipe. Recomendo sem hesitar.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">RM</div>
+                            <div>
+                                <strong>Ricardo Moraes</strong>
+                                <span>Empresário — Jaguariúna/SP</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Depoimento 2 -->
+                    <div class="testimonial-card glass-panel reveal-on-scroll">
+                        <div class="testimonial-quote"><i class="fas fa-quote-left"></i></div>
+                        <p class="testimonial-text">Depois de anos com dor de cabeça na declaração do IR, a FRH resolveu tudo com clareza e planejamento. Tive restituição que nem sabia que tinha direito.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">CA</div>
+                            <div>
+                                <strong>Carla Assunção</strong>
+                                <span>Professora — Holambra/SP</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Depoimento 3 -->
+                    <div class="testimonial-card glass-panel reveal-on-scroll">
+                        <div class="testimonial-quote"><i class="fas fa-quote-left"></i></div>
+                        <p class="testimonial-text">A regularização da nossa obra estava parada há meses. A FRH destrancou tudo com o DISO e conseguimos a CND em semanas. Profissionalismo exemplar.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">JS</div>
+                            <div>
+                                <strong>João Silveira</strong>
+                                <span>Proprietário — Pedreira/SP</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Depoimento 4 -->
+                    <div class="testimonial-card glass-panel reveal-on-scroll">
+                        <div class="testimonial-quote"><i class="fas fa-quote-left"></i></div>
+                        <p class="testimonial-text">Atendimento humano, rápido e sem burocracia. A equipe da FRH cuida de tudo digitalmente — nunca precisei perder tempo em cartório ou fila de banco.</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">PL</div>
+                            <div>
+                                <strong>Patrícia Lima</strong>
+                                <span>MEI — Jaguariúna/SP</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq section-padding" id="faq">
+            <div class="container">
+                <div class="section-header text-center fade-in-up">
+                    <h2 class="reveal-text">Perguntas <span class="text-gold">Frequentes</span></h2>
+                    <p>Respondemos as dúvidas mais comuns antes mesmo de você precisar perguntar.</p>
+                </div>
+
+                <div class="faq-list fade-in-up">
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Posso migrar de contador para a FRH sem burocracia?</span>
+                            <i class="fas fa-plus faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Sim. Cuidamos de todo o processo de migração — solicitamos os documentos ao contador anterior, fazemos a transição dos livros contábeis e cadastros fiscais sem que você precise se preocupar com nada. A troca é simples e não gera nenhuma penalidade.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Vocês atendem MEI e pequenas empresas?</span>
+                            <i class="fas fa-plus faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Sim. Atendemos desde MEIs até empresas de médio porte, nos regimes Simples Nacional, Lucro Presumido e Lucro Real. Cada caso recebe uma análise personalizada para o enquadramento tributário mais vantajoso.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Como funciona o processo de declaração do Imposto de Renda?</span>
+                            <i class="fas fa-plus faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Você nos envia seus informes de rendimentos, recibos de despesas médicas, educação e outros dedutiveis. Nossa equipe faz a análise, apura os valores, estrutura a declaração com planejamento para maximizar a restituição (ou reduzir o imposto a pagar) e envia para sua revisão antes de transmitir.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>O atendimento é presencial ou posso ser atendido de forma digital?</span>
+                            <i class="fas fa-plus faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Oferecemos as duas modalidades. Nosso escritório fica em Jaguariúna/SP, mas a grande maioria dos serviços é realizada 100% via nuvem — envio de documentos por WhatsApp, e-mail ou plataformas digitais. Clientes de outras cidades são atendidos com a mesma qualidade.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Meu CPF está irregular na Receita Federal. Quanto tempo leva para regularizar?</span>
+                            <i class="fas fa-plus faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>O prazo varia conforme a pendência. Casos simples (dados desatualizados, ausência de declaração) costumam ser resolvidos em poucos dias. Situações de malha fina ou débitos em parcelamento podem levar algumas semanas. Fazemos o diagnóstico completo antes de iniciar o processo.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-question" aria-expanded="false">
+                            <span>Como faço para abrir a minha empresa com a FRH?</span>
+                            <i class="fas fa-plus faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Basta entrar em contato pelo formulário ou WhatsApp. Coletamos as informações do seu negócio (atividade, sócios, capital social), orientamos o melhor tipo societário e enquadramento tributário, e cuidamos de toda a parte burocrática junto aos órgãos competentes — Junta Comercial, Receita Federal, Prefeitura e mais.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Contact & Location Section -->
         <section class="contact section-padding bg-darker" id="contato">
             <div class="container">
@@ -319,7 +511,7 @@
                             <i class="fas fa-phone text-gold"></i>
                             <div>
                                 <h4>Telefone</h4>
-                                <p>(11) 4002-8922</p>
+                                <p>(19) 99999-8922</p>
                             </div>
                         </div>
                         <div class="info-block">
@@ -375,6 +567,12 @@
                                 <span class="error-message">A mensagem deve ter pelo menos 10 caracteres.</span>
                             </div>
 
+                            <!-- LGPD: Consentimento de dados -->
+                            <p class="lgpd-notice">
+                                <i class="fas fa-shield-halved" aria-hidden="true"></i>
+                                <span>Ao enviar este formulário, você concorda com o uso dos seus dados para fins de contato, conforme nossa <a href="/politica-de-privacidade.html" target="_blank" rel="noopener noreferrer">Política de Privacidade</a> (LGPD — Lei nº 13.709/2018).</span>
+                            </p>
+
                             <button type="submit" id="submitBtn" class="btn-primary full-width">Enviar Mensagem</button>
                         </form>
                     </div>
@@ -406,28 +604,29 @@
                     <ul>
                         <li><a href="#servicos">Assessoria Contábil</a></li>
                         <li><a href="#servicos">Gestão Fiscal e Tributária</a></li>
-                        <li><a href="#servicos">Recursos Humanos</a></li>
+                        <li><a href="#servicos">Regularização de CPF</a></li>
                         <li><a href="#servicos">Abertura de Empresas</a></li>
                     </ul>
                 </div>
                 <div class="footer-contact-info">
                     <h4>Fale Diretamente</h4>
                     <p style="color: var(--text-muted); margin-bottom: 0.8rem;"><i class="fas fa-phone text-gold"
-                            style="margin-right: 8px;"></i> (11) 4002-8922</p>
+                            style="margin-right: 8px;"></i> (19) 99999-8922</p>
                     <p style="color: var(--text-muted); margin-bottom: 0.8rem;"><i class="fas fa-envelope text-gold"
                             style="margin-right: 8px;"></i> contato@frhcontabilidade.com.br</p>
                     <p style="color: var(--text-muted); margin-bottom: 1.5rem;"><i class="fas fa-clock text-gold"
                             style="margin-right: 8px;"></i> Seg a Sex, das 8h às 17h</p>
 
                     <div class="social-icons" style="margin-top: 1rem;">
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <!-- TODO: Substituir os href pelos links reais dos perfis quando disponíveis -->
+                        <a href="https://linkedin.com/company/frhcontabilidade" aria-label="LinkedIn da FRH Contabilidade" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://instagram.com/frhcontabilidade" aria-label="Instagram da FRH Contabilidade" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="https://facebook.com/frhcontabilidade" aria-label="Facebook da FRH Contabilidade" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; <span id="currentYear"></span> FRH Contabilidade e Assessoria LTDA. Todos os direitos reservados.</p>
+                <p>&copy; <span id="currentYear"></span> FRH Contabilidade e Assessoria LTDA. Todos os direitos reservados. &bull; <a href="politica-de-privacidade.html" style="color: var(--text-muted); text-decoration: underline;">Política de Privacidade</a></p>
                 <p class="developer-credit" style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-muted);">Desenvolvido por <a href="https://github.com/italobotelho" target="_blank" rel="noopener noreferrer" style="color: var(--clr-gold-primary); font-weight: 600;">Italo Botelho</a></p>
             </div>
         </div>
@@ -435,7 +634,7 @@
     </main>
 
     <!-- Floating WhatsApp Button -->
-    <a href="#" class="floating-whatsapp" aria-label="Chat no WhatsApp" target="_blank" rel="noopener noreferrer">
+    <a href="https://wa.me/5519999998922?text=Ol%C3%A1%2C%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20os%20servi%C3%A7os%20da%20FRH%20Contabilidade." class="floating-whatsapp" aria-label="Chat no WhatsApp" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-whatsapp"></i>
     </a>
 

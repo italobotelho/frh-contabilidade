@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Privacidade | FRH Contabilidade e Assessoria</title>
+    <meta name="description" content="Política de Privacidade da FRH Contabilidade e Assessoria. Saiba como tratamos seus dados pessoais em conformidade com a LGPD (Lei nº 13.709/2018).">
+    <meta name="robots" content="noindex, follow">
+    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ── Design tokens herdados do site principal ── */
+        :root {
+            --clr-gold-primary: #C79A2B;
+            --clr-gold-light: #DFB44F;
+            --clr-gold-dark: #A37C1C;
+            --clr-gold-primary-rgb: 199, 154, 43;
+            --bg-base: #F8F9FA;
+            --bg-surface: #FFFFFF;
+            --border-color: #E2E8F0;
+            --text-main: #2D3748;
+            --text-muted: #718096;
+            --text-heading: #1A202C;
+            --font-heading: 'Playfair Display', serif;
+            --font-body: 'Inter', sans-serif;
+            --max-width: 860px;
+            --nav-height: 72px;
+            --transition-normal: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-base: #0A0A0A;
+            --bg-surface: #141414;
+            --border-color: #2A2A2A;
+            --text-main: #E0E0E0;
+            --text-muted: #A0A0A0;
+            --text-heading: #FFFFFF;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; font-size: 16px; }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            line-height: 1.7;
+        }
+
+        a { color: var(--clr-gold-primary); text-decoration: none; transition: color var(--transition-normal); }
+        a:hover { color: var(--clr-gold-light); }
+
+        /* ── Navbar ── */
+        .navbar {
+            position: sticky;
+            top: 0;
+            height: var(--nav-height);
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo img { height: 48px; width: auto; object-fit: contain; }
+
+        .nav-back {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color var(--transition-normal);
+        }
+
+        .nav-back:hover { color: var(--clr-gold-primary); }
+
+        /* ── Main layout ── */
+        .page-wrapper {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 4rem 1.5rem 6rem;
+        }
+
+        /* ── Hero da página ── */
+        .page-hero {
+            margin-bottom: 3.5rem;
+            padding-bottom: 2.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .page-hero .eyebrow {
+            display: inline-block;
+            color: var(--clr-gold-primary);
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 1rem;
+        }
+
+        .page-hero h1 {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            color: var(--text-heading);
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .page-hero .meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .page-hero .meta span { display: flex; align-items: center; gap: 0.4rem; }
+
+        /* ── Conteúdo ── */
+        .content section {
+            margin-bottom: 3rem;
+        }
+
+        .content h2 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--text-heading);
+            margin-bottom: 1rem;
+            padding-left: 1rem;
+            border-left: 3px solid var(--clr-gold-primary);
+        }
+
+        .content p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-size: 0.97rem;
+        }
+
+        .content ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 1rem;
+        }
+
+        .content ul li {
+            color: var(--text-muted);
+            font-size: 0.97rem;
+            padding: 0.4rem 0 0.4rem 1.6rem;
+            position: relative;
+        }
+
+        .content ul li::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: var(--clr-gold-primary);
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .content strong { color: var(--text-heading); font-weight: 600; }
+
+        /* ── Callout box ── */
+        .callout {
+            background: rgba(var(--clr-gold-primary-rgb), 0.06);
+            border: 1px solid rgba(var(--clr-gold-primary-rgb), 0.2);
+            border-radius: 8px;
+            padding: 1.5rem 1.8rem;
+            margin: 2rem 0;
+        }
+
+        .callout p { margin: 0; color: var(--text-main); }
+
+        .callout i { color: var(--clr-gold-primary); margin-right: 0.5rem; }
+
+        /* ── Contact block ── */
+        .contact-block {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .contact-block p { margin-bottom: 0.5rem; }
+        .contact-block p:last-child { margin-bottom: 0; }
+
+        /* ── Footer ── */
+        .page-footer {
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            max-width: var(--max-width);
+            margin: 0 auto;
+        }
+
+        .page-footer a { color: var(--clr-gold-primary); }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar simplificada -->
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="/" class="nav-logo">
+                <img src="assets/images/logo.png" alt="FRH Contabilidade Logo">
+            </a>
+            <a href="/" class="nav-back">
+                <i class="fas fa-arrow-left"></i> Voltar ao site
+            </a>
+        </div>
+    </nav>
+
+    <main class="page-wrapper">
+
+        <!-- Cabeçalho da página -->
+        <header class="page-hero">
+            <span class="eyebrow">Privacidade &amp; LGPD</span>
+            <h1>Política de Privacidade</h1>
+            <div class="meta">
+                <span><i class="fas fa-calendar-alt"></i> Última atualização: Abril de 2025</span>
+                <span><i class="fas fa-file-alt"></i> Lei nº 13.709/2018 (LGPD)</span>
+            </div>
+        </header>
+
+        <!-- Conteúdo principal -->
+        <div class="content">
+
+            <div class="callout">
+                <p><i class="fas fa-shield-halved"></i> <strong>Sua privacidade é nossa prioridade.</strong> Este documento explica de forma clara como a FRH Contabilidade e Assessoria coleta, usa e protege seus dados pessoais, em conformidade com a Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018).</p>
+            </div>
+
+            <section>
+                <h2>1. Quem somos</h2>
+                <p><strong>FRH Contabilidade e Assessoria LTDA</strong> é uma empresa especializada em serviços contábeis, tributários e de assessoria empresarial, com sede em:</p>
+                <p>Rua Maria Ângela, 390 — 1º Andar, Sala 20<br>Novo Jaguari, Jaguariúna — SP, CEP 13820-000<br>E-mail: <a href="mailto:contato@frhcontabilidade.com.br">contato@frhcontabilidade.com.br</a></p>
+            </section>
+
+            <section>
+                <h2>2. Quais dados coletamos</h2>
+                <p>Coletamos apenas os dados necessários para prestar nossos serviços e atender seu contato:</p>
+                <ul>
+                    <li><strong>Dados de identificação:</strong> nome completo</li>
+                    <li><strong>Dados de contato:</strong> e-mail, telefone e/ou WhatsApp</li>
+                    <li><strong>Dados de comunicação:</strong> conteúdo das mensagens enviadas pelo formulário</li>
+                    <li><strong>Dados de navegação:</strong> cookies de desempenho e preferências (ex: tema claro/escuro) armazenados localmente no seu dispositivo</li>
+                </ul>
+                <p>Não coletamos dados sensíveis (saúde, biometria, etnia, etc.) por meio deste site.</p>
+            </section>
+
+            <section>
+                <h2>3. Para que usamos seus dados</h2>
+                <ul>
+                    <li>Responder ao seu contato e fornecer informações sobre nossos serviços</li>
+                    <li>Agendar consultorias e atendimentos</li>
+                    <li>Enviar informações relevantes quando expressamente solicitado</li>
+                    <li>Cumprir obrigações legais e regulatórias</li>
+                </ul>
+                <p>Não utilizamos seus dados para fins publicitários, profilagem automatizada ou comercialização a terceiros.</p>
+            </section>
+
+            <section>
+                <h2>4. Base legal para o tratamento</h2>
+                <p>O tratamento dos seus dados é realizado com base nas seguintes hipóteses previstas na LGPD (art. 7º):</p>
+                <ul>
+                    <li><strong>Consentimento</strong> — ao preencher e enviar o formulário de contato</li>
+                    <li><strong>Execução de contrato</strong> — para prestação dos serviços contratados</li>
+                    <li><strong>Cumprimento de obrigação legal</strong> — quando exigido por normas contábeis ou fiscais</li>
+                    <li><strong>Legítimo interesse</strong> — para melhorar a qualidade do atendimento</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>5. Compartilhamento de dados</h2>
+                <p>Seus dados podem ser compartilhados apenas nas seguintes situações:</p>
+                <ul>
+                    <li><strong>Parceiros de envio de formulário:</strong> utilizamos o serviço Web3Forms para recebimento das mensagens do formulário de contato. Somente os dados preenchidos são transmitidos.</li>
+                    <li><strong>Obrigações legais:</strong> quando exigido por autoridades competentes ou por força de lei.</li>
+                </ul>
+                <p>Não vendemos, alugamos ou cedemos seus dados a terceiros para fins comerciais.</p>
+            </section>
+
+            <section>
+                <h2>6. Armazenamento e segurança</h2>
+                <p>Seus dados são mantidos pelo tempo necessário para a finalidade que motivou a coleta ou pelo prazo mínimo exigido pela legislação aplicável. Adotamos medidas técnicas e organizacionais adequadas para proteger suas informações contra acesso não autorizado, perda ou alteração.</p>
+                <p>As preferências de navegação (como o tema do site) são salvas exclusivamente no seu dispositivo via <code>localStorage</code>, sem transmissão a servidores.</p>
+            </section>
+
+            <section>
+                <h2>7. Seus direitos como titular</h2>
+                <p>Nos termos da LGPD (art. 18), você tem direito a:</p>
+                <ul>
+                    <li>Confirmar a existência de tratamento dos seus dados</li>
+                    <li>Acessar os dados que mantemos sobre você</li>
+                    <li>Corrigir dados incompletos, inexatos ou desatualizados</li>
+                    <li>Solicitar a anonimização, bloqueio ou eliminação de dados desnecessários</li>
+                    <li>Revogar o consentimento a qualquer momento</li>
+                    <li>Solicitar a portabilidade dos seus dados</li>
+                    <li>Ser informado sobre com quem compartilhamos seus dados</li>
+                </ul>
+                <p>Para exercer qualquer um desses direitos, entre em contato conosco pelos canais abaixo.</p>
+            </section>
+
+            <section>
+                <h2>8. Cookies e armazenamento local</h2>
+                <p>Este site armazena no seu navegador apenas uma preferência de tema (claro ou escuro) via <code>localStorage</code>. Não utilizamos cookies de rastreamento, publicidade ou analytics de terceiros.</p>
+            </section>
+
+            <section>
+                <h2>9. Links externos</h2>
+                <p>Nosso site pode conter links para serviços externos (como Google Maps ou WhatsApp). Não nos responsabilizamos pelas políticas de privacidade desses serviços. Recomendamos que consulte as políticas de cada plataforma separadamente.</p>
+            </section>
+
+            <section>
+                <h2>10. Atualizações desta política</h2>
+                <p>Esta política pode ser atualizada periodicamente para refletir mudanças em nossos serviços ou na legislação. A data da última atualização sempre estará indicada no topo desta página. Mudanças significativas serão comunicadas diretamente quando aplicável.</p>
+            </section>
+
+            <section>
+                <h2>11. Contato e DPO</h2>
+                <p>Para dúvidas, solicitações referentes aos seus dados ou para exercer seus direitos, entre em contato:</p>
+
+                <div class="contact-block">
+                    <p><i class="fas fa-building" style="color: var(--clr-gold-primary); margin-right: 8px;"></i> <strong>FRH Contabilidade e Assessoria LTDA</strong></p>
+                    <p><i class="fas fa-envelope" style="color: var(--clr-gold-primary); margin-right: 8px;"></i> <a href="mailto:contato@frhcontabilidade.com.br">contato@frhcontabilidade.com.br</a></p>
+                    <p><i class="fas fa-map-marker-alt" style="color: var(--clr-gold-primary); margin-right: 8px;"></i> R. Maria Ângela, 390 — Sala 20, Jaguariúna/SP</p>
+                    <p><i class="fas fa-clock" style="color: var(--clr-gold-primary); margin-right: 8px;"></i> Seg a Sex, das 8h às 17h</p>
+                </div>
+
+                <p style="margin-top: 1rem;">Caso não obtenha resposta satisfatória, você pode contatar a <a href="https://www.gov.br/anpd" target="_blank" rel="noopener noreferrer">Autoridade Nacional de Proteção de Dados (ANPD)</a>.</p>
+            </section>
+
+        </div>
+    </main>
+
+    <footer class="page-footer">
+        <p>&copy; <span id="year"></span> FRH Contabilidade e Assessoria LTDA — <a href="/">Voltar ao site</a></p>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+        // Herda o tema salvo pelo site principal
+        const saved = localStorage.getItem('theme');
+        if (saved === 'dark' || saved === 'light') {
+            document.documentElement.setAttribute('data-theme', saved);
+        }
+    </script>
+
+</body>
+</html>
