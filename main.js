@@ -65,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sections = document.querySelectorAll('section');
     const navItems = document.querySelectorAll('.nav-links a[href^="#"]');
     const scrollProgress = document.getElementById('scrollProgress');
+    const globalBg = document.querySelector('.fixed-global-bg');
 
     // The single central function that handles all scroll-related paint updates
     const updateOnScroll = () => {
@@ -90,7 +91,9 @@ document.addEventListener('DOMContentLoaded', () => {
             scrollProgress.style.width = scrollPercent + '%';
             
             // Dynamic Background Intensity Effect
-            document.documentElement.style.setProperty('--scroll-ratio', scrollRatio);
+            if (globalBg) {
+                globalBg.style.setProperty('--scroll-ratio', scrollRatio);
+            }
         }
 
 
@@ -485,30 +488,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 9. Magnetic Buttons Logic (GSAP)
     if (typeof gsap !== 'undefined') {
-        const magneticBtns = document.querySelectorAll('.magnetic-btn');
+        let mm = gsap.matchMedia();
 
-        magneticBtns.forEach((btn) => {
-            btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
-                // Calcula a distância do centro do botão para o cursor
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
+        mm.add("(min-width: 992px) and (pointer: fine)", () => {
+            const magneticBtns = document.querySelectorAll('.magnetic-btn');
 
-                gsap.to(btn, {
-                    x: x * 0.3, // Força de "puxada" horizontal
-                    y: y * 0.3, // Força de "puxada" vertical
-                    duration: 0.5,
-                    ease: 'power2.out'
+            magneticBtns.forEach((btn) => {
+                const xTo = gsap.quickTo(btn, "x", {duration: 0.5, ease: "power2.out"});
+                const yTo = gsap.quickTo(btn, "y", {duration: 0.5, ease: "power2.out"});
+
+                btn.addEventListener('mousemove', (e) => {
+                    const rect = btn.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    xTo(x * 0.3);
+                    yTo(y * 0.3);
                 });
-            });
 
-            btn.addEventListener('mouseleave', () => {
-                // Efeito elástico ao voltar pro lugar
-                gsap.to(btn, {
-                    x: 0,
-                    y: 0,
-                    duration: 0.8,
-                    ease: 'elastic.out(1, 0.3)'
+                btn.addEventListener('mouseleave', () => {
+                    gsap.to(btn, { x: 0, y: 0, duration: 0.8, ease: 'elastic.out(1, 0.3)' });
                 });
             });
         });
@@ -517,64 +515,68 @@ document.addEventListener('DOMContentLoaded', () => {
     // 10. Text Reveal Animation (GSAP + SplitType)
     if (typeof gsap !== 'undefined' && typeof SplitType !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
         gsap.registerPlugin(ScrollTrigger);
+        let mm = gsap.matchMedia();
 
-        const revealTexts = document.querySelectorAll('.reveal-text');
+        mm.add("(min-width: 992px)", () => {
+            const revealTexts = document.querySelectorAll('.reveal-text');
 
-        revealTexts.forEach((textElement) => {
-            // Split the text into lines and characters
-            const split = new SplitType(textElement, { types: 'lines, chars' });
+            revealTexts.forEach((textElement) => {
+                const split = new SplitType(textElement, { types: 'lines, chars' });
+                textElement.classList.add('split-ready');
 
-            // Show the element now that it's split (prevents FOUC)
-            textElement.classList.add('split-ready');
-
-            // Setup the GSAP animation
-            gsap.from(split.chars, {
-                scrollTrigger: {
-                    trigger: textElement,
-                    start: 'top 85%', // Anima quando o topo do elemento atinge 85% da tela
-                    toggleActions: 'play none none none' // Toca uma vez
-                },
-                y: 30, // Move up less distance
-                opacity: 0,
-                duration: 0.5, // Mais rápido
-                stagger: 0.015, // Delay bem curto
-                ease: 'power2.out'
+                gsap.from(split.chars, {
+                    scrollTrigger: {
+                        trigger: textElement,
+                        start: 'top 85%',
+                        toggleActions: 'play none none none'
+                    },
+                    y: 30,
+                    opacity: 0,
+                    duration: 0.5,
+                    stagger: 0.015,
+                    ease: 'power2.out'
+                });
             });
         });
+    }
 
-        // 11. Image/Map Curtain Reveal (Parallax)
-        const curtains = document.querySelectorAll('.reveal-curtain');
+    // 11. Image/Map Curtain Reveal (Parallax)
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        let mm = gsap.matchMedia();
 
-        curtains.forEach(curtain => {
-            const overlay = curtain.querySelector('.curtain-overlay');
-            const media = curtain.querySelector('iframe') || curtain.querySelector('img');
+        mm.add("(min-width: 992px)", () => {
+            const curtains = document.querySelectorAll('.reveal-curtain');
 
-            if (overlay && media) {
-                // Pre set states
-                gsap.set(curtain, { visibility: 'visible' });
-                gsap.set(media, { scale: 1.2 });
+            curtains.forEach(curtain => {
+                const overlay = curtain.querySelector('.curtain-overlay');
+                const media = curtain.querySelector('iframe') || curtain.querySelector('img');
 
-                const tl = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: curtain,
-                        start: 'top 80%',
-                        toggleActions: 'play none none none'
-                    }
-                });
+                if (overlay && media) {
+                    gsap.set(curtain, { visibility: 'visible' });
+                    gsap.set(media, { scale: 1.2 });
 
-                tl.to(overlay, {
-                    scaleY: 0,
-                    transformOrigin: 'top center',
-                    ease: 'power2.inOut',
-                    duration: 0.8
-                })
-                    .to(media, {
+                    const tl = gsap.timeline({
+                        scrollTrigger: {
+                            trigger: curtain,
+                            start: 'top 80%',
+                            toggleActions: 'play none none none'
+                        }
+                    });
+
+                    tl.to(overlay, {
+                        scaleY: 0,
+                        transformOrigin: 'top center',
+                        ease: 'power2.inOut',
+                        duration: 0.8
+                    }).to(media, {
                         scale: 1,
                         ease: 'power2.out',
                         duration: 1.0
-                    }, "-=0.5"); // Começa um pouco antes da cortina terminar
-            }
+                    }, "-=0.5");
+                }
+            });
         });
+    }
 
         // 12. Service Cards Stagger Reveal
         const serviceCardsReveal = document.querySelectorAll('.reveal-card');
@@ -638,49 +640,49 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // 14. 3D Hover Cards (Holographic Tilt Effect)
-        const tiltCards = document.querySelectorAll('.service-card');
+    if (typeof gsap !== 'undefined') {
+        let mm = gsap.matchMedia();
 
-        tiltCards.forEach(card => {
-            card.addEventListener('mousemove', (e) => {
-                const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left; // X position within card
-                const y = e.clientY - rect.top;  // Y position within card
+        mm.add("(min-width: 992px) and (pointer: fine)", () => {
+            const tiltCards = document.querySelectorAll('.service-card');
 
-                // Set CSS variables for holographic glow effect origin
-                card.style.setProperty('--mouseX', `${x}px`);
-                card.style.setProperty('--mouseY', `${y}px`);
+            tiltCards.forEach(card => {
+                gsap.set(card, { transformPerspective: 1000 });
+                
+                const yTo = gsap.quickTo(card, "y", {duration: 0.4, ease: "power1.out"});
+                const rotXTo = gsap.quickTo(card, "rotationX", {duration: 0.4, ease: "power1.out"});
+                const rotYTo = gsap.quickTo(card, "rotationY", {duration: 0.4, ease: "power1.out"});
 
-                // Calculate Rotation: mapping position to degree logic (-10deg to 10deg)
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
 
-                const rotateX = ((y - centerY) / centerY) * -15; // Vertical rotation limits to 15deg
-                const rotateY = ((x - centerX) / centerX) * 15;  // Horizontal rotation limits to 15deg
+                    card.style.setProperty('--mouseX', `${x}px`);
+                    card.style.setProperty('--mouseY', `${y}px`);
 
-                gsap.to(card, {
-                    y: -10,
-                    rotationX: rotateX,
-                    rotationY: rotateY,
-                    transformPerspective: 1000,
-                    ease: 'power1.out',
-                    duration: 0.4
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+
+                    const rotateX = ((y - centerY) / centerY) * -15;
+                    const rotateY = ((x - centerX) / centerX) * 15;
+
+                    yTo(-10);
+                    rotXTo(rotateX);
+                    rotYTo(rotateY);
                 });
-            });
 
-            card.addEventListener('mouseleave', () => {
-                // Snap back to zero
-                gsap.to(card, {
-                    y: 0,
-                    rotationX: 0,
-                    rotationY: 0,
-                    ease: 'elastic.out(1, 0.3)',
-                    duration: 1.2
+                card.addEventListener('mouseleave', () => {
+                    gsap.to(card, {
+                        y: 0,
+                        rotationX: 0,
+                        rotationY: 0,
+                        ease: 'elastic.out(1, 0.3)',
+                        duration: 1.2
+                    });
                 });
             });
         });
-
-
-
     }
 
     // 15. History Scrollytelling
@@ -748,19 +750,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 16. Hero Section 3D Mouse Parallax
-    const heroSection = document.querySelector('.hero');
-    const heroContent = document.querySelector('.hero-content');
-    if (heroSection && heroContent && window.innerWidth >= 992 && typeof gsap !== 'undefined') {
-        heroSection.addEventListener('mousemove', (e) => {
-            const x = (window.innerWidth / 2 - e.pageX) / 35;
-            const y = (window.innerHeight / 2 - e.pageY) / 35;
+    if (typeof gsap !== 'undefined') {
+        let mm = gsap.matchMedia();
 
-            gsap.to(heroContent, {
-                x: x,
-                y: y,
-                duration: 1,
-                ease: 'power2.out'
-            });
+        mm.add("(min-width: 992px) and (pointer: fine)", () => {
+            const heroSection = document.querySelector('.hero');
+            const heroContent = document.querySelector('.hero-content');
+            
+            if (heroSection && heroContent) {
+                const xTo = gsap.quickTo(heroContent, "x", {duration: 1, ease: "power2.out"});
+                const yTo = gsap.quickTo(heroContent, "y", {duration: 1, ease: "power2.out"});
+
+                heroSection.addEventListener('mousemove', (e) => {
+                    const x = (window.innerWidth / 2 - e.pageX) / 35;
+                    const y = (window.innerHeight / 2 - e.pageY) / 35;
+
+                    xTo(x);
+                    yTo(y);
+                });
+            }
         });
     }
 

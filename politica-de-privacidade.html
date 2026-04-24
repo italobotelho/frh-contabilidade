@@ -1,251 +1,114 @@
 <!DOCTYPE html>
 <html lang="pt-BR" data-theme="light">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#F8F9FA" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#0A0A0A" media="(prefers-color-scheme: dark)">
     <title>Política de Privacidade | FRH Contabilidade e Assessoria</title>
-    <meta name="description" content="Política de Privacidade da FRH Contabilidade e Assessoria. Saiba como tratamos seus dados pessoais em conformidade com a LGPD (Lei nº 13.709/2018).">
-    <meta name="robots" content="noindex, follow">
-    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+    <!-- SEO: Meta Description -->
+    <meta name="description" content="Política de Privacidade da FRH Contabilidade e Assessoria. Saiba como tratamos seus dados pessoais em conformidade com a LGPD.">
+    <meta name="keywords" content="contabilidade Jaguariúna, contador Jaguariúna, abertura de empresa, imposto de renda, IRPF, regularização CPF, DISO, ITR, INCRA, FRH Contabilidade">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.frhcontabilidade.com.br/">
+    <!-- Open Graph (WhatsApp, LinkedIn, Facebook) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.frhcontabilidade.com.br/">
+    <meta property="og:title" content="FRH Contabilidade e Assessoria | Jaguariúna">
+    <meta property="og:description" content="Mais de 20 anos de expertise contábil. Abertura de empresas, IR, regularização de CPF, DISO, ITR e muito mais. Atendimento presencial e digital.">
+    <meta property="og:image" content="https://www.frhcontabilidade.com.br/assets/images/og-cover.png">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:site_name" content="FRH Contabilidade">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="FRH Contabilidade e Assessoria">
+    <meta name="twitter:description" content="Soluções completas em contabilidade, planejamento tributário e assessoria empresarial em Jaguariúna/SP.">
+    <meta name="twitter:image" content="https://www.frhcontabilidade.com.br/assets/images/og-cover.png">
+    <!-- Modern Typography: Playfair Display for headings (elegant), Inter for body (clean) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+    <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Fix 8: Previne FOUC de tema — aplica o data-theme ANTES do CSS renderizar -->
+    <script>
+        (function() {
+            var saved = localStorage.getItem('theme');
+            if (saved === 'dark' || saved === 'light') {
+                document.documentElement.setAttribute('data-theme', saved);
+            }
+        })();
+    </script>
+    <link rel="stylesheet" href="style.css">
 
-    <style>
-        /* ── Design tokens herdados do site principal ── */
-        :root {
-            --clr-gold-primary: #C79A2B;
-            --clr-gold-light: #DFB44F;
-            --clr-gold-dark: #A37C1C;
-            --clr-gold-primary-rgb: 199, 154, 43;
-            --bg-base: #F8F9FA;
-            --bg-surface: #FFFFFF;
-            --border-color: #E2E8F0;
-            --text-main: #2D3748;
-            --text-muted: #718096;
-            --text-heading: #1A202C;
-            --font-heading: 'Playfair Display', serif;
-            --font-body: 'Inter', sans-serif;
-            --max-width: 860px;
-            --nav-height: 72px;
-            --transition-normal: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-        }
+    <!-- Third-Party Libraries for Interactions -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+    <script src="https://unpkg.com/split-type" defer></script>
 
-        [data-theme="dark"] {
-            --bg-base: #0A0A0A;
-            --bg-surface: #141414;
-            --border-color: #2A2A2A;
-            --text-main: #E0E0E0;
-            --text-muted: #A0A0A0;
-            --text-heading: #FFFFFF;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        html { scroll-behavior: smooth; font-size: 16px; }
-
-        body {
-            font-family: var(--font-body);
-            background-color: var(--bg-base);
-            color: var(--text-main);
-            line-height: 1.7;
-        }
-
-        a { color: var(--clr-gold-primary); text-decoration: none; transition: color var(--transition-normal); }
-        a:hover { color: var(--clr-gold-light); }
-
-        /* ── Navbar ── */
-        .navbar {
-            position: sticky;
-            top: 0;
-            height: var(--nav-height);
-            background: var(--bg-surface);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 100;
-            display: flex;
-            align-items: center;
-        }
-
-        .nav-inner {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 1.5rem;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .nav-logo img { height: 48px; width: auto; object-fit: contain; }
-
-        .nav-back {
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: color var(--transition-normal);
-        }
-
-        .nav-back:hover { color: var(--clr-gold-primary); }
-
-        /* ── Main layout ── */
-        .page-wrapper {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 4rem 1.5rem 6rem;
-        }
-
-        /* ── Hero da página ── */
-        .page-hero {
-            margin-bottom: 3.5rem;
-            padding-bottom: 2.5rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .page-hero .eyebrow {
-            display: inline-block;
-            color: var(--clr-gold-primary);
-            font-size: 0.8rem;
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            margin-bottom: 1rem;
-        }
-
-        .page-hero h1 {
-            font-family: var(--font-heading);
-            font-size: clamp(2rem, 4vw, 2.8rem);
-            color: var(--text-heading);
-            line-height: 1.2;
-            margin-bottom: 1rem;
-        }
-
-        .page-hero .meta {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-        }
-
-        .page-hero .meta span { display: flex; align-items: center; gap: 0.4rem; }
-
-        /* ── Conteúdo ── */
-        .content section {
-            margin-bottom: 3rem;
-        }
-
-        .content h2 {
-            font-family: var(--font-heading);
-            font-size: 1.5rem;
-            color: var(--text-heading);
-            margin-bottom: 1rem;
-            padding-left: 1rem;
-            border-left: 3px solid var(--clr-gold-primary);
-        }
-
-        .content p {
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-            font-size: 0.97rem;
-        }
-
-        .content ul {
-            list-style: none;
-            padding: 0;
-            margin-bottom: 1rem;
-        }
-
-        .content ul li {
-            color: var(--text-muted);
-            font-size: 0.97rem;
-            padding: 0.4rem 0 0.4rem 1.6rem;
-            position: relative;
-        }
-
-        .content ul li::before {
-            content: '›';
-            position: absolute;
-            left: 0;
-            color: var(--clr-gold-primary);
-            font-size: 1.1rem;
-            line-height: 1.6;
-        }
-
-        .content strong { color: var(--text-heading); font-weight: 600; }
-
-        /* ── Callout box ── */
-        .callout {
-            background: rgba(var(--clr-gold-primary-rgb), 0.06);
-            border: 1px solid rgba(var(--clr-gold-primary-rgb), 0.2);
-            border-radius: 8px;
-            padding: 1.5rem 1.8rem;
-            margin: 2rem 0;
-        }
-
-        .callout p { margin: 0; color: var(--text-main); }
-
-        .callout i { color: var(--clr-gold-primary); margin-right: 0.5rem; }
-
-        /* ── Contact block ── */
-        .contact-block {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 2rem;
-            margin-top: 1.5rem;
-        }
-
-        .contact-block p { margin-bottom: 0.5rem; }
-        .contact-block p:last-child { margin-bottom: 0; }
-
-        /* ── Footer ── */
-        .page-footer {
-            border-top: 1px solid var(--border-color);
-            padding: 2rem 1.5rem;
-            text-align: center;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            max-width: var(--max-width);
-            margin: 0 auto;
-        }
-
-        .page-footer a { color: var(--clr-gold-primary); }
-    </style>
+    <!-- Scripts loaded deferred for better performance -->
+    <script src="main.js" defer></script>
 </head>
-
 <body>
+    <!-- Cinematic Fixed Global Background -->
+    <div class="fixed-global-bg">
+        <div class="abstract-shape shape-1"></div>
+        <div class="abstract-shape shape-2"></div>
+        <div class="abstract-shape shape-3"></div>
+        <div class="abstract-shape shape-4"></div>
+        <div class="abstract-shape shape-5"></div>
+        <div class="abstract-shape shape-6"></div>
+        <div class="fixed-gradient-overlay"></div>
+    </div>
 
-    <!-- Navbar simplificada -->
-    <nav class="navbar">
-        <div class="nav-inner">
-            <a href="/" class="nav-logo">
-                <img src="assets/images/logo.png" alt="FRH Contabilidade Logo">
-            </a>
-            <a href="/" class="nav-back">
-                <i class="fas fa-arrow-left"></i> Voltar ao site
-            </a>
-        </div>
-    </nav>
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
 
-    <main class="page-wrapper">
+    <!-- Custom Interactive Cursor -->
+    <div class="custom-cursor"></div>
 
-        <!-- Cabeçalho da página -->
-        <header class="page-hero">
-            <span class="eyebrow">Privacidade &amp; LGPD</span>
-            <h1>Política de Privacidade</h1>
-            <div class="meta">
-                <span><i class="fas fa-calendar-alt"></i> Última atualização: Abril de 2025</span>
-                <span><i class="fas fa-file-alt"></i> Lei nº 13.709/2018 (LGPD)</span>
+    <main id="mainContent">
+<header class="navbar" id="navbar">
+            <div class="container nav-content">
+                <a href="index.html#" class="logo">
+                    <img src="assets/images/logo.png" alt="FRH Contabilidade Logo" id="headerLogo">
+                </a>
+                <nav class="nav-links">
+                    <a href="index.html#servicos" class="magnetic-btn">Serviços</a>
+                    <a href="index.html#historia" class="magnetic-btn">História</a>
+                    <a href="index.html#valores" class="magnetic-btn">Valores</a>
+                    <a href="index.html#contato" class="btn-primary magnetic-btn">Fale Conosco</a>
+                </nav>
+                <div class="nav-actions">
+                    <button class="theme-toggle magnetic-btn" id="themeToggle" aria-label="Alternar Tema" role="switch" aria-checked="false">
+                        <span class="pill-moon" aria-hidden="true"><i class="fas fa-moon"></i></span>
+                        <span class="pill-sun"  aria-hidden="true"><i class="fas fa-sun"></i></span>
+                        <span class="pill-thumb"></span>
+                    </button>
+                    <button class="mobile-menu-btn" aria-label="Menu">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
             </div>
         </header>
 
-        <!-- Conteúdo principal -->
-        <div class="content">
+        <section class="section-padding" style="padding-top: 150px;">
+            <div class="container">
+                <header class="page-hero text-center" style="margin-bottom: 3rem;">
+                    <span class="eyebrow" style="color: var(--clr-gold-primary); text-transform: uppercase; letter-spacing: 2px; font-weight: 600; display: block; margin-bottom: 1rem;">Privacidade &amp; LGPD</span>
+                    <h1 style="font-family: var(--font-heading); font-size: clamp(2.5rem, 5vw, 3.5rem); margin: 0 0 1.5rem 0; color: var(--text-heading);">Política de Privacidade</h1>
+                    <div class="meta" style="color: var(--text-muted); display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                        <span><i class="fas fa-calendar-alt" style="color: var(--clr-gold-primary); margin-right: 5px;"></i> Última atualização: Abril de 2025</span>
+                        <span><i class="fas fa-file-alt" style="color: var(--clr-gold-primary); margin-right: 5px;"></i> Lei nº 13.709/2018 (LGPD)</span>
+                    </div>
+                </header>
+
+                <div class="content-panel glass-panel" style="padding: 4rem; border-radius: 20px; margin-bottom: 6rem;">
+                    
 
             <div class="callout">
                 <p><i class="fas fa-shield-halved"></i> <strong>Sua privacidade é nossa prioridade.</strong> Este documento explica de forma clara como a FRH Contabilidade e Assessoria coleta, usa e protege seus dados pessoais, em conformidade com a Lei Geral de Proteção de Dados (LGPD — Lei nº 13.709/2018).</p>
@@ -350,22 +213,71 @@
 
                 <p style="margin-top: 1rem;">Caso não obtenha resposta satisfatória, você pode contatar a <a href="https://www.gov.br/anpd" target="_blank" rel="noopener noreferrer">Autoridade Nacional de Proteção de Dados (ANPD)</a>.</p>
             </section>
-
-        </div>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <footer class="page-footer">
-        <p>&copy; <span id="year"></span> FRH Contabilidade e Assessoria LTDA — <a href="/">Voltar ao site</a></p>
+<footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="assets/images/logo.png" alt="FRH Contabilidade Footer Logo" class="footer-logo"
+                        id="footerLogo">
+                    <p>Tradição, segurança e eficiência corporativa em Jaguariúna e região. Há duas décadas
+                        transformando burocracia em inteligência de negócios.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Acesso Rápido</h4>
+                    <ul>
+                        <li><a href="index.html#home">Início</a></li>
+                        <li><a href="index.html#historia">Quem Somos</a></li>
+                        <li><a href="index.html#valores">Nossos Valores</a></li>
+                        <li><a href="index.html#contato">Fale Conosco</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Especialidades</h4>
+                    <ul>
+                        <li><a href="index.html#servicos">Assessoria Contábil</a></li>
+                        <li><a href="index.html#servicos">Gestão Fiscal e Tributária</a></li>
+                        <li><a href="index.html#servicos">Regularização de CPF</a></li>
+                        <li><a href="index.html#servicos">Abertura de Empresas</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact-info">
+                    <h4>Fale Diretamente</h4>
+                    <p style="color: var(--text-muted); margin-bottom: 0.8rem;"><i class="fas fa-phone text-gold"
+                            style="margin-right: 8px;"></i> (19) 0000-0000</p>
+                    <p style="color: var(--text-muted); margin-bottom: 0.8rem;"><i class="fas fa-envelope text-gold"
+                            style="margin-right: 8px;"></i> contato@frhcontabilidade.com.br</p>
+                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;"><i class="fas fa-clock text-gold"
+                            style="margin-right: 8px;"></i> Seg a Sex, das 8h às 17h</p>
+
+                    <div class="social-icons" style="margin-top: 1rem;">
+                        <!-- TODO: Substituir os href pelos links reais dos perfis quando disponíveis -->
+                        <a href="https://linkedin.com/company/frhcontabilidade" aria-label="LinkedIn da FRH Contabilidade" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://instagram.com/frhcontabilidade" aria-label="Instagram da FRH Contabilidade" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                        <a href="https://facebook.com/frhcontabilidade" aria-label="Facebook da FRH Contabilidade" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="currentYear"></span> FRH Contabilidade e Assessoria LTDA. Todos os direitos reservados. &bull; <a href="politica-de-privacidade.html" style="color: var(--text-muted); text-decoration: underline;">Política de Privacidade</a></p>
+                <p class="developer-credit" style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-muted);">Desenvolvido por <a href="https://github.com/italobotelho" target="_blank" rel="noopener noreferrer" style="color: var(--clr-gold-primary); font-weight: 600;">Italo Botelho</a></p>
+            </div>
+        </div>
     </footer>
 
-    <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
-        // Herda o tema salvo pelo site principal
-        const saved = localStorage.getItem('theme');
-        if (saved === 'dark' || saved === 'light') {
-            document.documentElement.setAttribute('data-theme', saved);
-        }
-    </script>
+    <!-- Floating WhatsApp Button -->
+    <a href="#" class="floating-whatsapp" aria-label="Chat no WhatsApp (Pausado)" style="opacity: 0.5; pointer-events: none; cursor: not-allowed;" title="Em breve">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+    <script src="https://unpkg.com/split-type" defer></script>
+    <script src="main.js" defer></script>
 </body>
 </html>
