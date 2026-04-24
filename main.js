@@ -685,69 +685,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 15. History Scrollytelling
+    // 15. History — âncora da seção (linha removida, scroll já cobre o comportamento)
     const historySection = document.querySelector('.history');
     if (historySection && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && window.innerWidth >= 992) {
-        const historyCards = document.querySelectorAll('.history-card');
-        const historyImages = document.querySelectorAll('.history-image');
-        const progressLine = document.querySelector('.history-line-progress');
-
-        // History Progress Line Filling Effect
-        if (progressLine) {
-            gsap.to(progressLine, {
-                height: '100%',
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: '.history-cards-wrapper',
-                    start: 'top 50%',
-                    end: 'bottom 50%',
-                    scrub: true
-                }
-            });
-        }
-
-        // Mapping images to cards scroll progress
-        historyCards.forEach((card, index) => {
-            // Determine which image should show for this card
-            // Card 0 & 1 (Initial stages) -> Image 1
-            // Card 2 (Digital/Innovation) -> Image 2
-            // Card 3 (Present day) -> Image 3
-            let imageIndex = 0;
-            if (index === 2) imageIndex = 1;
-            if (index === 3) imageIndex = 2;
-
-            ScrollTrigger.create({
-                trigger: card,
-                start: 'top 60%',
-                onEnter: () => transitionHistoryImage(imageIndex),
-                onEnterBack: () => transitionHistoryImage(imageIndex)
-            });
-        });
-
-        function transitionHistoryImage(targetIndex) {
-            historyImages.forEach((img, i) => {
-                const isTarget = i === targetIndex;
-                if (isTarget) {
-                    gsap.to(img, { 
-                        opacity: 1,
-                        scale: 1,
-                        duration: 1,
-                        ease: 'power3.out'
-                    });
-                } else {
-                    // Check if it's currently visible to avoid redundant animations
-                    if (parseFloat(gsap.getProperty(img, "opacity")) > 0) {
-                        gsap.to(img, { 
-                            opacity: 0,
-                            scale: 1.1,
-                            duration: 1,
-                            ease: 'power3.inOut'
-                        });
-                    }
-                }
-            });
-        }
+        // history-line-progress removida do layout — sem animação necessária aqui
     }
+
 
     // 16. Hero Section 3D Mouse Parallax
     if (typeof gsap !== 'undefined') {
