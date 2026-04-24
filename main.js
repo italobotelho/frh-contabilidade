@@ -142,12 +142,11 @@ document.addEventListener('DOMContentLoaded', () => {
         threshold: 0.15
     };
 
-    const observer = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('is-visible');
-                // Optional: Stop observing once revealed
-                // observer.unobserve(entry.target); 
+                obs.unobserve(entry.target); // Para de observar: elemento já revelado
             }
         });
     }, observerOptions);
@@ -685,11 +684,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 15. History — âncora da seção (linha removida, scroll já cobre o comportamento)
-    const historySection = document.querySelector('.history');
-    if (historySection && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined' && window.innerWidth >= 992) {
-        // history-line-progress removida do layout — sem animação necessária aqui
-    }
+    // 15. History — a âncora de scroll já é gerenciada pelo ScrollSpy (seção 5) e pelas animações CSS nativas.
 
 
     // 16. Hero Section 3D Mouse Parallax

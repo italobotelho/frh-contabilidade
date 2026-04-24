@@ -1123,6 +1123,18 @@ section {
     }
 }
 
+/* Flutuação idle — movimento sutil, como respiração */
+@keyframes iconFloat {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-3px); }
+}
+
+/* Ripple: anel leve que expande e desvanece */
+@keyframes iconRippleOut {
+    0%   { transform: scale(0.9); opacity: 0.45; }
+    100% { transform: scale(1.85); opacity: 0; }
+}
+
 .value-icon {
     font-size: 2.2rem;
     margin-bottom: 1.5rem;
@@ -1137,7 +1149,58 @@ section {
     border-radius: 14px;
     border: 1px solid rgba(var(--clr-gold-primary-rgb), 0.2);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    /* Float idle — suave */
+    animation: iconFloat 4s ease-in-out infinite;
+    /* Transição de hover gentil */
+    transition:
+        transform 0.45s ease,
+        background 0.45s ease,
+        border-color 0.45s ease,
+        box-shadow 0.45s ease;
 }
+
+/* Stagger desfasado entre os 4 cards */
+.value-item:nth-child(1) .value-icon { animation-delay: 0s; }
+.value-item:nth-child(2) .value-icon { animation-delay: 1s; }
+.value-item:nth-child(3) .value-icon { animation-delay: 2s; }
+.value-item:nth-child(4) .value-icon { animation-delay: 3s; }
+
+/* Anel de ripple — posicionado sobre o ícone */
+.value-icon::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    border: 1px solid rgba(var(--clr-gold-light-rgb), 0.5);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Hover: elevação suave, sem rotação, dourado mais claro */
+.value-item:hover .value-icon {
+    animation: none;
+    transform: scale(1.07);
+    background: rgba(var(--clr-gold-light-rgb), 0.12);
+    border-color: rgba(var(--clr-gold-light-rgb), 0.45);
+    box-shadow:
+        0 6px 22px rgba(var(--clr-gold-primary-rgb), 0.14),
+        inset 0 0 12px rgba(var(--clr-gold-light-rgb), 0.08);
+}
+
+/* Ripple ativa no hover */
+.value-item:hover .value-icon::after {
+    animation: iconRippleOut 0.75s ease-out forwards;
+}
+
+/* Ícone interno: brilho suave */
+.value-icon i {
+    transition: filter 0.45s ease;
+}
+
+.value-item:hover .value-icon i {
+    filter: brightness(1.15) drop-shadow(0 0 5px rgba(var(--clr-gold-light-rgb), 0.5));
+}
+
 
 .value-item {
     background-color: rgba(20, 20, 20, 0.45);
@@ -3335,4 +3398,65 @@ section {
     .nav-content {
         padding: 0 1rem;
     }
-}
+}
+
+/* ==========================================================================
+   Prefers Reduced Motion — Acessibilidade
+   Desativa animações para usuários com sensibilidade a movimento.
+   WCAG 2.1 — critério 2.3.3 (Animation from Interactions).
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+
+    /* Desativa TODAS as transições e animações por padrão */
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    /* Ken Burns — imagem da Trajetória */
+    .history-portrait-img {
+        animation: none !important;
+    }
+
+    /* Glow dourado do portrait frame */
+    .history-portrait-frame {
+        animation: none !important;
+    }
+
+    /* Float dos ícones de Valores */
+    .value-icon {
+        animation: none !important;
+    }
+
+    /* Abstract shapes do fundo */
+    .abstract-shape {
+        animation: none !important;
+    }
+
+    /* Badge de horário (pulsação do LED) */
+    .badge-dot {
+        animation: none !important;
+    }
+
+    /* Scroll progress bar sem transição */
+    .scroll-progress {
+        transition: none !important;
+    }
+
+    /* Cursor customizado: desabilitado */
+    .custom-cursor {
+        display: none !important;
+    }
+
+    /* Hover dos cards: sem transform brusco */
+    .service-card:hover,
+    .value-item:hover,
+    .testimonial-card:hover {
+        transform: none !important;
+    }
+}
+

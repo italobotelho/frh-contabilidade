@@ -25,16 +25,25 @@
     <meta name="twitter:title" content="FRH Contabilidade e Assessoria">
     <meta name="twitter:description" content="Soluções completas em contabilidade, planejamento tributário e assessoria empresarial em Jaguariúna/SP.">
     <meta name="twitter:image" content="https://www.frhcontabilidade.com.br/assets/images/og-cover.png">
-    <!-- Modern Typography: Playfair Display for headings (elegant), Inter for body (clean) -->
+    <!-- Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
         rel="stylesheet">
+
+    <!-- DNS Prefetch para CDNs externos (reduz latência de lookup) -->
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://api.web3forms.com">
+
+    <!-- Preload da imagem principal da seção Trajetória (carregada abaixo do fold) -->
+    <link rel="preload" as="image" href="assets/images/real_office_render.png">
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
     <!-- Fix 8: Previne FOUC de tema — aplica o data-theme ANTES do CSS renderizar -->
     <script>
         (function() {
@@ -80,7 +89,9 @@
         <header class="navbar" id="navbar">
             <div class="container nav-content">
                 <a href="#" class="logo">
-                    <img src="assets/images/logo.png" alt="FRH Contabilidade Logo" id="headerLogo">
+                    <!-- fetchpriority=high: logo é LCP — width/height previnem CLS -->
+                    <img src="assets/images/logo.png" alt="FRH Contabilidade Logo" id="headerLogo"
+                         width="180" height="54" fetchpriority="high" decoding="sync">
                 </a>
                 <nav class="nav-links">
                     <a href="#servicos" class="magnetic-btn">Serviços</a>
@@ -263,7 +274,10 @@
                             <span class="portrait-corner corner-bl" aria-hidden="true"></span>
                             <span class="portrait-corner corner-br" aria-hidden="true"></span>
                             <img src="assets/images/real_office_render.png"
-                                alt="Escritório moderno da FRH Contabilidade" class="history-portrait-img" loading="lazy">
+                                alt="Escritório moderno da FRH Contabilidade"
+                                class="history-portrait-img"
+                                loading="lazy" decoding="async"
+                                width="800" height="533">
                             <!-- Overlay de gradiente com legenda integrada -->
                             <div class="portrait-caption-overlay">
                                 <p class="portrait-caption-text">Duas irmãs, um propósito: mais de duas décadas de expertise condensadas em uma gestão inovadora.</p>
