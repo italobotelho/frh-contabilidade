@@ -3074,16 +3074,23 @@ section {
 
     .nav-links.active {
         display: flex;
+        animation: navSlideDown 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+    }
+
+    @keyframes navSlideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
     /* Links do menu mobile: área de toque maior */
     .nav-links a {
         width: 100%;
         text-align: center;
-        padding: 0.8rem 1rem;
+        padding: 1rem 1.2rem; /* Touch target ampliado (> 44px) */
         border-radius: 8px;
         border: 1px solid transparent;
         transition: all var(--transition-fast);
+        font-size: 1.05rem;
     }
 
     .nav-links a:hover,
@@ -3134,6 +3141,7 @@ section {
     .hero-actions {
         flex-direction: column;
         align-items: center;
+        gap: 1rem;
     }
 
     .btn-primary.large,
@@ -3357,8 +3365,11 @@ section {
 
     /* Trust strip: 2 por linha, status em linha separada */
     .trust-item {
-        flex: 1 1 80px;
-        padding: 0.4rem 0.5rem;
+        flex: 1 1 calc(50% - 1rem); /* Garante 2 itens por linha confortavelmente */
+        padding: 0.5rem 0.5rem;
+    }
+    .trust-item--schedule {
+        flex: 1 1 100%; /* Pula para linha inteira */
     }
 
     /* Service cards: padding mínimo */
