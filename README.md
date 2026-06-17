@@ -1,7 +1,6 @@
 # FRH Contabilidade e Assessoria
 
 ![Status](https://img.shields.io/badge/Status-Conclu%C3%ADdo-success)
-![Otimização](https://img.shields.io/badge/Performance-100%2F100-brightgreen)
 ![Licença](https://img.shields.io/badge/Licen%C3%A7a-MIT-blue)
 
 Site institucional moderno, dinâmico e altamente otimizado para a **FRH Contabilidade**, escritório especializado em gestão contábil, tributária e assessoria empresarial localizado em Jaguariúna - SP.
@@ -30,7 +29,7 @@ Este site foi construído com as melhores práticas de desenvolvimento front-end
 - **Split-Type:** Animações tipográficas avançadas.
 - **Web3Forms:** Integração do formulário de contato via API sem necessidade de back-end próprio.
 
-## ⚡ Otimizações de Performance (Nota 100 PageSpeed)
+## ⚡ Otimizações de Performance
 
 Uma atenção rigorosa foi dada ao desempenho (Core Web Vitals):
 
@@ -60,5 +59,4 @@ Uma atenção rigorosa foi dada ao desempenho (Core Web Vitals):
 
 ## 👨‍💻 Autor
 
-Desenvolvido por **Ítalo Botelho**  
-[GitHub Profile](https://github.com/italobotelho)
+Desenvolvido por **Ítalo Botelho**
