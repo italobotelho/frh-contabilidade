@@ -19,8 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Pill toggle: ícones são estáticos, CSS controla o estado via [data-theme]
             themeToggleBtn.setAttribute('aria-checked', String(isDark));
         }
-        if (headerLogo) headerLogo.src = isDark ? 'assets/images/logo-4.png' : 'assets/images/logo.png';
-        if (footerLogo) footerLogo.src = isDark ? 'assets/images/logo-footer.png' : 'assets/images/logo.png';
+        if (headerLogo) headerLogo.src = isDark ? 'assets/images/logo-4.webp' : 'assets/images/logo.webp';
+        if (footerLogo) footerLogo.src = isDark ? 'assets/images/logo-footer.webp' : 'assets/images/logo.webp';
     };
 
     // Check saved theme in localStorage
